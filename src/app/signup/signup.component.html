@@ -1,0 +1,50 @@
+<div class="container mt-5 ">
+    <div class="row main-content bg-success text-center">
+        <div class="col-md-4 text-center company__info box">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+            <div class="container-fluid">
+                <div class="row ">
+                    <h2 class="animate__animated animate__bounce mt-5">Nouveau compte</h2>
+                </div>
+                <div class="row">
+                    <!-- 
+                    <form class="form-group animate__animated animate__backInDown">
+                        <input type="hidden" formControlName="$key">
+                        <div class="row">
+                            <input type="text" formControlName="userName" class="form__input" placeholder="Entrez votre nom d'utilisateur svp" ngModel name="userName " id="userName ">
+                        </div>
+                        <div class="row ">
+                             <span class="fa fa-lock "></span> 
+                    <input type="password " formControlName="userPassword " class="form__input " placeholder="Entrez votre mot de passe svp " ngModel name="userPassword " id="userPassword ">
+                </div>
+
+                <div class="row ">
+                    <input type="submit " value="login " class="btn ">
+                </div>
+                </form>
+                -->
+                    <form class="form-group animate__animated animate__backInDown">
+                        <div class="row"> <input type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required></div>
+                        <div class="row"><input type="text" ngModel name="userLastName" id="userLastName" placeholder="Entrez votre prénom ici svp" class="form__input" required></div>
+                        <div class="row"><input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d'utilisateur ici svp" class="form__input" required></div>
+                        <div class="row"><input type="email" ngModel name="userEmail" id="userEmail" placeholder="Entrez votre adresse email ici svp" class="form__input"></div>
+                        <div class="row"> <input type="password" ngModel name="userPassword" id="userPassword " placeholder="Entrez votre mot de passe ici svp" class="form__input" required></div>
+                        <div class="row"> <input type="password" ngModel name="userConfirmPassword" id="userConfirmPassword " placeholder="Confirmez votre mot de passe ici svp" class="form__input" required></div>
+                        <input type="submit" value="créer" class="btn">
+                    </form>
+                </div>
+                <div class="row md-5">
+                    <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active">Se connecter</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<div class="container-fluid text-center footer ">
+    <p>@copyright, NeoXam 2022</p>
+</div>
