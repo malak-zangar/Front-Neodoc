@@ -27,17 +27,28 @@
                 </form>
                 -->
                     <form class="form-group animate__animated animate__backInDown">
-                        <div class="row"> <input type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required></div>
+                        <div class="row">
+                            <input class="form-control" type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required>
+                        </div>
                         <div class="row"><input type="text" ngModel name="userLastName" id="userLastName" placeholder="Entrez votre prénom ici svp" class="form__input" required></div>
                         <div class="row"><input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d'utilisateur ici svp" class="form__input" required></div>
                         <div class="row"><input type="email" ngModel name="userEmail" id="userEmail" placeholder="Entrez votre adresse email ici svp" class="form__input"></div>
                         <div class="row"> <input type="password" ngModel name="userPassword" id="userPassword " placeholder="Entrez votre mot de passe ici svp" class="form__input" required></div>
                         <div class="row"> <input type="password" ngModel name="userConfirmPassword" id="userConfirmPassword " placeholder="Confirmez votre mot de passe ici svp" class="form__input" required></div>
+                        <div class="row" placeholder="choisissez">
+                            <label>choisissez votre départemet</label><br>
+                            <select>
+                            <option>GP</option>
+                            <option>DataHub</option>
+                            <option>Impress</option>
+                        </select>
+                        </div>
                         <input type="submit" value="créer" class="btn">
+
                     </form>
                 </div>
-                <div class="row md-5">
-                    <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active">Se connecter</a>
+                <div class="row md-5 ">
+                    <p>Vous avez déja un compte? <a routerLink="/login " routerLinkActive="active ">Se connecter</a>
                     </p>
                 </div>
             </div>

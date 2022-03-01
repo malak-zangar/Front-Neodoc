@@ -10,7 +10,7 @@
 }
 
 .company__info {
-    background-color: #008080;
+    background-color: #16ac98;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     display: flex;
@@ -43,7 +43,7 @@
 }
 
 .row>h2 {
-    color: #008080;
+    color: #16ac98;
 }
 
 .login_form {
@@ -71,14 +71,14 @@ form {
 }
 
 .form__input:focus {
-    border-bottom-color: #008080;
+    border-bottom-color: #16ac98;
     box-shadow: 0 0 5px rgba(0, 80, 80, .4);
     border-radius: 4px;
 }
 
 .btn:hover,
 .btn:focus {
-    background-color: #008080;
+    background-color: #16ac98;
     color: #fff;
 }
 
@@ -86,10 +86,10 @@ form {
     transition: all .5s ease;
     width: 30%;
     border-radius: 30px;
-    color: #008080;
+    color: #16ac98;
     font-weight: 600;
-    background-color: #008080;
-    border: 1px solid #008080;
+    background-color: #16ac98;
+    border: 1px solid #109c8a;
     margin-top: 1.5em;
     margin-bottom: 1em;
     color: white;
@@ -97,7 +97,7 @@ form {
 
 .icon {
     padding: 10px;
-    background: dodgerblue;
+    background: 16ac98;
     color: white;
     min-width: 50px;
     text-align: center;
@@ -106,7 +106,7 @@ form {
 .btn-default {
     width: 10%;
     color: #f1fcfc;
-    background-color: #008080;
+    background-color: #16ac98;
     border: 1px solid #c1f7f7;
     border-radius: 10px;
     font-weight: 600;
