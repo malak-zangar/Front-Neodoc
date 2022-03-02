@@ -3,44 +3,36 @@
         <div class="col-md-4 text-center company__info box">
             <app-sidebar></app-sidebar>
         </div>
-
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+            <small *ngIf="err!=''" class=" alert alert-danger ">{{err}}</small>
+
             <div class="container-fluid">
                 <div class="row ">
                     <h2 class="animate__animated animate__bounce mt-5">Connexion</h2>
                 </div>
                 <div class="row">
-                    <!-- 
-                    <form class="form-group animate__animated animate__backInDown">
-                        <input type="hidden" formControlName="$key">
-                        <div class="row">
-                            <input type="text" formControlName="userName" class="form__input" placeholder="Entrez votre nom d'utilisateur svp" ngModel name="userName " id="userName ">
-                        </div>
-                        <div class="row ">
-                             <span class="fa fa-lock "></span> 
-                    <input type="password " formControlName="userPassword " class="form__input " placeholder="Entrez votre mot de passe svp " ngModel name="userPassword " id="userPassword ">
-                </div>
-
-                <div class="row ">
-                    <input type="submit " value="login " class="btn ">
-                </div>
-                </form>
-                -->
                     <form class="form-group animate__animated animate__backInDown" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-
-                        <div class="row"><input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d 'utilisateur ici svp" class="form__input" required></div>
-                        <div class="row"> <input type="password" ngModel name="userPassword" id="userPassword " placeholder="Entrez votre mot de passe ici svp" class="form__input" required></div>
-                        <input type="submit" value="se connecter" class="btn">
+                        <div class="row"><input type="text" name="userName" id="userName" placeholder="Entrez votre nom d 'utilisateur ici svp" class="form__input" required [(ngModel)]="loginForm.value.userName" #userName="ngModel" [class.is-invalid]="userName.invalid && userName.touched">
+                            <small class="text-danger" [class.d-none]="userName.valid || userName.untouched">le nom d'utilisateur est obligatoire</small>
+                        </div>
+                        <div class="row"> <input type="password" ngModel name="userPassword" id="userPassword " placeholder="Entrez votre mot de passe ici svp" class="form__input" required [(ngModel)]="loginForm.value.userPassword" #userPassword="ngModel" [class.is-invalid]="userPassword.invalid && userPassword.touched">
+                            <small class="text-danger" [class.d-none]="userPassword.valid || userPassword.untouched">le mot de passe est obligatoire</small>
+                        </div>
+                        <input [disabled]="loginForm.form.invalid" type="submit" value="se connecter" class="btn-default">
+                        <div class="checkbox row mt-3">
+                            <label><input type="checkbox" name="remember"> se souvenir de moi </label></div>
+                        <br>
                     </form>
                 </div>
                 <div class="row">
-                    <p><a routerLink="/recpassword" routerLinkActive="active">Mot de passe oublié?</a></p>
+                    <p><a routerLink="/forgotpassword" routerLinkActive="active">Mot de passe oublié?</a></p>
                 </div>
                 <div class="row md-5">
                     <p>Vous n'avez pas un compte? <a routerLink="/signup" routerLinkActive="active">S'inscrire</a>
                     </p>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

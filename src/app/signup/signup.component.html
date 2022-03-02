@@ -10,46 +10,68 @@
                     <h2 class="animate__animated animate__bounce mt-5">Nouveau compte</h2>
                 </div>
                 <div class="row">
-                    <!-- 
-                    <form class="form-group animate__animated animate__backInDown">
-                        <input type="hidden" formControlName="$key">
+                    <form class="form-group animate__animated animate__backInDown" #SignupForm="ngForm">
                         <div class="row">
-                            <input type="text" formControlName="userName" class="form__input" placeholder="Entrez votre nom d'utilisateur svp" ngModel name="userName " id="userName ">
+                            <input type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required #userFirstName="ngModel" [class.is-invalid]="userFirstName.invalid && userFirstName.touched" minlength="3" maxlength="20">
+                            <div *ngIf="userFirstName.errors && (userFirstName.invalid && userFirstName.touched)">
+                                <small class="text-danger" *ngIf="userFirstName.errors?.['required']">le nom est obligatoire</small>
+                                <small class="text-danger" *ngIf="userFirstName.errors?.['minlength']">le nom doit contenir au moins 7 caractères</small>
+                            </div>
                         </div>
-                        <div class="row ">
-                             <span class="fa fa-lock "></span> 
-                    <input type="password " formControlName="userPassword " class="form__input " placeholder="Entrez votre mot de passe svp " ngModel name="userPassword " id="userPassword ">
-                </div>
-
-                <div class="row ">
-                    <input type="submit " value="login " class="btn ">
-                </div>
-                </form>
-                -->
-                    <form class="form-group animate__animated animate__backInDown">
                         <div class="row">
-                            <input class="form-control" type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required>
+                            <input type="text" ngModel name="userLastName" id="userLastName" placeholder="Entrez votre prénom ici svp" class="form__input" required #userLastName="ngModel" [class.is-invalid]="userLastName.invalid && userLastName.touched" minlength="3" maxlength="20">
+                            <div *ngIf="userLastName.errors && (userLastName.invalid && userLastName.touched)">
+                                <small class="text-danger" *ngIf="userName.errors?.['required']">le prénom est obligatoire</small>
+                                <small class="text-danger" *ngIf="userName.errors?.['minlength']">le prénom doit contenir au moins 7 caractères</small>
+                            </div>
                         </div>
-                        <div class="row"><input type="text" ngModel name="userLastName" id="userLastName" placeholder="Entrez votre prénom ici svp" class="form__input" required></div>
-                        <div class="row"><input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d'utilisateur ici svp" class="form__input" required></div>
-                        <div class="row"><input type="email" ngModel name="userEmail" id="userEmail" placeholder="Entrez votre adresse email ici svp" class="form__input"></div>
-                        <div class="row"> <input type="password" ngModel name="userPassword" id="userPassword " placeholder="Entrez votre mot de passe ici svp" class="form__input" required></div>
-                        <div class="row"> <input type="password" ngModel name="userConfirmPassword" id="userConfirmPassword " placeholder="Confirmez votre mot de passe ici svp" class="form__input" required></div>
-                        <div class="row" placeholder="choisissez">
-                            <label>choisissez votre départemet</label><br>
+                        <div class="row">
+                            <input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d'utilisateur ici svp ( ex : prenom.nom )" class="form__input" required #userName="ngModel" [class.is-invalid]="userName.invalid && userName.touched" minlength="7"
+                                maxlength="40" pattern="^[a-z]+\.[a-z]+$">
+                            <div *ngIf="userName.errors && (userName.invalid && userName.touched)">
+                                <small class="text-danger" *ngIf="userName.errors?.['required']">le nom d'utilisateur est obligatoire</small>
+                                <small class="text-danger" *ngIf="userName.errors?.['pattern']">le nom d'utilisateur n'est pas valide  , </small>
+                                <small class="text-danger" *ngIf="userName.errors?.['minlength']">le nom d'utilisateur doit contenir au moins 7 caractères</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="email" ngModel name="userEmail" id="userEmail" placeholder="Entrez votre adresse email ici svp ( ex : prenom.nom@neoxam.com ) " class="form__input" required #userEmail="ngModel" [class.is-invalid]="userEmail.invalid && userEmail.touched"
+                                pattern="^[a-z]+\.[a-z]+@neoxam+\.com+$">
+                            <!--<small class="text-danger" [class.d-none]="userEmail.valid || userEmail.untouched">l'email est obligatoire</small> > </div> -->
+                            <div *ngIf="userEmail.errors && (userEmail.invalid && userEmail.touched)">
+                                <small class="text-danger" *ngIf="userEmail.errors?.['required']">l'Email est obligatoire</small>
+                                <small class="text-danger" *ngIf="userEmail.errors?.['pattern']">l'Email n'est pas valide</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="password" ngModel name="userPassword" id="userPassword" placeholder="Entrez votre mot de passe ici svp ( minimum 8 caractères ) " class="form__input" required minlength="8" #userPassword="ngModel">
+                        </div>
+                        <div *ngIf=" userPassword.errors && (userPassword.invalid && userPassword.touched) ">
+                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'required'] ">le mot de passe est obligatoire</small>
+                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'minlength'] ">le mot de passe doit contenir au moins 8 caractères</small>
+                        </div>
+                        <div class="row">
+                            <input type="password" ngModel name="CuserPassword" id="CuserPassword" placeholder="Confirmer votre mot de passe ici svp " class="form__input" required minlength="8" #CuserPassword="ngModel" [class.is-invalid]="CuserPassword.invalid && CuserPassword.touched">
+                        </div>
+                        <div *ngIf=" CuserPassword.errors && (CuserPassword.invalid && CuserPassword.touched) ">
+                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'required'] ">le mot de passe est obligatoire</small>
+                            <small class="text-danger" [class.d-none]="(userPassword.value == CuserPassword.value) || CuserPassword.untouched ">les 2 mots de passe ne sont pas identiques</small>
+                        </div>
+                        <div class="row">
+                            <label>choisissez votre département : </label><br>
                             <select>
-                            <option>GP</option>
-                            <option>DataHub</option>
-                            <option>Impress</option>
-                        </select>
+                                <option>GP</option>
+                                <option>DataHub</option>
+                                <option>Impress</option>
+                                <option>IT</option>
+                            </select>
                         </div>
-                        <input type="submit" value="créer" class="btn">
+                        <input [disabled]="SignupForm.form.invalid" type="submit" value="créer" class="btn-default">
 
                     </form>
                 </div>
-                <div class="row md-5 ">
-                    <p>Vous avez déja un compte? <a routerLink="/login " routerLinkActive="active ">Se connecter</a>
-                    </p>
+                <div class="row md-5">
+                    <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active">Se connecter</a> </p>
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@ import { AuthInterceptor } from './_auth/auth.interceptor';
 import { UserService } from './_services/user.service';
 import { SignupComponent } from './signup/signup.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ForbiddenComponent,
     SidebarComponent,
     SignupComponent,
+    ForgotpasswordComponent,
    
   ],
   imports: [

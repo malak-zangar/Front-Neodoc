@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'forbidden',component:ForbiddenComponent},
 {path:'signup',component:SignupComponent},
+{path:'forgotpassword',component:ForgotpasswordComponent}
 ];
 
 @NgModule({

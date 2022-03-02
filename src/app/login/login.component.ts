@@ -10,7 +10,7 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+err='';
   constructor(private userService: UserService, 
     private userAuthService:UserAuthService,
     private router: Router) { }
@@ -28,7 +28,8 @@ login(loginForm:NgForm){
          if(role === 'Admin'){ this.router.navigate(['/admin']);}
          else { this.router.navigate(['/user']) }
           },
-   (error) => { console.log(error);  }
+   (error) => { console.log(error);
+  this.err="données érronées , merci de les vérifier.";  }
  );
 }
 
