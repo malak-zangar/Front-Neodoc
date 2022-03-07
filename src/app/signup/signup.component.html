@@ -5,76 +5,88 @@
         </div>
 
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+            <small *ngIf="f.submitted && isSignUpFailed" class=" alert alert-danger">  création de nouveau compte échouée : {{errorMessage}}</small>
+
             <div class="container-fluid">
                 <div class="row ">
                     <h2 class="animate__animated animate__bounce mt-5">Nouveau compte</h2>
                 </div>
                 <div class="row">
-                    <form class="form-group animate__animated animate__backInDown" #SignupForm="ngForm">
+                    <form class="form-group animate__animated animate__backInDown" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
                         <div class="row">
-                            <input type="text" ngModel name="userFirstName" id="userFirstName" placeholder="Entrez votre nom ici svp" class="form__input" required #userFirstName="ngModel" [class.is-invalid]="userFirstName.invalid && userFirstName.touched" minlength="3" maxlength="20">
-                            <div *ngIf="userFirstName.errors && (userFirstName.invalid && userFirstName.touched)">
-                                <small class="text-danger" *ngIf="userFirstName.errors?.['required']">le nom est obligatoire</small>
-                                <small class="text-danger" *ngIf="userFirstName.errors?.['minlength']">le nom doit contenir au moins 7 caractères</small>
+                            <input type="text" name="firstname" [(ngModel)]="form.firstname" id="firstname" placeholder="Entrez votre nom ici svp" class="form__input" required #firstname="ngModel" [class.is-invalid]="firstname.invalid && firstname.touched" minlength="3" maxlength="20">
+                            <div *ngIf="firstname.errors && (firstname.invalid && firstname.touched)">
+                                <small class="text-danger" *ngIf="firstname.errors?.['required']">le nom est obligatoire</small>
+                                <small class="text-danger" *ngIf="firstname.errors?.['minlength']">le nom doit contenir au moins 7 caractères</small>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" ngModel name="userLastName" id="userLastName" placeholder="Entrez votre prénom ici svp" class="form__input" required #userLastName="ngModel" [class.is-invalid]="userLastName.invalid && userLastName.touched" minlength="3" maxlength="20">
-                            <div *ngIf="userLastName.errors && (userLastName.invalid && userLastName.touched)">
-                                <small class="text-danger" *ngIf="userName.errors?.['required']">le prénom est obligatoire</small>
-                                <small class="text-danger" *ngIf="userName.errors?.['minlength']">le prénom doit contenir au moins 7 caractères</small>
+                            <input type="text" [(ngModel)]="form.lastname" name="lastname" id="lastname" placeholder="Entrez votre prénom ici svp" class="form__input" required #lastname="ngModel" [class.is-invalid]="lastname.invalid && lastname.touched" minlength="3" maxlength="20">
+                            <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
+                                <small class="text-danger " *ngIf="lastname.errors?.[ 'required'] ">le prénom est obligatoire</small>
+                                <small class="text-danger " *ngIf="lastname.errors?.[ 'minlength'] ">le prénom doit contenir au moins 7 caractères</small>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" ngModel name="userName" id="userName" placeholder="Entrez votre nom d'utilisateur ici svp ( ex : prenom.nom )" class="form__input" required #userName="ngModel" [class.is-invalid]="userName.invalid && userName.touched" minlength="7"
-                                maxlength="40" pattern="^[a-z]+\.[a-z]+$">
-                            <div *ngIf="userName.errors && (userName.invalid && userName.touched)">
-                                <small class="text-danger" *ngIf="userName.errors?.['required']">le nom d'utilisateur est obligatoire</small>
-                                <small class="text-danger" *ngIf="userName.errors?.['pattern']">le nom d'utilisateur n'est pas valide  , </small>
-                                <small class="text-danger" *ngIf="userName.errors?.['minlength']">le nom d'utilisateur doit contenir au moins 7 caractères</small>
+                            <input type="text" [(ngModel)]="form.username" name="username " id="username " placeholder="Entrez votre nom d 'utilisateur ici svp ( ex : prenom.nom )" class="form__input" required #username="ngModel" [class.is-invalid]="username.invalid && username.touched"
+                                minlength="7" maxlength="40" pattern="^[a-z]+\.[a-z]+$">
+                            <div *ngIf="username.errors && (username.invalid && username.touched)">
+                                <small class="text-danger" *ngIf="username.errors?.['required']">le nom d'utilisateur est obligatoire</small>
+                                <small class="text-danger" *ngIf="username.errors?.['pattern']">le nom d'utilisateur n'est pas valide, il doit etre sous la forme prenom.nom  <br> </small>
+                                <small class="text-danger" *ngIf="username.errors?.['minlength']">le nom d'utilisateur doit contenir au moins 7 caractères</small>
                             </div>
                         </div>
-                        <div class="row">
-                            <input type="email" ngModel name="userEmail" id="userEmail" placeholder="Entrez votre adresse email ici svp ( ex : prenom.nom@neoxam.com ) " class="form__input" required #userEmail="ngModel" [class.is-invalid]="userEmail.invalid && userEmail.touched"
+                        <div class="row ">
+                            <input type="email" id="email" placeholder="Entrez votre adresse email ici svp ( ex : prenom.nom@neoxam.com ) " class="form__input" name="email" [(ngModel)]="form.email" email #email="ngModel" required [class.is-invalid]="email.invalid && email.touched"
                                 pattern="^[a-z]+\.[a-z]+@neoxam+\.com+$">
-                            <!--<small class="text-danger" [class.d-none]="userEmail.valid || userEmail.untouched">l'email est obligatoire</small> > </div> -->
-                            <div *ngIf="userEmail.errors && (userEmail.invalid && userEmail.touched)">
-                                <small class="text-danger" *ngIf="userEmail.errors?.['required']">l'Email est obligatoire</small>
-                                <small class="text-danger" *ngIf="userEmail.errors?.['pattern']">l'Email n'est pas valide</small>
+                            <!--<small class="text-danger " [class.d-none]="userEmail.valid || userEmail.untouched ">l'email est obligatoire</small> > </div> -->
+                            <div *ngIf="email.errors && (email.invalid && email.touched)">
+                                <small class="text-danger" *ngIf="email.errors?.['required']">l'Email est obligatoire</small>
+                                <small class="text-danger" *ngIf="email.errors?.['pattern']">l'Email n'est pas valide</small>
                             </div>
                         </div>
-                        <div class="row">
-                            <input type="password" ngModel name="userPassword" id="userPassword" placeholder="Entrez votre mot de passe ici svp ( minimum 8 caractères ) " class="form__input" required minlength="8" #userPassword="ngModel">
+                        <div class="row ">
+                            <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe ici svp ( minimum 8 caractères ) " class="form__input" [(ngModel)]="form.password" required minlength="8" #password="ngModel">
                         </div>
-                        <div *ngIf=" userPassword.errors && (userPassword.invalid && userPassword.touched) ">
-                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'required'] ">le mot de passe est obligatoire</small>
-                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'minlength'] ">le mot de passe doit contenir au moins 8 caractères</small>
+                        <div *ngIf="password.errors && (password.invalid && password.touched)">
+                            <small class="text-danger " *ngIf="password.errors?.[ 'required'] ">le mot de passe est obligatoire</small>
+                            <small class="text-danger " *ngIf="password.errors?.[ 'minlength'] ">le mot de passe doit contenir au moins 8 caractères</small>
                         </div>
-                        <div class="row">
-                            <input type="password" ngModel name="CuserPassword" id="CuserPassword" placeholder="Confirmer votre mot de passe ici svp " class="form__input" required minlength="8" #CuserPassword="ngModel" [class.is-invalid]="CuserPassword.invalid && CuserPassword.touched">
+                        <div class="row ">
+                            <input type="password" ngModel name="CPassword" id="CPassword" placeholder="Confirmer votre mot de passe ici svp " class="form__input" required minlength="8" [(ngModel)]="form.CPassword" #CPassword="ngModel" [class.is-invalid]="CPassword.invalid && CPassword.touched">
                         </div>
-                        <div *ngIf=" CuserPassword.errors && (CuserPassword.invalid && CuserPassword.touched) ">
-                            <small class="text-danger" *ngIf="userPassword.errors?.[ 'required'] ">le mot de passe est obligatoire</small>
-                            <small class="text-danger" [class.d-none]="(userPassword.value == CuserPassword.value) || CuserPassword.untouched ">les 2 mots de passe ne sont pas identiques</small>
+                        <div *ngIf="CPassword.errors && (CPassword.invalid && CPassword.touched)">
+                            <small class="text-danger" *ngIf="password.errors?.[ 'required']">le mot de passe est obligatoire</small>
+                            <small class="text-danger" [class.d-none]="(password.value==CPassword.value) || CPassword.untouched">les 2 mots de passe ne sont pas identiques</small>
                         </div>
-                        <div class="row">
+
+                        <div class="row ">
                             <label>choisissez votre département : </label><br>
-                            <select>
-                                <option>GP</option>
-                                <option>DataHub</option>
-                                <option>Impress</option>
-                                <option>IT</option>
+                            <select name="poste" id="poste" class="form__input" [(ngModel)]="form.poste" required #poste="ngModel"> 
+                                <option value="GP">GP</option>
+                                <option value="DataHub">DataHub</option>
+                                <option value="Impress">Impress</option>
+                                <option value="Comet">Comet</option>
+                                <option value="IT">IT</option>
                             </select>
+                            <div *ngIf="poste.errors && (poste.invalid && poste.touched)">
+                                <small class="text-danger" *ngIf="poste.errors?.['required'] ">le département est obligatoire</small>
+                            </div>
                         </div>
-                        <input [disabled]="SignupForm.form.invalid" type="submit" value="créer" class="btn-default">
+                        <input type="submit" value="créer " class="btn-default ">
 
                     </form>
                 </div>
-                <div class="row md-5">
-                    <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active">Se connecter</a> </p>
+                <div class="row md-5 ">
+                    <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active ">Se connecter</a> </p>
                 </div>
             </div>
+            <div class="alert alert-success " *ngIf="isSuccessful ">
+                nouveau compte crée avec succées
+            </div>
         </div>
+
     </div>
 </div>
 <!-- Footer -->

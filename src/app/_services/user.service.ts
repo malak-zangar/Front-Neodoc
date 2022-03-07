@@ -1,12 +1,39 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserAuthService } from './user-auth.service';
+import { Observable } from 'rxjs';
+//import { UserAuthService } from './user-auth.service';
+
+const API_URL = 'http://localhost:9090/api/test/';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
-  PATH_OF_API = 'http://localhost:9091';
+  constructor(private http: HttpClient) { }
+
+  getPublicContent(): Observable<any> {
+    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  }
+
+  getUserBoard(): Observable<any> {
+    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  }
+
+  getAdminBoard(): Observable<any> {
+    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  }
+
+
+  
+}
+
+/*@Injectable({
+  providedIn: 'root',
+})*/
+
+/*
+export class UserService {
+  //PATH_OF_API = 'http://localhost:9091';
 
   requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
   constructor(
@@ -15,21 +42,32 @@ export class UserService {
   ) {}
 
   public login(loginData: any) {
-    return this.httpclient.post(this.PATH_OF_API + '/authenticate', loginData, {
+    //return this.httpclient.post(this.PATH_OF_API + '/authenticate', loginData, {
+        return this.httpclient.post('http://localhost:9090/api/auth/signin', loginData, {
+    headers: this.requestHeader,
+    });
+  }
+
+  public signup(signupData: any) {
+    //return this.httpclient.post(this.PATH_OF_API + '/registerNewUser', signupData, {
+      return this.httpclient.post('http://localhost:9090/api/auth/signup', signupData, {
       headers: this.requestHeader,
     });
   }
 
   public forUser() {
-    return this.httpclient.get(this.PATH_OF_API + '/forUser', {
+    //return this.httpclient.get(this.PATH_OF_API + '/forUser', {
+      return this.httpclient.get('http://localhost:9090/api/test/user', {
       responseType: 'text',
     });
   }
+  
 
 
   public forAdmin() {
-    return this.httpclient.get(this.PATH_OF_API + '/forAdmin', {
-      responseType: 'text',
+    //return this.httpclient.get(this.PATH_OF_API + '/forAdmin', {
+      return this.httpclient.get('http://localhost:9090/api/test/admin', {  
+    responseType: 'text',
     });
   }
 
@@ -50,4 +88,5 @@ export class UserService {
     }
     return isMatch;
   }
-}
+}*/
+

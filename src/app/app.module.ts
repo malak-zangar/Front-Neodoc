@@ -13,12 +13,14 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './_auth/auth.guard';
-import { AuthInterceptor } from './_auth/auth.interceptor';
+//import { AuthGuard } from './_auth/auth.guard';
+//import { AuthInterceptor } from './_auth/auth.interceptor';
 import { UserService } from './_services/user.service';
 import { SignupComponent } from './signup/signup.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     SidebarComponent,
     SignupComponent,
     ForgotpasswordComponent,
-   
+    ProfileComponent   
   ],
   imports: [
     BrowserModule,
@@ -42,14 +44,15 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     RouterModule,
     FontAwesomeModule
   ],
-  providers: [
+ /* providers: [
     AuthGuard,
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi:true},
       UserService
-  ],
+  ],*/
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

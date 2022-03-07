@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm }   from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/user-auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +10,50 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  msg='';
+  form: any = {
+    firstname:null,
+    lastname:null,
+    username: null,
+    email: null,
+    password: null,
+    poste:null
+  };
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+  router?:Router;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+onSubmit(): void {
+  const {firstname,lastname, username, email, password,poste} = this.form;
+
+  this.authService.register(firstname,lastname,username, email, password,poste).subscribe(
+    data => {
+      console.log(data);
+      this.isSuccessful = true;
+      this.isSignUpFailed = false;
+      this.router?.navigate(['/login']) ;
+
+    },
+    err => {
+      this.errorMessage = err.error.message;
+      this.isSignUpFailed = true;
+    }
+  );
 }
+}
+/*registerUser(SignupForm:NgForm){
+  this.userService.signup(SignupForm.value).subscribe(
+    (response:any) =>{ 
+         console.log("response recieved ",response);
+         this.msg="nouveau utilisateur crée ." ;
+            this.router.navigate(['/login']) },
+    (error) => { console.log("exception occured ", error);
+   this.msg=error.error;  }
+  );
+}*/

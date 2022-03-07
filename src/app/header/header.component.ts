@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAuthService } from '../_services/user-auth.service';
+import { AuthService } from '../_services/user-auth.service';
 import { UserService } from '../_services/user.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { UserService } from '../_services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userAuthService:UserAuthService,
+  /*constructor(private userAuthService:AuthService,
     private router:Router,
     public userService: UserService) { }
 
@@ -19,11 +20,40 @@ export class HeaderComponent implements OnInit {
 
   public isLoggedIn(){
     return this.userAuthService.isLoggedIn();
-  }
+  }*/
 
-  public logout(){
+ /* public logout(){
     this.userAuthService.clear();
     this.router.navigate(['/home']);
+  }*/
+
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+
+  private AuthService?:AuthService;
+  
+  constructor(private tokenStorageService: TokenStorageService,private router: Router) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
   }
 
+  logout(): void {
+    this.tokenStorageService.signOut();
+    this.router.navigate(['/home']);
+    window.location.reload();
+  }
 }
