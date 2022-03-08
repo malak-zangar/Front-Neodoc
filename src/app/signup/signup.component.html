@@ -6,7 +6,9 @@
 
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
             <small *ngIf="f.submitted && isSignUpFailed" class=" alert alert-danger">  création de nouveau compte échouée : {{errorMessage}}</small>
-
+            <div class="alert alert-success " *ngIf="isSuccessful ">
+                nouveau compte crée avec succées
+            </div>
             <div class="container-fluid">
                 <div class="row ">
                     <h2 class="animate__animated animate__bounce mt-5">Nouveau compte</h2>
@@ -22,10 +24,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" [(ngModel)]="form.lastname" name="lastname" id="lastname" placeholder="Entrez votre prénom ici svp" class="form__input" required #lastname="ngModel" [class.is-invalid]="lastname.invalid && lastname.touched" minlength="3" maxlength="20">
+                            <input type="text" [(ngModel)]="form.lastname" name="lastname" id="lastname" placeholder="Entrez votre prénom ici svp" class="form__input" required #lastname="ngModel" [class.is-invalid]="lastname.invalid && lastname.touched" minlength="3" maxlength="20"
+                                pattern="^[a-z]+">
                             <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
                                 <small class="text-danger " *ngIf="lastname.errors?.[ 'required'] ">le prénom est obligatoire</small>
-                                <small class="text-danger " *ngIf="lastname.errors?.[ 'minlength'] ">le prénom doit contenir au moins 7 caractères</small>
+                                <small class="text-danger " *ngIf="lastname.errors?.[ 'minlength'] ">le prénom doit contenir au moins 3 caractères <br></small>
+                                <small class="text-danger" *ngIf="lastname.errors?.['pattern']">le prénom n'est pas valide, il ne doit contenir que des lettres  <br> </small>
+
                             </div>
                         </div>
                         <div class="row">
@@ -39,7 +44,7 @@
                         </div>
                         <div class="row ">
                             <input type="email" id="email" placeholder="Entrez votre adresse email ici svp ( ex : prenom.nom@neoxam.com ) " class="form__input" name="email" [(ngModel)]="form.email" email #email="ngModel" required [class.is-invalid]="email.invalid && email.touched"
-                                pattern="^[a-z]+\.[a-z]+@neoxam+\.com+$">
+                                pattern="^[a-z]+\.[a-z]+@neoxam+\.com">
                             <!--<small class="text-danger " [class.d-none]="userEmail.valid || userEmail.untouched ">l'email est obligatoire</small> > </div> -->
                             <div *ngIf="email.errors && (email.invalid && email.touched)">
                                 <small class="text-danger" *ngIf="email.errors?.['required']">l'Email est obligatoire</small>
@@ -71,19 +76,16 @@
                                 <option value="IT">IT</option>
                             </select>
                             <div *ngIf="poste.errors && (poste.invalid && poste.touched)">
-                                <small class="text-danger" *ngIf="poste.errors?.['required'] ">le département est obligatoire</small>
+                                <small class="text-danger" *ngIf="poste.errors?.['required']">le département est obligatoire</small>
                             </div>
                         </div>
-                        <input type="submit" value="créer " class="btn-default ">
+                        <input [disabled]="f.form.invalid" type="submit" value="créer" class="btn-default">
 
                     </form>
                 </div>
                 <div class="row md-5 ">
                     <p>Vous avez déja un compte? <a routerLink="/login" routerLinkActive="active ">Se connecter</a> </p>
                 </div>
-            </div>
-            <div class="alert alert-success " *ngIf="isSuccessful ">
-                nouveau compte crée avec succées
             </div>
         </div>
 

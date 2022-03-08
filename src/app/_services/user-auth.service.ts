@@ -63,14 +63,15 @@ export class AuthService {
       poste
     }, httpOptions);
   }
-/*
-  getPoste():Poste[]{
-    let postes=[
-      new Poste('GP','GP'),
-      new Poste('IT','IT')
-    ]
-return postes;
-  }*/
+
+  forgotpassword(email:string): Observable<any> {
+    return this.http.post(AUTH_API+'forgot-password',{email}, httpOptions);
+  }
+
+  resetpassword(password:string): Observable<any> {
+    return this.http.put(AUTH_API + 'reset-password', {password}, httpOptions);
+  }
+
 }
 
 

@@ -21,7 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ProfileComponent } from './profile/profile.component';
-
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,8 @@ import { ProfileComponent } from './profile/profile.component';
     SidebarComponent,
     SignupComponent,
     ForgotpasswordComponent,
-    ProfileComponent   
+    ProfileComponent,
+    ResetpasswordComponent   
   ],
   imports: [
     BrowserModule,

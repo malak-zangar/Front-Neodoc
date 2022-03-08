@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
+import{ResetpasswordComponent} from './resetpassword/resetpassword.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'forgotpassword',component:ForgotpasswordComponent},
   {path: 'profile', component: ProfileComponent },
+  {path:'resetpassword',component:ResetpasswordComponent},
   {path:'',component:HomeComponent}
  // { path: '', redirectTo: '/login', pathMatch: 'full' }
 
