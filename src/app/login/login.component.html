@@ -18,7 +18,7 @@
                         <div class="row"><input type="text" name="username" id="username" placeholder="Entrez votre nom d 'utilisateur ici svp" class="form__input" required [(ngModel)]="form.username" #username="ngModel" [class.is-invalid]="username.invalid && username.touched">
                             <small class="text-danger" [class.d-none]="username.valid || username.untouched" role="alert" *ngIf=" username.errors">le nom d'utilisateur est obligatoire</small>
                         </div>
-                        <div class="row"> <input type="password" ngModel name="password" id="password " placeholder="Entrez votre mot de passe ici svp" class="form__input" required [(ngModel)]="form.password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched">
+                        <div class="row"><input type="password" ngModel name="password" id="password" placeholder="Entrez votre mot de passe ici svp" class="form__input" required [(ngModel)]="form.password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched">
                             <small class="text-danger" [class.d-none]="password.valid || password.untouched" role="alert" *ngIf="password.errors">le mot de passe est obligatoire</small>
                         </div>
                         <input [disabled]="f.form.invalid" type="submit" value="se connecter" class="btn-default">
