@@ -26,7 +26,10 @@ import { UserListComponent } from './GestionUser/user-list/user-list.component';
 import { UserCreateComponent } from './GestionUser/user-create/user-create.component';
 import { UserDetailsComponent } from './GestionUser/user-details/user-details.component';
 import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
-import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +47,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     UserListComponent,
     UserCreateComponent,
     UserDetailsComponent,
-    UserUpdateComponent,
-    MatConfirmDialogComponent   
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,10 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     FormsModule,
     HttpClientModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+ 
   ],
  /* providers: [
     AuthGuard,

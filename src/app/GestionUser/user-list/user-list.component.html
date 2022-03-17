@@ -4,33 +4,50 @@
             <div class="panel-heading">
                 <h2>Liste des utilisateurs</h2> <br><br> </div>
             <div class="panel-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Nom d'utilisateur</th>
-                            <th>Email</th>
-                            <th>Département</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of users | async">
-                            <td>{{user.lastname}}</td>
-                            <td>{{user.firstname}}</td>
-                            <td>{{user.username}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.poste}}</td>
+                <div class="table-responsive">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Nom d'utilisateur</th>
+                                <th>Email</th>
+                                <th>Département</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users | async">
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.poste}}</td>
 
-                            <td><button (click)="deleteUser(user.id)" class="btn btn-danger">Supprimer</button>
-                                <!--<button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
-                                <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td><button (click)="open(content,user.id)" href="javascript:void(0);" class="btn btn-danger">Supprimer</button>
+                                    <!--<button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
+                                    <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+                          <span aria-hidden="true">×</span>    
+                      </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+                <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+            </div>
+        </ng-template>
     </div>
 </div>
