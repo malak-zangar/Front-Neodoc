@@ -2,7 +2,7 @@
     <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2>Liste des utilisateurs</h2> <br><br> </div>
+                <h2>Liste des utilisateurs</h2> <br></div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped ">
@@ -23,8 +23,7 @@
                                 <td>{{user.username}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.poste}}</td>
-
-                                <td><button (click)="open(content,user.id)" href="javascript:void(0);" class="btn btn-danger">Supprimer</button>
+                                <td><button (click)="open(content,user.id)" href="javascript:void(0);" class="btn btn-outline-danger ">Supprimer</button>
                                     <!--<button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
                                     <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>-->
                                 </td>
@@ -37,16 +36,16 @@
         <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+                <button type="button" class="close btn" aria-label="Close" (click)="d('Cross click')">    
                           <span aria-hidden="true">×</span>    
                       </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure to delete this?</p>
+                <p>Etes vous sur de la suppression ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
-                <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="d( 'Cross click') ">Annuler</button>
+                <button type="button " class="btn btn-outline-danger" (click)="c( 'yes') ">Supprimer</button>
             </div>
         </ng-template>
     </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceGestService } from '../user-service-gest.service';
 import { User } from "./../user";
+import { UserService } from '../../_services/user.service';
+import { AuthService } from '../../_services/user-auth.service';
 
 @Component({
   selector: 'app-user-create',
@@ -9,37 +11,39 @@ import { User } from "./../user";
   styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent implements OnInit {
+  msg='';
+  form: any = {
+    firstname:null,
+    lastname:null,
+    username: null,
+    email: null,
+    password: null,
+    poste:null};
 
-  user: User = new User();
-  submitted = false;
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
 
   constructor(private userServiceGestService: UserServiceGestService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  newUser(): void {
-    this.submitted = false;
-    this.user = new User();
-  }
+onSubmit(): void {
+  const {firstname,lastname, username, email, password,poste} = this.form;
 
-  save() {
-    this.userServiceGestService
-    .createUser(this.user).subscribe(data => {
-      console.log(data)
-      this.user = new User();
-      this.gotoList();
-    }, 
-    error => console.log(error));
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    this.save();    
-  }
-
-  gotoList() {
-    this.router.navigate(['/users']);
-  }
+  this.userServiceGestService.registerAdmin(firstname,lastname,username, email, password,poste).subscribe(
+    data => {
+      console.log(data);
+      this.isSuccessful = true;
+      this.isSignUpFailed = false;
+      this.router.navigate(['/user-list']) ;  },
+      
+    err => {
+      this.errorMessage = err.error.message;
+      this.isSignUpFailed = true;
+    }
+  );
+}
 }

@@ -29,5 +29,9 @@ export class UserServiceGestService {
   getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
+
+  registerAdmin(firstname:string,lastname:string, username: string, email: string, password: string,poste:string): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, {firstname,lastname, username,email,password,poste });
+  }
 }
 
