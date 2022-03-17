@@ -9,6 +9,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import{ResetpasswordComponent} from './resetpassword/resetpassword.component';
+import { UserListComponent } from './GestionUser/user-list/user-list.component';
+import { UserCreateComponent } from './GestionUser/user-create/user-create.component';
+import {UserDetailsComponent} from './GestionUser/user-details/user-details.component';
+import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -21,8 +25,12 @@ const routes: Routes = [
   {path:'forgotpassword',component:ForgotpasswordComponent},
   {path: 'profile', component: ProfileComponent },
   {path:'resetpassword',component:ResetpasswordComponent},
-  {path:'',component:HomeComponent}
- // { path: '', redirectTo: '/login', pathMatch: 'full' }
+  {path:'user-list',component:UserListComponent},
+  {path:'user-create',component:UserCreateComponent},
+  {path:'user-details/:id',component:UserDetailsComponent},
+  {path:'user-update/:id',component:UserUpdateComponent},
+  {path:'',component:HomeComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full' },
 
   
 ];

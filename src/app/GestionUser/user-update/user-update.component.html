@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
+        <h3>
+            Modifier utilisateur</h3>
+        <div style="width: 1050px;">
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" id="firstname" required [(ngModel)]="user.firstname" name="firstname">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Prénom</label>
+                    <input type="text" class="form-control" id="lastname" required [(ngModel)]="user.lastname" name="lastname">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="text" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

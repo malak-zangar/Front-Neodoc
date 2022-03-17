@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
+        <h2>Les détails de l'utilisateur</h2>
+
+        <hr/>
+        <div *ngIf="user">
+            <div>
+                <label><b>Nom: </b></label> {{user.firstname}}
+            </div>
+            <div>
+                <label><b>Prénom: </b></label> {{user.lastname}}
+            </div>
+            <div>
+                <label><b>Nom d'utilisateur: </b></label> {{user.username}}
+            </div>
+            <div>
+                <label><b>Email: </b></label> {{user.email}}
+            </div>
+            <div>
+                <label><b>Déparetement: </b></label> {{user.poste}}
+            </div>
+
+        </div>
+
+        <br>
+        <br>
+        <button (click)="list()" class="btn btn-default">Retour à la liste des utilisateurs</button><br>
+    </div>
+</div>

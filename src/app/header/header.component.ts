@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   public isLoggedIn(){
     return this.userAuthService.isLoggedIn();
-  }*/
+  }
 
  /* public logout(){
     this.userAuthService.clear();
@@ -30,10 +30,10 @@ export class HeaderComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
-  username?: string;
+  showUserBoard = false;
+  username: string;
 
-  private AuthService?:AuthService;
+  private AuthService:AuthService;
   
   constructor(private tokenStorageService: TokenStorageService,private router: Router) { }
 
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showUserBoard = this.roles.includes('ROLE_USER');
 
       this.username = user.username;
     }

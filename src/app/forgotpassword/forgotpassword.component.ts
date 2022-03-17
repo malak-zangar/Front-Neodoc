@@ -9,14 +9,13 @@ import { AuthService } from '../_services/user-auth.service';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-  msg='';
   form: any = {email: null};
-  isSuccessful = false;
+  isSuccessful = true;
   isForgotPasswordFailed = false;
   errorMessage = '';
-  router?:Router;
+ // router?:Router;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -27,15 +26,19 @@ onSubmit(): void {
   this.authService.forgotpassword(email).subscribe(
     data => {
       console.log(data);
-      this.isSuccessful = true;
       this.isForgotPasswordFailed = false;
-      this.router?.navigate(['/login']) ;
-
+      this.isSuccessful = true;
     },
     err => {
-      this.errorMessage = err.error.message;
       this.isForgotPasswordFailed = true;
+      this.isSuccessful=false;
+     // this.errorMessage = err.error.message;
+    // this.errorMessage="cet email n'existe pas";
     }
   );
+
+setTimeout(() => {this.router.navigate(['/home']);},5000);
 }
 }
+
+

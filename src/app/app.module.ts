@@ -22,6 +22,11 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { UserListComponent } from './GestionUser/user-list/user-list.component';
+import { UserCreateComponent } from './GestionUser/user-create/user-create.component';
+import { UserDetailsComponent } from './GestionUser/user-details/user-details.component';
+import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +40,12 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     SignupComponent,
     ForgotpasswordComponent,
     ProfileComponent,
-    ResetpasswordComponent   
+    ResetpasswordComponent,
+    UserListComponent,
+    UserCreateComponent,
+    UserDetailsComponent,
+    UserUpdateComponent,
+    MatConfirmDialogComponent   
   ],
   imports: [
     BrowserModule,
