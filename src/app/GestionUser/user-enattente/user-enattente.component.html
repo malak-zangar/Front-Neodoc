@@ -25,9 +25,10 @@
                                 <td>{{user.username}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.poste}}</td>
-                                <td><button (click)="open(content,user.id) " href="javascript:void(0); " class="btn btn-outline-danger ">Supprimer</button>
+                                <td><button (click)="open(content,user.id) " href="javascript:void(0); " class="btn btn-outline-danger ">Refuser</button>
                                     <!--<button (click)="updateUser(user.id) " class="btn btn-info " style="margin-left: 10px ">Update</button>
                                     <button (click)="userDetails(user.id) " class="btn btn-info " style="margin-left: 10px ">Details</button>-->
+                                    <button (click)="opene(contente,user.id)" href="javascript:void(0); " class="btn btn-outline-success" style="margin-left: 10px ">Accepter</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -48,11 +49,28 @@
                       </button>
             </div>
             <div class="modal-body ">
-                <p>Etes vous sur de la suppression ?</p>
+                <p>Voulez-vous vraiment supprimer cet utilisateur ?</p>
             </div>
             <div class="modal-footer ">
                 <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
                 <button type="button " class="btn btn-outline-danger " (click)="c( 'yes') ">Supprimer</button>
+            </div>
+        </ng-template>
+
+
+        <ng-template #contente let-c="close " let-d="dismiss ">
+            <div class="modal-header ">
+                <h4 class="modal-title " id="modal-basic-title ">Confirmation</h4>
+                <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                          <span aria-hidden="true ">×</span>    
+                      </button>
+            </div>
+            <div class="modal-body ">
+                <p>Voulez-vous vraiment accepter cet utilisateur ?</p>
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-outline-danger " (click)="d( 'Cross click') ">Annuler</button>
+                <button type="button " class="btn btn-outline-success " (click)="c( 'yes') ">Accepter</button>
             </div>
         </ng-template>
     </div>

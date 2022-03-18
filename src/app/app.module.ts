@@ -29,7 +29,8 @@ import { UserUpdateComponent } from './GestionUser/user-update/user-update.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enattente.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserListComponent,
     UserCreateComponent,
     UserDetailsComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    UserEnattenteComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatDialogModule,
- 
+    NgxPaginationModule,
   ],
  /* providers: [
     AuthGuard,

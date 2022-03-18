@@ -26,8 +26,16 @@ export class UserServiceGestService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
+  acceptUser(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/accept/${id}`, { responseType: 'text' });
+  }
+
   getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
+  }
+
+  getUserListEnattente(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/enattente`);
   }
 
   registerAdmin(firstname:string,lastname:string, username: string, email: string, password: string,poste:string): Observable<any> {

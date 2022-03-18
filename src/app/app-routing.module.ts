@@ -13,6 +13,7 @@ import { UserListComponent } from './GestionUser/user-list/user-list.component';
 import { UserCreateComponent } from './GestionUser/user-create/user-create.component';
 import {UserDetailsComponent} from './GestionUser/user-details/user-details.component';
 import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
+import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enattente.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path:'user-create',component:UserCreateComponent},
   {path:'user-details/:id',component:UserDetailsComponent},
   {path:'user-update/:id',component:UserUpdateComponent},
+  {path:'user-enattente',component:UserEnattenteComponent},
   {path:'',component:HomeComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full' },
 
