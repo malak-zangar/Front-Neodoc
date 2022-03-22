@@ -7,6 +7,8 @@ import { User } from "./../user";
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+import {MatTableDataSource} from '@angular/material/table';
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -18,6 +20,7 @@ export class UserListComponent implements OnInit {
   users: Observable<User[]>;
   p: number = 1;
   count: number = 5;
+  searchText;
   
   constructor(private userServiceGestService: UserServiceGestService,
     private router: Router,private modalService: NgbModal) {}
@@ -61,6 +64,4 @@ export class UserListComponent implements OnInit {
   userDetails(id: number){ this.router.navigate(['user-details', id]);}
 
   updateUser(id: number){this.router.navigate(['user-update', id]);}
-
-
 }

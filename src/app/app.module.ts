@@ -31,6 +31,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enattente.component';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,10 +62,14 @@ import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enatte
     FormsModule,
     HttpClientModule,
     RouterModule,
+    MatTableModule,
+    MatInputModule,
     FontAwesomeModule,
+    Ng2SearchPipeModule,
     BrowserAnimationsModule,
     MatDialogModule,
     NgxPaginationModule,
+    MatFormFieldModule
   ],
  /* providers: [
     AuthGuard,

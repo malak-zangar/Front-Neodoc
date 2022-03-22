@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 40%;
+}
+
+.search-hero {
+    max-width: 500px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+.form-control {
+    box-shadow: 0 10px 10px 0 #c1f0e6;
+    color: rgb(38, 136, 136);
+}
+
+.form-control::placeholder {
+    font-family: FontAwesome;
+}

@@ -2,8 +2,14 @@
     <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
         <div class="panel panel-primary">
             <div class=" panel-heading ">
-                <h2>Liste des utilisateurs</h2> <br></div>
+                <h2>Liste des utilisateurs</h2>
+            </div>
             <div class="panel-body ">
+
+                <div class="search-hero mat-form-field">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Cherchez ce que vous voulez">
+                </div>
+
                 <div class="table-responsive ">
                     <table class="table table-striped ">
                         <thead>
@@ -18,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } ">
+                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText ">
                                 <td>{{user.id}}</td>
                                 <td>{{user.firstname}}</td>
                                 <td>{{user.lastname}}</td>

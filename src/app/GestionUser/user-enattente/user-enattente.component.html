@@ -2,9 +2,13 @@
     <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
         <div class="panel panel-primary">
             <div class=" panel-heading ">
-                <h2>Liste des utilisateurs</h2> <br></div>
+                <h2>Liste des utilisateurs en attente</h2>
+            </div>
             <div class="panel-body ">
                 <div class="table-responsive ">
+                    <div class="search-hero mat-form-field">
+                        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Cherchez ce que vous voulez">
+                    </div>
                     <table class="table table-striped ">
                         <thead>
                             <tr disabled>

@@ -15,6 +15,7 @@ export class UserEnattenteComponent implements OnInit {
   users: Observable<User[]>;
   p: number = 1;
   count: number = 5;
+  searchText;
 
   constructor(private userServiceGestService: UserServiceGestService,
     private router: Router,private modalService: NgbModal) {}
