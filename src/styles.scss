@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #fff;
+    color: rgb(2, 43, 26);
 }
 
 @media screen and (max-width: 640px) {
@@ -43,30 +43,6 @@
     color: #16ac98;
 }
 
-//
-.input-group {
-    padding: 0px 45px;
-    width: 100%;
-    display: flex;
-    background-color: #f0f0f0;
-    border-radius: 50px;
-    position: relative;
-    grid-template-columns: 35% 65%;
-}
-
-.input-group i {
-    color: #8d8d8d;
-    text-align: center;
-    line-height: 45px;
-    font-size: 44px;
-}
-
-.input-group input:placeholder-shown {
-    font-weight: 400;
-    color: #707070;
-}
-
-//
 .login_form {
     background-color: #fff;
     border-top-right-radius: 20px;
@@ -113,7 +89,7 @@ form {
 
 .icon {
     padding: 10px;
-    background: 16ac98;
+    background: #16ac98;
     color: white;
     min-width: 50px;
     text-align: center;
@@ -134,5 +110,13 @@ form {
     color: #16ac98;
     background-color: #f1fcfc;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 10;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

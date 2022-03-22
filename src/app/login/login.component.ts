@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   form: any = { username: null, password: null };
   isLoggedIn = false;
-  //isLoginFailed = true;
+  isLoginFailed = true;
   roles: string[] = [];
   errorMessage = '';
-  enabled=true;
+
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.enabled=this.tokenStorage.getUser().enabled; }
-  }
+      console.log(this.roles);}
+    }
 
   onSubmit(): void {
     const { username, password } = this.form;
@@ -32,20 +32,17 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
-        console.log(data);
         this.roles = this.tokenStorage.getUser().roles;
-        this.enabled=this.tokenStorage.getUser().getEnabled();
-        console.log(this.enabled);
-        //this.isLoggedIn = true;
-       // this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.isLoginFailed = false;
         this.reloadPage();
         this.router.navigate(['/user']);
-
       },
+      
       err => {
-       // this.errorMessage = err.error.message;
-        //this.isLoginFailed = true;
-        this.errorMessage="données érronées , merci de les vérifier.";
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+       // this.errorMessage="données érronées , merci de les vérifier.";
       }
      );
 
