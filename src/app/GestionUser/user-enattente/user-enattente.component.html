@@ -1,14 +1,15 @@
-<div class="container mt-5">
+<div class="container mt-5" style='padding-top: 20px; background-color: azure; '>
     <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
         <div class="panel panel-primary">
             <div class=" panel-heading ">
-                <h2>Liste des utilisateurs en attente</h2>
+                <h1><strong>Liste des utilisateurs en attente</strong></h1>
+                <hr/>
             </div>
             <div class="panel-body ">
+                <div class="search-hero mat-form-field">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Cherchez ce que vous voulez">
+                </div>
                 <div class="table-responsive ">
-                    <div class="search-hero mat-form-field">
-                        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Cherchez ce que vous voulez">
-                    </div>
                     <table class="table table-striped ">
                         <thead>
                             <tr disabled>
@@ -22,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } ">
+                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText ">
                                 <td>{{user.id}}</td>
                                 <td>{{user.firstname}}</td>
                                 <td>{{user.lastname}}</td>
@@ -30,8 +31,6 @@
                                 <td>{{user.email}}</td>
                                 <td>{{user.poste}}</td>
                                 <td><button (click)="open(content,user.id) " href="javascript:void(0); " class="btn btn-outline-danger ">Refuser</button>
-                                    <!--<button (click)="updateUser(user.id) " class="btn btn-info " style="margin-left: 10px ">Update</button>
-                                    <button (click)="userDetails(user.id) " class="btn btn-info " style="margin-left: 10px ">Details</button>-->
                                     <button (click)="opene(contente,user.id)" href="javascript:void(0); " class="btn btn-outline-success" style="margin-left: 10px ">Accepter</button>
                                 </td>
                             </tr>
@@ -53,11 +52,11 @@
                       </button>
             </div>
             <div class="modal-body ">
-                <p>Voulez-vous vraiment supprimer cet utilisateur ?</p>
+                <p>Voulez-vous vraiment refuser cet utilisateur ?</p>
             </div>
             <div class="modal-footer ">
                 <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
-                <button type="button " class="btn btn-outline-danger " (click)="c( 'yes') ">Supprimer</button>
+                <button type="button " class="btn btn-outline-danger " (click)="c( 'yes') ">Refuser</button>
             </div>
         </ng-template>
 

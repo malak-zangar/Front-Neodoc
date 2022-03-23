@@ -39,7 +39,8 @@
     }
 }
 
-.row>h2 {
+.row>h2,
+.row>h1 {
     color: #16ac98;
 }
 
@@ -120,5 +121,13 @@ body {
     margin: 10;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

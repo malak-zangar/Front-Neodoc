@@ -4,6 +4,10 @@ import { Observable } from "rxjs";
 import { UserServiceGestService } from '../user-service-gest.service';
 import { User } from "./../user";
 import { Router } from '@angular/router';
+import { UserDetailsComponent } from './../user-details/user-details.component';
+import { filter } from 'rxjs/operators';
+
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-user-enattente',
@@ -76,10 +80,4 @@ export class UserEnattenteComponent implements OnInit {
         },
         error => console.log(error));
   }
-
-  userDetails(id: number){ this.router.navigate(['user-details', id]);}
-
-  updateUser(id: number){this.router.navigate(['user-update', id]);}
-
-
 }

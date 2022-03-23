@@ -1,9 +1,8 @@
-<div class="container mt-5">
-    <div class="card text-center" style='color: #16ac98 ; padding: 20px;'>
-        <h2>Les détails de l'utilisateur</h2>
-
+<div class="container mt-5" style='width:500px; padding-top: 20px;'>
+    <div class="card text-center " style=' color: #16ac98 ; padding: 20px;'>
+        <h1><strong>Les détails de l'utilisateur</strong></h1>
         <hr/>
-        <div *ngIf="user">
+        <div *ngIf="user" style='color: #02312b ; padding: 20px; width:400px ;'>
             <div>
                 <label><b>Nom: </b></label> {{user.firstname}}
             </div>
@@ -17,13 +16,12 @@
                 <label><b>Email: </b></label> {{user.email}}
             </div>
             <div>
-                <label><b>Déparetement: </b></label> {{user.poste}}
+                <label><b>Département: </b></label> {{user.poste}}
             </div>
 
         </div>
 
         <br>
-        <br>
-        <button (click)="list()" class="btn btn-default">Retour à la liste des utilisateurs</button><br>
+        <button (click)="list()" class="btn btn-outline-secondary">Retour à la liste des utilisateurs</button><br>
     </div>
 </div>
