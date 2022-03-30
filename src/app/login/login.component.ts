@@ -9,11 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  background:string="../../assets/images/neodoc.png";
+
+
   form: any = { username: null, password: null };
   isLoggedIn = false;
   isLoginFailed = true;
   roles: string[] = [];
   errorMessage = '';
+  username="";
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) { }
 
@@ -21,6 +26,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      this.username=this.tokenStorage.getUser().username;
       console.log(this.roles);}
     }
 
@@ -29,14 +35,16 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
      
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+      next => {
+        this.tokenStorage.saveToken(next.accessToken);
+        this.tokenStorage.saveUser(next);
         this.roles = this.tokenStorage.getUser().roles;
+        this.username=this.tokenStorage.getUser().username;
         this.isLoggedIn = true;
         this.isLoginFailed = false;
+        this.router.navigate(['/profile']);
         this.reloadPage();
-        this.router.navigate(['/user']);
+
       },
       
       err => {

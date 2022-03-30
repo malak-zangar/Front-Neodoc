@@ -1,0 +1,74 @@
+<div class="container mt-2" style='padding-top: 20px; '>
+    <div class="card text-center" style=' color: #16ac98 ; padding: 20px;  margin-top: 20px; background-color: rgb(246, 253, 253); '>
+        <div class="col-md-80 col-xs-12 col-sm-12 ">
+
+            <div class="container-fluid">
+                <div class="row ">
+                    <h1 class="animate__animated animate__bounce mt-3"><strong>Ajouter un nouveau fichier </strong></h1>
+                </div>
+                <!-- <angular-file-uploader [config]="afuConfig"> </angular-file-uploader><br>
+                <hr/> Meth 1
+                <div class="container row">
+                    <div class="col-md-6">
+                        <input type="file" (change)="onFileChanged($event)">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" (click)="onUpload()" value="ajouter">
+                    </div>
+
+                    <div class="col-md-12">
+                        <small *ngIf="message!=''" class="text-danger">{{message}}</small>
+                    </div>
+                </div>
+                -->
+                <!--
+                <div class="container-fluid">
+                    <form #imageForm="ngForm" (ngSubmit)="OnSubmit(Caption,Image)">
+                        <div class=" row ">
+                            <input type="text" #Caption ngModel name="Caption" id="Caption" class="form__input" required>
+                            <input type="file" #Image (change)="handlerFileInput($any($event).target.files)">
+                            <button type="submit" class="btn btn-submit" [disabled]="Image.value=='' || !imageForm.valid">submit</button>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <form #imageForm="ngForm" (ngSubmit)="submit()">
+                        <div class=" row ">
+                            <input type="text" #Caption ngModel name="Caption" id="Caption" class="form__input" required>
+                            <input type="file" #Image multiple (change)="onFileChange($event)">
+                            <button type="submit" class="btn btn-submit" [disabled]="Image.value=='' || !imageForm.valid">submit</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+                <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
+                    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($any($event).target.files)" />
+                    <img width="100px" src="assets/images/upload-icon.png" alt="">
+                    <h3>Glisser votre document ici</h3>
+                </div>
+                <h3>OU</h3>
+                <label for="fileDropRef">Naviger</label>
+                <div class="files-list">
+                    <div class="single-file" *ngFor="let file of files; let i = index">
+                        <img src="assets/images/doc.png" width="45px" alt="file">
+                        <div class="info">
+                            <h4 class="name">
+                                {{ file?.name }}
+                            </h4>
+                            <p class="size">
+                                {{ formatBytes(file?.size) }}
+                            </p>
+                            <app-progress [progress]="file?.progress"></app-progress>
+                        </div>
+                        <img src="assets/images/delete.png" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+
+                    </div>
+                </div>
+                <button type="submit" (click)="submit()" class="btn btn-outline-success" [disabled]="!files.length">Ajouter</button>
+
+            </div>
+
+        </div>

@@ -35,7 +35,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component';
+import { DocDeleteComponent } from './GestionDoc/doc-delete/doc-delete.component';
+import { ProgressComponent } from './GestionDoc/progress/progress.component';
+import { DndDirective } from './GestionDoc/dnd.directive';
+import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +60,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     UserDetailsComponent,
     UserUpdateComponent,
     UserEnattenteComponent,
+    DocUploadComponent,
+    DocDeleteComponent,
+    ProgressComponent,
+    DndDirective,
+    DocViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +79,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BrowserAnimationsModule,
     MatDialogModule,
     NgxPaginationModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    AngularFileUploaderModule
   ],
  /* providers: [
     AuthGuard,

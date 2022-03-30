@@ -56,12 +56,17 @@
         </div>
 
     </div>
-    <div class="alert alert-success " *ngIf="isLoggedIn">
-        Logged in as {{ roles }}.
-    </div>
-</div>
 
-<!-- Footer -->
-<div class="container-fluid text-center footer ">
-    <p>@copyright, NeoXam 2022</p>
-</div>
+    <div *ngIf="isLoggedIn" class="container mt-5">
+        <div class="card text-center container-fluid mb-3" style='padding: 20px; width:600px ; '>
+            <h1>
+                <Strong>Bienvenue chez </Strong> </h1>
+            <img class="img-responsive" [src]=" background " alt=" " />
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="container-fluid text-center footer ">
+        <p>@copyright, NeoXam 2022</p>
+    </div>

@@ -14,6 +14,9 @@ import { UserCreateComponent } from './GestionUser/user-create/user-create.compo
 import {UserDetailsComponent} from './GestionUser/user-details/user-details.component';
 import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
 import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enattente.component';
+import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component';
+import { DocDeleteComponent } from './GestionDoc/doc-delete/doc-delete.component';
+import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -31,6 +34,9 @@ const routes: Routes = [
   {path:'user-details/:id',component:UserDetailsComponent},
   {path:'user-update/:id',component:UserUpdateComponent},
   {path:'user-enattente',component:UserEnattenteComponent},
+  {path:'doc-upload',component:DocUploadComponent},
+  {path:'doc-delete/:id',component:DocDeleteComponent},
+  {path:'doc-view',component:DocViewComponent},
   {path:'',component:HomeComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full' },
 
