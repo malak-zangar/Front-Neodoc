@@ -14,43 +14,40 @@
                         <li class="nav-item dropdown" *ngIf="showAdminBoard">
                             <a *ngIf="isLoggedIn" class="nav-link active dropdown-toggle" aria-current="page" href="#" id="navbarDropdown navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion des utilisateurs</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="user-enattente">lister les utilisateurs en attente</a></li>
-                                <li> <a class="dropdown-item" href="user-list">lister tous les utilisateurs</a></li>
-                                <li> <a class="dropdown-item" href="user-create">ajouter un administrateur</a></li>
+                                <li><a class="dropdown-item" href="user-enattente">Lister les utilisateurs en attente</a></li>
+                                <li> <a class="dropdown-item" href="user-list">Lister tous les utilisateurs</a></li>
+                                <li> <a class="dropdown-item" href="user-create">Ajouter un administrateur</a></li>
 
                             </ul>
                         </li>
                     </ul>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown" *ngIf="showAdminBoard">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" *ngIf="isLoggedIn" aria-current="page" href="#" id="navbarDropdown navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion des documents </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li> <a class="dropdown-item" href="doc-view">lister tous les documents</a></li>
-                                <li> <a class="dropdown-item" href="doc-upload">ajouter un document</a></li>
+                                <li> <a class="dropdown-item" href="doc-view">Lister tous les documents</a></li>
+                                <li> <a class="dropdown-item" href="doc-upload">Ajouter un document</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown" *ngIf="!showAdminBoard && isLoggedIn">
+                    <a class="nav-link active dropdown-toggle" href="doc-view">Lister tous les documents</a>
+                    <a class="nav-link active dropdown-toggle" href="doc-upload">Ajouter un document</a>
+                </div>
             </ul>
 
-            <button *ngIf="!isLoggedIn" type="button" class="btn-default" routerLink="/login">se connecter</button>
-            <button *ngIf="!isLoggedIn" type="button" class="btn-default" routerLink="/signup">s'enregistrer</button>
-            <!--
-            <ul class="navbar-nav me-auto mb2-m mb-lg-0 ml-auto ">
+            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/login">Se connecter</button>
+            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/signup">S'enregistrer</button>
 
-                <li class="nav-item">
-                    <a class="nav-link active" style="color:aqua" *ngIf="isLoggedIn" aria-current="page" routerLink="/profile"><br>{{username}}</a>
+            <ul class="navbar-nav ml-auto mb2-m mb-lg-0 auto" *ngIf="isLoggedIn">
+                <li class="nav-item ">
+                    <a routerLink="/profile" class="nav-link" style="color:aqua">{{ username }}</a>
                 </li>
-                <button *ngIf="isLoggedIn" (click)="logout()" type="button" class="btn-default">logout</button>
-            </ul> -->
-            <ul class="navbar-nav ml-auto mb2-m mb-lg-0" *ngIf="isLoggedIn">
-                <li class="nav-item">
-                    <a routerLink="/profile" class="nav-link" style="color:aqua" routerLink="profile">{{ username }}</a>
-                </li>
-                <li class="nav-item">
-                    <a href class="nav-link" (click)="logout()" class="btn-default" style="color:beige">déconnexion</a>
+                <li class="nav-item ">
+                    <a href class="nav-link " (click)="logout() " class="btn-default " style="color:beige ">déconnexion</a>
                 </li>
             </ul>
         </div>

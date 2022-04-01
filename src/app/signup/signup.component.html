@@ -68,16 +68,28 @@
                         </div>
 
                         <div class="row ">
-                            <label>choisissez votre département : </label><br>
+                            <label>choisissez votre poste : </label><br>
                             <select name="poste" id="poste" class="form__input" [(ngModel)]="form.poste" required #poste="ngModel"> 
-                                <option value="GP">GP</option>
-                                <option value="DataHub">DataHub</option>
-                                <option value="Impress">Impress</option>
-                                <option value="Comet">Comet</option>
+                            <optgroup label="DEV">
+                                <option value="Comet --DEV">Comet --DEV</option>
+                                <option value="DataHub --DEV">DataHub --DEV</option>
+                                <option value="GP --DEV">GP --DEV</option>
+                                <option value="Impress --DEV">Impress --DEV</option>
+                            </optgroup>
+                            <optgroup label="QA">
+                                <option value="Comet --QA">Comet --QA</option>
+                                <option value="DataHub --QA">DataHub --QA</option>
+                                <option value="GP --QA">GP --QA</option>
+                                <option value="Impress --QA">Impress --QA</option>
+                            </optgroup>
+                            <optgroup label="Autre">
+                                <option value="Commerce">Commerce</option>
                                 <option value="IT">IT</option>
+                                <option value="RH">RH</option>
+                                </optgroup>
                             </select>
                             <div *ngIf="poste.errors && (poste.invalid && poste.touched)">
-                                <small class="text-danger" *ngIf="poste.errors?.['required']">le département est obligatoire</small>
+                                <small class="text-danger" *ngIf="poste.errors?.['required']">le poste est obligatoire</small>
                             </div>
                         </div>
                         <input [disabled]="f.form.invalid" type="submit" value="créer" class="btn-default">

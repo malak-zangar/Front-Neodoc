@@ -40,6 +40,7 @@ import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component
 import { DocDeleteComponent } from './GestionDoc/doc-delete/doc-delete.component';
 import { ProgressComponent } from './GestionDoc/progress/progress.component';
 import { DndDirective } from './GestionDoc/dnd.directive';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';  
 import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -80,7 +82,8 @@ import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
     MatDialogModule,
     NgxPaginationModule,
     MatFormFieldModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    NgxDocViewerModule
   ],
  /* providers: [
     AuthGuard,
@@ -90,6 +93,7 @@ import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
       multi:true},
       UserService
   ],*/
+
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })

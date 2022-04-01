@@ -7,24 +7,24 @@
             </div>
             <div class="panel-body ">
                 <div class="search-hero mat-form-field">
-                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Cherchez ce que vous voulez">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Filtrer">
                 </div>
                 <div class="table-responsive ">
                     <table class="table table-striped ">
                         <thead>
                             <tr disabled>
-                                <th>ID</th>
+                                <th></th>
                                 <th>Prénom</th>
                                 <th>Nom</th>
                                 <th>Nom d'utilisateur</th>
                                 <th>Email</th>
-                                <th>Département</th>
+                                <th>Poste</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText ">
-                                <td>{{user.id}}</td>
+                            <tr *ngFor="let user of users | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText , let i = index ">
+                                <td>{{i+1}}</td>
                                 <td>{{user.firstname}}</td>
                                 <td>{{user.lastname}}</td>
                                 <td>{{user.username}}</td>
