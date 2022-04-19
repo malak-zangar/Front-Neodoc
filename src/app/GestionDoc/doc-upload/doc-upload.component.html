@@ -1,74 +1,152 @@
 <div class="container mt-2" style='padding-top: 20px; '>
     <div class="card text-center" style=' color: #16ac98 ; padding: 20px;  margin-top: 20px; background-color: rgb(246, 253, 253); '>
-        <div class="col-md-80 col-xs-12 col-sm-12 ">
+        <div class="panel panel-primary">
+            <div class="col-md-80 col-xs-12 col-sm-12 ">
 
-            <div class="container-fluid">
-                <div class="row ">
-                    <h1 class="animate__animated animate__bounce mt-3"><strong>Ajouter un nouveau fichier </strong></h1>
-                </div>
-                <!-- <angular-file-uploader [config]="afuConfig"> </angular-file-uploader><br>
-                <hr/> Meth 1
-                <div class="container row">
-                    <div class="col-md-6">
-                        <input type="file" (change)="onFileChanged($event)">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="button" (click)="onUpload()" value="ajouter">
-                    </div>
-
-                    <div class="col-md-12">
-                        <small *ngIf="message!=''" class="text-danger">{{message}}</small>
-                    </div>
-                </div>
-                -->
-                <!--
                 <div class="container-fluid">
-                    <form #imageForm="ngForm" (ngSubmit)="OnSubmit(Caption,Image)">
-                        <div class=" row ">
-                            <input type="text" #Caption ngModel name="Caption" id="Caption" class="form__input" required>
-                            <input type="file" #Image (change)="handlerFileInput($any($event).target.files)">
-                            <button type="submit" class="btn btn-submit" [disabled]="Image.value=='' || !imageForm.valid">submit</button>
+                    <br>
+                    <small *ngIf="!isuploaded" class=" alert alert-danger">  Ajout d'un nouveau fichier échouée : {{errorMessage}}</small>
+                    <br>
+                    <div class="row ">
+                        <h1 class="animate__animated animate__bounce mt-3"><strong>Ajouter un nouveau fichier </strong></h1>
+                    </div>
 
+                    <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
+                        <input [disabled]="files.length!=0" class="inputt" type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($any($event).target.files)" />
+                        <img width="100px " src="assets/images/upload-icon.png " alt=" ">
+                        <h3>Glisser votre document ici</h3>
+                    </div>
+                    <h3>OU</h3>
+                    <label class="label" for="fileDropRef">Naviguer</label>
+                    <div class="files-list ">
+                        <div class="single-file " *ngFor="let file of files; let i=index ">
+                            <img src="assets/images/doc.png " width="45px " alt="file ">
+                            <div class="info ">
+                                <h4 class="name ">
+                                    {{ file?.name }}
+                                </h4>
+                                <p class="size ">
+                                    {{ formatBytes(file?.size) }}
+                                </p>
+                                <app-progress [progress]="file?.progress "></app-progress>
+                            </div>
+                            <br>
+                            <!--
+                            <mat-form-field class="input">
+                                <mat-chip-list #taglist>
+                                    <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
+                                        {{Tag}}
+                                        <mat-icon matChipRemove *ngIf="removable"> </mat-icon>
+                                    </mat-chip>
+                                    <input required minlength="2" maxlength="12" placeholder="Ajouter Tags" [matChipInputFor]="taglist" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
+                                </mat-chip-list>
+
+                            </mat-form-field> -->
+
+                            <form *ngIf="showAdminBoard" class="form-group animate__animated animate__backInDown" name="form" #f="ngForm" novalidate>
+
+                                <select name="dep" id="dep" class="form__input" required #dep="ngModel" [(ngModel)]="form.dep"> 
+                                <optgroup label="DEV">
+                                    <option value="Comet --DEV">Comet --DEV</option>
+                                    <option value="DataHub --DEV">DataHub --DEV</option>
+                                    <option value="GP --DEV">GP --DEV</option>
+                                    <option value="Impress --DEV">Impress --DEV</option>
+                                </optgroup>
+                                <optgroup label="QA">
+                                    <option value="Comet --QA">Comet --QA</option>
+                                    <option value="DataHub --QA">DataHub --QA</option>
+                                    <option value="GP --QA">GP --QA</option>
+                                    <option value="Impress --QA">Impress --QA</option>
+                                </optgroup>
+                                <optgroup label="Autre">
+                                    <option value="Commerce">Commerce</option>
+                                    <option value="IT">IT</option>
+                                    <option value="RH">RH</option>
+                                    </optgroup>
+                                </select>
+                            </form>
+                            <img src="assets/images/tag.png " class="delete " width="20px " alt="file " (click)="open(content,$event) " href="javascript:void(0); ">
+                            <img src="assets/images/delete.png " class="delete " width="25px " alt="file " (click)="deleteFile(i) ">
+
+                        </div>
+                    </div>
+                    <button type="submit " (click)="submit() " class="btn btn-outline-success " [disabled]="!files.length || files.length==0 || Tags.length==0 ">Ajouter</button>
+
+                </div>
+            </div>
+            <ng-template #content let-c="close " let-d="dismiss ">
+                <div class="modal-header ">
+                    <h1 class="panel-heading " style=' color: #16ac98' id="modal-basic-title ">Ajout des tags</h1>
+                    <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                                  <span aria-hidden="true ">×</span>    
+                    </button>
+                </div>
+
+                <div class="modal-body ">
+                    <form class="form-group animate__animated animate__backInDown ">
+                        <div class="form-group " style='color: #04352e'>
+                            <mat-form-field class="input">
+                                <mat-chip-list #taglist>
+                                    <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
+                                        {{Tag}}
+                                        <mat-icon matChipRemove *ngIf="removable"> </mat-icon>
+                                    </mat-chip>
+                                    <input required minlength="2" maxlength="12" placeholder="Ajouter Tags" [matChipInputFor]="taglist" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
+                                </mat-chip-list>
+
+                            </mat-form-field>
+                        </div>
+
+                        <div class="modal-footer ">
+                            <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
+                            <button type="button " class="btn btn-outline-info " (click)="c( 'yes') ">Ajouter</button>
                         </div>
                     </form>
                 </div>
-                <div class="container-fluid">
-                    <form #imageForm="ngForm" (ngSubmit)="submit()">
-                        <div class=" row ">
-                            <input type="text" #Caption ngModel name="Caption" id="Caption" class="form__input" required>
-                            <input type="file" #Image multiple (change)="onFileChange($event)">
-                            <button type="submit" class="btn btn-submit" [disabled]="Image.value=='' || !imageForm.valid">submit</button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
-                <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
-                    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($any($event).target.files)" />
-                    <img width="100px" src="assets/images/upload-icon.png" alt="">
-                    <h3>Glisser votre document ici</h3>
-                </div>
-                <h3>OU</h3>
-                <label for="fileDropRef">Naviger</label>
-                <div class="files-list">
-                    <div class="single-file" *ngFor="let file of files; let i = index">
-                        <img src="assets/images/doc.png" width="45px" alt="file">
-                        <div class="info">
-                            <h4 class="name">
-                                {{ file?.name }}
-                            </h4>
-                            <p class="size">
-                                {{ formatBytes(file?.size) }}
-                            </p>
-                            <app-progress [progress]="file?.progress"></app-progress>
-                        </div>
-                        <img src="assets/images/delete.png" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
-
-                    </div>
-                </div>
-                <button type="submit" (click)="submit()" class="btn btn-outline-success" [disabled]="!files.length">Ajouter</button>
-
-            </div>
+            </ng-template>
 
         </div>
+    </div>
+</div>
+
+
+<!--  <div class="table-responsive">
+                <div style="float: right">
+                    <div style="float: left; margin-right: 20px">
+                        <div class="input-group no-border">
+                            <label></label>
+                            <input #inputElement [(ngModel)]="searchTerm" style="height: 35px" class="form-control" placeholder="Search..." type="text" value="">
+                            <div class="input-group-append">
+                                <div style="height: 35px" class="input-group-text"><i style="font-size: 15px" class="nc-icon nc-zoom-split"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float: right;margin-right: 30px">
+                        <p-autoComplete (onSelect)="handelTagSelection()" (onUnselect)="handelTagSelection()" [style]="{width: '100%', minWidth: '200px'}" [(ngModel)]="selectedSearchTags" [suggestions]="filteredTags" (completeMethod)="filterTags($event)" field="label" [multiple]="true"
+                            [minLength]=" 1 " [dropdown]="true ">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <table class="table ">
+                    <thead class=" text-primary ">
+                        <th>File Name</th>
+                        <th>Content Type</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of fileInfos | async ">
+                            <td>
+                                {{file.titre}}
+                            </td>
+                            <td>
+                                {{file.type}}
+                            </td>
+                            <td>
+                                <a href="{{file.url}} " matTooltip="Download This File " class="btn btn-primary btn-sm "><i class="fas fa-file-download "></i> </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+<div #container></div>

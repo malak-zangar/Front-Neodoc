@@ -1,0 +1,96 @@
+<div class="container mt-5" style=' padding-top: 20px; background-color: azure; '>
+    <div class="card text-center" style=' color: #16ac98 ; padding: 20px; '>
+        <div class="panel panel-primary">
+            <div class=" panel-heading ">
+                <h1><strong>Vos favoris</strong></h1>
+                <hr/>
+            </div>
+            <div class="panel-body ">
+                <input type="text" name="titre" [(ngModel)]="titre" (input)="Search()" placeholder="&#61442;  chercher par nom ">
+                <div id="toggle" style="left: 450px;"></div>
+                <div class="search-hero mat-form-field">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Filtrer ">
+                </div>
+                <div class="cardd" *ngFor="let doc of documents  | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText">
+
+                    <span>
+                    <img class=" delete " style="border-radius: 25px; " *ngIf="doc.type=='text/plain' || doc.type=='application/vnd.openxmlformats-officedocument.wordprocessingml.document' " src="assets/images/doc.png " width="65px " alt="file
+                    " (click)="afficher(doc.id) ">
+                    <img class="delete " *ngIf="doc.type=='application/pdf' " src="assets/images/pdff.png " width="65px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete " *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.presentationml.presentation' " src="assets/images/ppt.png " width="65px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete "  *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' " src="assets/images/excel.png " width="85px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete " style="border-radius: 25px; " *ngIf="doc.type=='application/zip' || doc.type=='application/rar' " src="assets/images/zip.png " width="95px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete " *ngIf="doc.type=='video/mp4' " src="assets/images/video.png " width="65px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete " *ngIf="doc.type=='image/png' ||doc.type=='image/jpeg' ||doc.type=='image/jpg' " src="assets/images/image.png " width="65px " alt="file " (click)="afficher(doc.id) ">
+                    <img class="delete " *ngIf="doc.type!='application/pdf' && doc.type!='image/png' && doc.type!='image/jpeg' && doc.type!='image/jpg' && doc.type!='video/mp4' && doc.type!='application/zip' && doc.type!='application/rar' && doc.type!='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    && doc.type!='text/plain' && doc.type !='application/vnd.openxmlformats-officedocument.presentationml.presentation' && doc.type !='application/vnd.openxmlformats-officedocument.wordprocessingml.document' " src="assets/images/other.png
+                    " width="65px " alt="file " (click)="afficher(doc.id) "></span>
+                    <span>
+                 
+                <div class="info ">
+                  <br>
+                    <h4 class="name ">
+                       {{ doc.titre }}
+                    </h4>
+                    <p class="size ">
+                        {{ doc.type }}
+                    </p>
+                    <br>
+                    <img src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
+                    <img src="assets/images/download.png " class="delete " width="30px " alt="file " (click)="downloadDoc(doc.id,doc.titre) ">
+                    <img *ngIf="showAdminBoard " src="assets/images/edit.png " class="delete " width="30px " alt="file " (click)="opene(contente,doc.id) " href="javascript:void(0); " >
+                    <img *ngIf="showAdminBoard " src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); ">
+                    <hr/> 
+                </div>
+              </span>
+                </div>
+                <div class="text-right ">
+                    <pagination-controls (pageChange)="p=$event "></pagination-controls>
+                </div>
+            </div>
+            <ng-template #content let-c="close " let-d="dismiss ">
+                <div class="modal-header ">
+                    <h4 class="modal-title " id="modal-basic-title ">Confirmation</h4>
+                    <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                              <span aria-hidden="true ">×</span>    
+                          </button>
+                </div>
+                <div class="modal-body ">
+                    <p>Etes vous sur de la suppression ?</p>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
+                    <button type="button " class="btn btn-outline-danger " (click)="c( 'yes') ">Supprimer</button>
+                </div>
+            </ng-template>
+
+            <ng-template #contente let-c="close " let-d="dismiss ">
+                <div class="modal-header ">
+                    <h1 class="panel-heading " style=' color: #16ac98' id="modal-basic-title ">Modification d'un document</h1>
+                    <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                              <span aria-hidden="true ">×</span>    
+                          </button>
+                </div>
+
+                <div class="modal-body ">
+                    <form class="form-group animate__animated animate__backInDown ">
+                        <div class="form-group " style='color: #04352e'>
+                            <label for="name ">Titre</label>
+                            <input #titre="ngModel" [(ngModel)]="doc.titre " type="text " class="form__input " id="titre " required name="titre ">
+
+                            <label for="name ">Type</label>
+                            <input #type="ngModel" [(ngModel)]="doc.type " disabled type="text " class="form__input " id="type " required name="type ">
+
+                        </div>
+
+                        <div class="modal-footer ">
+                            <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
+                            <button type="button " class="btn btn-outline-info " (click)="c( 'yes') ">modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+
+
+        </div>
+    </div>

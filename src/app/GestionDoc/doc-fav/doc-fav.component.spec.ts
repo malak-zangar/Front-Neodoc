@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocDeleteComponent } from './doc-delete.component';
+import { DocFavComponent } from './doc-fav.component';
 
-describe('DocDeleteComponent', () => {
-  let component: DocDeleteComponent;
-  let fixture: ComponentFixture<DocDeleteComponent>;
+describe('DocFavComponent', () => {
+  let component: DocFavComponent;
+  let fixture: ComponentFixture<DocFavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DocDeleteComponent ]
+      declarations: [ DocFavComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocDeleteComponent);
+    fixture = TestBed.createComponent(DocFavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

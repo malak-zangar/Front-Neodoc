@@ -15,8 +15,8 @@ import {UserDetailsComponent} from './GestionUser/user-details/user-details.comp
 import { UserUpdateComponent } from './GestionUser/user-update/user-update.component';
 import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enattente.component';
 import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component';
-import { DocDeleteComponent } from './GestionDoc/doc-delete/doc-delete.component';
 import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
+import { DocFavComponent } from './GestionDoc/doc-fav/doc-fav.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -35,9 +35,10 @@ const routes: Routes = [
   {path:'user-update/:id',component:UserUpdateComponent},
   {path:'user-enattente',component:UserEnattenteComponent},
   {path:'doc-upload',component:DocUploadComponent},
-  {path:'doc-delete/:id',component:DocDeleteComponent},
   {path:'doc-view',component:DocViewComponent},
+  {path:'doc-fav',component:DocFavComponent},
   {path:'',component:HomeComponent},
+  {path:'search/:searchTerm',component:DocViewComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full' },
 
   

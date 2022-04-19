@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../GestionUser/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,15 @@ export class GestionDocService {
 
   constructor(private http: HttpClient) { }
 
-  uploadDoc(document: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/upload`, document);
+  uploadDoc(document: Object,tags:Set<String>): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/upload`, {document,tags});
   }
   getDocList(): Observable<any> {
     return this.http.get(`${this.baseUrl}/list`);
+  }
+
+  getDocListFav(id: number): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/favorite/doc/${id}`);
   }
 
   deleteDoc(id: number): Observable<any> {
@@ -29,9 +34,23 @@ export class GestionDocService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  downloadDoc(id:number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/download/${id}`,
-    {observe:'response',responseType:'blob'});
+  getDocByName(titre: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/name/${titre}`);
   }
+
+  downloadDoc(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/download/${id}`,{observe:'response',responseType:'blob'});
+  }
+
+  AddToFav(idu: number , idd: number): Observable<Object> {
+    return this.http.put(`http://localhost:9090/api/favorite/doc/${idu}/${idd}`, { responseType: 'text' });}
+
+  RemoveFromFav(idu:number,idd:number): Observable<Object> {
+    return this.http.delete(`http://localhost:9090/api/favorite/doc/${idu}/${idd}`, { responseType: 'text' });}
  
+    ToFav(idu: number , fav: any[]): Observable<Object> {
+      return this.http.put(`http://localhost:9090/api/favorite/doc/${idu}`,{fav}, { responseType: 'text' });}
+
 }
+
+

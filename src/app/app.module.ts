@@ -37,11 +37,20 @@ import { MatInputModule } from '@angular/material/input';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component';
-import { DocDeleteComponent } from './GestionDoc/doc-delete/doc-delete.component';
 import { ProgressComponent } from './GestionDoc/progress/progress.component';
 import { DndDirective } from './GestionDoc/dnd.directive';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';  
 import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
+import { DocFavComponent } from './GestionDoc/doc-fav/doc-fav.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { FileUploadModule } from 'ng2-file-upload';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
+import {CommonModule} from "@angular/common";
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import {DialogModule, Dialog} from 'primeng/dialog'
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,12 +71,13 @@ import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
     UserUpdateComponent,
     UserEnattenteComponent,
     DocUploadComponent,
-    DocDeleteComponent,
     ProgressComponent,
     DndDirective,
     DocViewComponent,
+    DocFavComponent,
   ],
   imports: [
+    MatProgressSpinnerModule,
     BrowserModule,
     NgbModule,
     AppRoutingModule,
@@ -83,7 +93,15 @@ import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
     NgxPaginationModule,
     MatFormFieldModule,
     AngularFileUploaderModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    MatChipsModule,
+    FileUploadModule,
+    AutoCompleteModule,
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    DialogModule,
+ //Dialog
   ],
  /* providers: [
     AuthGuard,
