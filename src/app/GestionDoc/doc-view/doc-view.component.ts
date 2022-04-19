@@ -32,7 +32,6 @@ count: number = 15;
 searchText;
 searchTerm: string = "";
 
-
 //titre;
 //dep;
 form:any={titre:null,type:null,departements: null};
@@ -86,7 +85,7 @@ userid:any;
  }
   else*/
       this.reloadData();
-     myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
+    // myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
      this.userid = this.user.id;
      console.log( this.user, this.userid,myfile);
 
@@ -219,20 +218,16 @@ console.log(this.user.doc_favoris);
         this.form['type']=this.doc.type;
         this.form['departements']=this.doc.departements;
 
+        for(var i=0;i<this.doc.tags.length;i++){
+        this.Tags.push(this.doc.tags[i].libelle);
+        console.log(this.doc.tags[i].libelle);
+      }
+
         this.id=id;
         console.log(this.form);
         console.log(this.doc.tags);
-      }, error => console.log(error));
-     /* this.docu = new Document();
-      this.gestionDocService.getDoc(id)
-      .subscribe(data => {
-        console.log(data)
-        this.docu = data;
-        this.id=id;
-        console.log(this.docu);
-
-        console.log("hedhy",this.docu.gettags());
-      }, error => console.log(error));*/
+      }, 
+      error => console.log(error));
 
       this.modalService.open(contente, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
         this.closeResult = `Closed with: ${result}`;  
@@ -241,16 +236,21 @@ console.log(this.user.doc_favoris);
           this.updateDoc()
         }  
       }, (reason) => {  
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
+        this.Tags=[];  
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`
       });  
     }  
 
-    private getDismissReason(reason: any): string {  
-      if (reason === ModalDismissReasons.ESC) {  
+    private getDismissReason(reason: any): string { 
+ 
+      if (reason === ModalDismissReasons.ESC) { 
+        this.Tags=[];  
         return 'by pressing ESC';  
       } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {  
+        this.Tags=[];  
         return 'by clicking on a backdrop';  
       } else {  
+        this.Tags=[];  
         return `with: ${reason}`;  
       }  
     }  
@@ -262,36 +262,28 @@ console.log(this.user.doc_favoris);
       console.log(this.form , titre , type , departements);
       const formData = new FormData();
 
-    /*  this.gestionDocService.updateDoc(this.id, this.doc).subscribe(
-        data => {
-          console.log(this.doc.tag);
-          console.log(data);
-          this.doc = new Document();
-            this.reloadData();
-            alert('document modifié avec succcés.'); 
-          
-          }, 
-        error => console.log(error));
-    }*/
-  
     formData.append("titre",titre);
     formData.append("dep",departements);
     for (var j=0;j<this.Tags.length;j++){
       formData.append("tags",this.Tags[j]);}
-  //  this.gestionDocService.updateDoc(this.id, this.doc,this.Tags).subscribe(
-   console.log(titre+" "+departements+ " " +this.Tags);
+    console.log(titre+" "+departements+ " " +this.Tags);
     this.httpClient.put('http://localhost:9090/document/update/'+this.id,formData)
     .subscribe(
       data => {
         this.doc = new Document();
           this.reloadData();
           alert('document modifié avec succcés.'); 
-        
+        this.Tags=[];
         }, 
-      error => console.log(error));}
+      error => {console.log(error);
+        alert("Modification échouée essayer autrement, peut etre le nom du fichier " + titre + " existe déja dans le departement " + departements);
+        this.Tags=[];
+      }
+      ); }
   
     retour(){
       this.router.navigate(['doc-view']);
+      this.Tags=[];  
     }
 
     //afficher doc

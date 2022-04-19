@@ -36,12 +36,17 @@
                             {{ doc.titre }}
                             </h4>
                             <p class="size ">
-                                Département : {{ doc.departements }}
+                                <b>Département :</b> {{ doc.departements }}
+                            </p>
+                            <br>
+                            <p class="size"><b>Tags :</b> </p>
+                            <p class="size" *ngFor="let lib of doc.tags">
+                                - {{ lib.libelle }} 
                             </p>
                             <p class="dep ">
-                                Type : {{ doc.type }}
+                            <b> Type : </b>{{ doc.type }}
                             </p>
-                           
+                          
                             <br>
                             <img *ngIf="favorita(doc)" src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc)">
                             <img *ngIf="!favorita(doc)" src="assets/images/coeur.png " class="delete " width="30px " alt="file " (click)="tofav(doc)">
