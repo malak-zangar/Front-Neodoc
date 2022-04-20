@@ -33,8 +33,17 @@
                        {{ doc.titre }}
                     </h4>
                     <p class="size ">
-                        {{ doc.type }}
+                        <b>Département :</b> {{ doc.departements }}
                     </p>
+                    <br>
+                    <p class="size"><b>Tags :</b> </p>
+                    <p class="size" *ngFor="let lib of doc.tags">
+                        - {{ lib.libelle }} 
+                    </p>
+                    <p class="dep ">
+                    <b> Type : </b>{{ doc.type }}
+                    </p>
+                  
                     <br>
                     <img src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
                     <img src="assets/images/download.png " class="delete " width="30px " alt="file " (click)="downloadDoc(doc.id,doc.titre) ">
@@ -73,24 +82,61 @@
                 </div>
 
                 <div class="modal-body ">
-                    <form class="form-group animate__animated animate__backInDown ">
+
+                    <form class="form-group animate__animated animate__backInDown " name="form" #f="ngForm">
                         <div class="form-group " style='color: #04352e'>
                             <label for="name ">Titre</label>
-                            <input #titre="ngModel" [(ngModel)]="doc.titre " type="text " class="form__input " id="titre " required name="titre ">
+                            <input #titre="ngModel" titre [(ngModel)]="doc.titre " [(ngModel)]="form.titre " type="text " class="form__input " id="titre " required name="titre ">
 
                             <label for="name ">Type</label>
-                            <input #type="ngModel" [(ngModel)]="doc.type " disabled type="text " class="form__input " id="type " required name="type ">
+                            <input #type="ngModel" type [(ngModel)]="doc.type" disabled type="text " class="form__input " id="type " required name="type ">
 
-                        </div>
+                            <!-- <label for="name ">Tags</label>
+                            <input #tag="ngModel" [(ngModel)]="doc.tags" type="text " class="form__input " id="type " required name="tag"> -->
 
-                        <div class="modal-footer ">
-                            <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
-                            <button type="button " class="btn btn-outline-info " (click)="c( 'yes') ">modifier</button>
+                            <mat-form-field class="input">
+                                <mat-chip-list #taglist>
+                                    <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
+                                        {{Tag}}
+                                        <mat-icon matChipRemove *ngIf="removable"> </mat-icon>
+                                    </mat-chip>
+                                    <input required minlength="2" maxlength="12" placeholder="Ajouter Tags" [matChipInputFor]="taglist" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
+                                </mat-chip-list>
+
+                            </mat-form-field>
+                            -->
+                            <br>
+                            <label for="name ">Département</label>
+                            <select name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> 
+                                <optgroup label="DEV">
+                                    <option value="Comet --DEV">Comet --DEV</option>
+                                    <option value="DataHub --DEV">DataHub --DEV</option>
+                                    <option value="GP --DEV">GP --DEV</option>
+                                    <option value="Impress --DEV">Impress --DEV</option>
+                                </optgroup>
+                                <optgroup label="QA">
+                                    <option value="Comet --QA">Comet --QA</option>
+                                    <option value="DataHub --QA">DataHub --QA</option>
+                                    <option value="GP --QA">GP --QA</option>
+                                    <option value="Impress --QA">Impress --QA</option>
+                                </optgroup>
+                                <optgroup label="Autre">
+                                    <option value="Commerce">Commerce</option>
+                                    <option value="IT">IT</option>
+                                    <option value="RH">RH</option>
+                                    </optgroup>
+                                </select>
                         </div>
                     </form>
                 </div>
-            </ng-template>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-outline-secondary " (click)="d( 'Cross click') ">Annuler</button>
+                    <button type="button " class="btn btn-outline-info " (click)="c( 'yes') ">modifier</button>
+                </div>
 
+
+            </ng-template>
 
         </div>
     </div>
+</div>

@@ -10,7 +10,9 @@ import { User } from 'src/app/GestionUser/user';
 import { DomSanitizer } from "@angular/platform-browser";
 import {filter} from 'rxjs/operators';
 import { UserServiceGestService } from 'src/app/GestionUser/user-service-gest.service';
-
+import { MatChipInputEvent } from '@angular/material/chips';
+import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
+import { HttpClient } from '@angular/common/http';
 
 var myfile = [];
 
@@ -21,6 +23,9 @@ var myfile = [];
   styleUrls: ['./doc-fav.component.scss']
 })
 export class DocFavComponent implements OnInit {
+
+  form:any={titre:null,type:null,departements: null};
+  Tags: string[] = [];
 
   p: number = 1;
   count: number = 15;
@@ -45,7 +50,7 @@ export class DocFavComponent implements OnInit {
   
   userid:any;
   
-    constructor(private route: ActivatedRoute,private userService: UserServiceGestService, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,    private sanitizer: DomSanitizer,
+    constructor(private httpClient: HttpClient,private route: ActivatedRoute,private userService: UserServiceGestService, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,    private sanitizer: DomSanitizer,
       ) { }
   
       ngOnInit() {
@@ -193,6 +198,14 @@ export class DocFavComponent implements OnInit {
         .subscribe(data => {
           console.log(data)
           this.doc = data;
+          this.form['titre']=this.doc.titre;
+          this.form['type']=this.doc.type;
+          this.form['departements']=this.doc.departements;
+  
+          for(var i=0;i<this.doc.tags.length;i++){
+          this.Tags.push(this.doc.tags[i].libelle);
+          console.log(this.doc.tags[i].libelle);
+        }
           this.id=id;
         }, error => console.log(error));
   
@@ -202,31 +215,52 @@ export class DocFavComponent implements OnInit {
             this.updateDoc();  
           }  
         }, (reason) => {  
+          this.Tags=[];  
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
         });  
       }  
   
       private getDismissReason(reason: any): string {  
         if (reason === ModalDismissReasons.ESC) {  
+          this.Tags=[]; 
           return 'by pressing ESC';  
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {  
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) { 
+          this.Tags=[];   
           return 'by clicking on a backdrop';  
         } else {  
+          this.Tags=[];  
           return `with: ${reason}`;  
         }  
       }  
       
       updateDoc() {
-        this.gestionDocService.updateDoc(this.id, this.doc).subscribe(
-          data => {
-            console.log(data);
-            this.doc = new Document();
-              this.reloadData(); }, 
-          error => console.log(error));
-      }
+        let {titre,type,departements} = this.form;
+        console.log(this.form , titre , type , departements);
+        const formData = new FormData();
+  
+      formData.append("titre",titre);
+      formData.append("dep",departements);
+      for (var j=0;j<this.Tags.length;j++){
+        formData.append("tags",this.Tags[j]);}
+      console.log(titre+" "+departements+ " " +this.Tags);
+      this.httpClient.put('http://localhost:9090/document/update/'+this.id,formData)
+      .subscribe(
+        data => {
+          this.doc = new Document();
+            this.reloadData();
+            alert('document modifié avec succcés.'); 
+          this.Tags=[];
+          }, 
+        error => {console.log(error);
+          alert("Modification échouée essayer autrement, peut etre le nom du fichier " + titre + " existe déja dans le departement " + departements);
+          this.Tags=[];
+        }
+        ); }
     
       retour(){
         this.router.navigate(['doc-view']);
+        this.Tags=[];  
+
       }
   
       //afficher doc
@@ -255,7 +289,37 @@ export class DocFavComponent implements OnInit {
         return bytes.buffer;
       }
   
-  
+      visible = true;
+      selectable = true;
+      removable = true;
+        
+    /*set the separator keys.*/
+      readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
+    /*our custom add method which will take matChipInputTokenEnd event as input.*/
+      add(event: MatChipInputEvent): void {
+    /*we will store the input and value in local variables.*/
+        const input = event.input;
+        const value = event.value;
+        if ((value || '').trim()) {  
+     /*the input string will be pushed to the tag list.*/
+          this.Tags.push(value);
+        }
+        if (input) {
+    /*after storing the input we will clear the input field.*/
+          input.value = '';
+        }
+      }
+      
+    /*custom method to remove a tag.*/
+      remove(tag: string): void {
+        const index = this.Tags.indexOf(tag);
+        if (index >= 0) 
+        {/*the tag of a particular index is removed from the tag list.*/
+          this.Tags.splice(index, 1);
+        }
+      }
+
+
   /*
       Remember(id: number) {
         this.gestionDocService.getDoc(id).subscribe((data) => {

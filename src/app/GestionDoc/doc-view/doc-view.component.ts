@@ -54,8 +54,8 @@ retrievedFile: any;
 i:number;
 private roles: string[] = [];
 isLoggedIn = false;
-showAdminBoard = false;
-
+//showAdminBoard = false;
+showAdminBoard:boolean;
 userid:any;
 
   constructor(private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
@@ -85,7 +85,7 @@ userid:any;
  }
   else*/
       this.reloadData();
-    // myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
+     myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
      this.userid = this.user.id;
      console.log( this.user, this.userid,myfile);
 

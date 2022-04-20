@@ -22,6 +22,14 @@ p {
 
 .size {
     font-weight: 500;
+    color: #949090;
+    margin: 0;
+    margin-bottom: 0.25rem;
+    display: inline;
+}
+
+.dep {
+    font-weight: 500;
     color: #a4a4a4;
     margin: 0;
     margin-bottom: 0.25rem;
@@ -33,6 +41,7 @@ p {
 
 .search-hero {
     max-width: 500px;
+    min-width: 500px;
     padding-bottom: 20px;
     margin: auto;
 }

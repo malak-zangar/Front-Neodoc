@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
-                        <input [disabled]="files.length!=0" class="inputt" type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($any($event).target.files)" />
+                        <input class="inputt" [disabled]="files.length!=0" type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($any($event).target.files)" />
                         <img width="100px " src="assets/images/upload-icon.png " alt=" ">
                         <h3>Glisser votre document ici</h3>
                     </div>
@@ -70,7 +70,7 @@
 
                         </div>
                     </div>
-                    <button type="submit " (click)="submit() " class="btn btn-outline-success " [disabled]="!files.length || files.length==0 || Tags.length==0 ">Ajouter</button>
+                    <button type="submit " (click)="submit() " class="btn btn-outline-success " [disabled]="!files.length || files.length==0 || Tags.length==0 || form.dep==null">Ajouter</button>
 
                 </div>
             </div>
