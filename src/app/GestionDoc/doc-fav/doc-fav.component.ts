@@ -38,7 +38,7 @@ export class DocFavComponent implements OnInit {
   id: number;
   isfav: boolean;
   idu:number;
-  user:User=this.tokenStorageService.getUser();
+  user:User;
   
   retrieveResonse: any;
   base64Data: any;
@@ -46,7 +46,7 @@ export class DocFavComponent implements OnInit {
   
   private roles: string[] = [];
   isLoggedIn = false;
-  showAdminBoard = false;
+  showAdminBoard : boolean;
   
   userid:any;
   
@@ -54,101 +54,44 @@ export class DocFavComponent implements OnInit {
       ) { }
   
       ngOnInit() {
-        myfile = JSON.parse(
-          localStorage.getItem(this.tokenStorageService.getUser().id)
-        );
-      //  const user = this.tokenStorageService.getUser();
+      this.user=this.tokenStorageService.getUser()
         this.userid = this.user.id;
-      console.log( this.user, this.userid,myfile,'hh');
+        console.log( this.user, this.userid,myfile,'hh');
         this.reloadData();
-  
-  /*
-        this.reloadData();
+       
         this.idu=this.tokenStorageService.getId();
-        this.user=this.tokenStorageService.getUser();
-      console.log(this.idu , this.user);*/
       this.roles = this.tokenStorageService.getUser().roles;
-      console.log(this.roles);
+      console.log(this.idu , this.user,this.roles);
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
     } 
   
       reloadData() {
-      //  this.documents = this.gestionDocService.getDocListFav(this.userid);
-        this.documents=myfile;
+       this.documents = this.gestionDocService.getDocListFav(this.userid);
       console.log(this.documents);
-
-/*
-        this.gestionDocService.getDoc(doc.id).subscribe((data) => {
-        
-          if(this.user.doc_favoris.indexOf(doc)==-1){
-          myfile.push(doc);
-          console.log("tpusha", myfile);
-  
-          localStorage.setItem(this.userid, JSON.stringify(myfile));
-          console.log("done");}
-        });
-  
-        this.userService.updateUser(this.user.id,this.user).subscribe(
-          data => {
-            console.log(data, "updated");
-          },
-          error => {
-            console.log(error);
-          }
-        );
-        this.favorita(doc);
-      }*/
-
 
       console.log(this.userid, "reload" , this.documents);}
   
-      tofav(idd:any){
-        this.gestionDocService.AddToFav(this.userid,idd).subscribe(
-          data => {
-            console.log(data);
-            this.reloadData();
-          },
-          error => console.log(error));
-        console.log(this.userid , idd , 'hna');
-        this.isfav=true;
-  
-      }
-  
-       /* fromfav(idd:number){
-      this.gestionDocService.RemoveFromFav(this.userid,idd).subscribe(
-          data => {
-            console.log(data);
-            this.reloadData();
-          },
-          error => console.log(error));
-        this.isfav=false;*/
-        fromfav(doc:any){
-            const index: number = myfile.indexOf(doc);
-            if (index != -1){
-              //this.user.doc_favoris.splice(index,1);
-              myfile.splice(index,1);
-             localStorage.removeItem(JSON.stringify(myfile[index]));
-             localStorage.setItem(this.userid, JSON.stringify(myfile));
-
-            }
-            this.userService.updateUser(this.user.id,this.user).subscribe(
+      fromfav(doc:any){
+            this.user.doc_favoris.splice(this.user.doc_favoris.indexOf(doc),1);
+            this.httpClient.delete('http://localhost:9090/api/favorite/doc/'+this.userid+'/'+doc.id)
+            .subscribe(
               data => {
-                console.log(data);
-              },
-              error => {
-                console.log(error);
-              }
-            );
+                this.tokenStorageService.saveUser(this.user);
+                  this.reloadData();
+                  alert('document retiré du fav.'); 
+                }, 
+              error => {console.log(error);
+                alert("doc non retiré");  }
+              );
             this.favorita(doc);
-            console.log(myfile);
+
       }
 
       i:number;
 
       favorita(doc){
         this.i = 0;
-     // this.user.doc_favoris.forEach(ff =>  {
-      myfile?.forEach(ff =>  {  
+      this.user.doc_favoris?.forEach(ff =>  {
      if(ff.id == doc.id){
           this.i++;
         }
@@ -317,25 +260,7 @@ export class DocFavComponent implements OnInit {
         {/*the tag of a particular index is removed from the tag list.*/
           this.Tags.splice(index, 1);
         }
-      }
-
-
-  /*
-      Remember(id: number) {
-        this.gestionDocService.getDoc(id).subscribe((data) => {
-          if (myfile == null) {
-            myfile = [];
-          }
-          myfile.push(data);
-          localStorage.setItem(this.userid, JSON.stringify(myfile));
-          this.tofav(myfile);
-          console.log("done");
-        });
-      }*/
-  
-  
-  
-  
+      }  
    
   titre:any; 
   

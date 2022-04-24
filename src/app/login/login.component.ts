@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.username=this.tokenStorage.getUser().username;
         this.isLoggedIn = true;
         this.isLoginFailed = false;
-        this.router.navigate(['/profile']);
+       // this.router.navigate(['/profile']);
         this.reloadPage();
 
       },

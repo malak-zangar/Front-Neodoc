@@ -6,12 +6,12 @@
                 <hr/>
             </div>
             <div class="panel-body ">
-                <input type="text" name="titre" [(ngModel)]="titre" (input)="Search()" placeholder="&#61442;  chercher par nom ">
+               <!--<input type="text" name="titre" [(ngModel)]="titre" (input)="Search()" placeholder="&#61442;  chercher par nom ">--> 
                 <div id="toggle" style="left: 450px;"></div>
                 <div class="search-hero mat-form-field">
                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Filtrer ">
                 </div>
-                <div class="cardd" *ngFor="let doc of documents  | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText">
+                <div class="cardd" *ngFor="let doc of documents | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText">
 
                     <span>
                     <img class=" delete " style="border-radius: 25px; " *ngIf="doc.type=='text/plain' || doc.type=='application/vnd.openxmlformats-officedocument.wordprocessingml.document' " src="assets/images/doc.png " width="65px " alt="file
@@ -47,7 +47,7 @@
                     <br>
                     <img src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
                     <img src="assets/images/download.png " class="delete " width="30px " alt="file " (click)="downloadDoc(doc.id,doc.titre) ">
-                    <img *ngIf="showAdminBoard " src="assets/images/edit.png " class="delete " width="30px " alt="file " (click)="opene(contente,doc.id) " href="javascript:void(0); " >
+                    <img src="assets/images/edit.png " class="delete " width="30px " alt="file " (click)="opene(contente,doc.id) " href="javascript:void(0); " >
                     <img *ngIf="showAdminBoard " src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); ">
                     <hr/> 
                 </div>
@@ -91,9 +91,6 @@
                             <label for="name ">Type</label>
                             <input #type="ngModel" type [(ngModel)]="doc.type" disabled type="text " class="form__input " id="type " required name="type ">
 
-                            <!-- <label for="name ">Tags</label>
-                            <input #tag="ngModel" [(ngModel)]="doc.tags" type="text " class="form__input " id="type " required name="tag"> -->
-
                             <mat-form-field class="input">
                                 <mat-chip-list #taglist>
                                     <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
@@ -104,10 +101,12 @@
                                 </mat-chip-list>
 
                             </mat-form-field>
-                            -->
+                           
                             <br>
                             <label for="name ">Département</label>
-                            <select name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> 
+                            <div *ngIf="showAdminBoard">
+                                <select name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> 
+
                                 <optgroup label="DEV">
                                     <option value="Comet --DEV">Comet --DEV</option>
                                     <option value="DataHub --DEV">DataHub --DEV</option>
@@ -126,6 +125,29 @@
                                     <option value="RH">RH</option>
                                     </optgroup>
                                 </select>
+                            </div>
+                            <div *ngIf="!showAdminBoard">
+                                <select disabled name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> 
+
+                                <optgroup label="DEV">
+                                    <option value="Comet --DEV">Comet --DEV</option>
+                                    <option value="DataHub --DEV">DataHub --DEV</option>
+                                    <option value="GP --DEV">GP --DEV</option>
+                                    <option value="Impress --DEV">Impress --DEV</option>
+                                </optgroup>
+                                <optgroup label="QA">
+                                    <option value="Comet --QA">Comet --QA</option>
+                                    <option value="DataHub --QA">DataHub --QA</option>
+                                    <option value="GP --QA">GP --QA</option>
+                                    <option value="Impress --QA">Impress --QA</option>
+                                </optgroup>
+                                <optgroup label="Autre">
+                                    <option value="Commerce">Commerce</option>
+                                    <option value="IT">IT</option>
+                                    <option value="RH">RH</option>
+                                    </optgroup>
+                                </select>
+                            </div>
                         </div>
                     </form>
                 </div>

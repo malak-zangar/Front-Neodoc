@@ -4,7 +4,6 @@ import { Tag } from "./tag";
 export class Document {
     id: number;
     titre: string;
-    url: string;
     type:string;
     data:Byte[];
     tags:Tag[];

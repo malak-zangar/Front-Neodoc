@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../GestionUser/user';
 
 @Injectable({
@@ -42,8 +42,6 @@ export class GestionDocService {
     return this.http.get(`${this.baseUrl}/download/${id}`,{observe:'response',responseType:'blob'});
   }
 
-  AddToFav(idu: number , idd: number): Observable<Object> {
-    return this.http.put(`http://localhost:9090/api/favorite/doc/${idu}/${idd}`, { responseType: 'text' });}
 
   RemoveFromFav(idu:number,idd:number): Observable<Object> {
     return this.http.delete(`http://localhost:9090/api/favorite/doc/${idu}/${idd}`, { responseType: 'text' });}

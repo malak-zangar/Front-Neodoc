@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
   closeResult: string;  
   users: Observable<User[]>;
   p: number = 1;
-  count: number = 5;
+  count: number = 7;
   searchText;
   
   constructor(private userServiceGestService: UserServiceGestService,

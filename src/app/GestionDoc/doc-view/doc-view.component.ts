@@ -14,7 +14,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
 
-var myfile = [];
+var myfile = [] ;
 
 
 @Component({
@@ -46,107 +46,100 @@ doc:any;
 id: number;
 isfav: boolean;
 idu:number;
-user:User=this.tokenStorageService.getUser();
-
+user:User;
+usere:User;
 retrieveResonse: any;
 base64Data: any;
 retrievedFile: any;
 i:number;
 private roles: string[] = [];
 isLoggedIn = false;
-//showAdminBoard = false;
 showAdminBoard:boolean;
 userid:any;
 
-  constructor(private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
+  constructor(private userservice:UserServiceGestService,private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
     ) { }
 
     ngOnInit() {
 
-
 //this.route.params.subscribe(params => {
-  
  /* if(params['searchTerm']) {
     this.searchTerm=params['searchTerm'];
-  this.documents=this.gestionDocService.getDocList().pipe(filter(doc => doc.titre.toLocaleLowerCase().includes(params['searchTerm'].toLocaleLowerCase())));
-  myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
-  this.userid = this.user.id;
-  console.log( this.user, this.userid,myfile);*/
+  this.documents=this.gestionDocService.getDocList().
+  pipe(filter(doc => doc.titre.toLocaleLowerCase().includes(params['searchTerm'].toLocaleLowerCase())));
+ */
+  this.getActivatedUser();
 
-/*
-   this.reloadData();
-   this.idu=this.tokenStorageService.getId();
-   this.user=this.tokenStorageService.getUser();
- console.log(this.idu , this.user);*/
- /*this.roles = this.tokenStorageService.getUser().roles;
- console.log(this.roles);
- this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+  this.reloadData();
 
- }
-  else*/
-      this.reloadData();
-     myfile = JSON.parse( localStorage.getItem(this.tokenStorageService.getUser().id));
-     this.userid = this.user.id;
-     console.log( this.user, this.userid,myfile);
-
-/*
-      this.reloadData();
-      this.idu=this.tokenStorageService.getId();
-      this.user=this.tokenStorageService.getUser();
-    console.log(this.idu , this.user);*/
-    this.roles = this.tokenStorageService.getUser().roles;
-    console.log(this.roles);
-    this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
- // })
+    //this.user=this.tokenStorageService.getUser();
    
+   // this.userid = this.user.id;
+    //console.log( this.user, this.userid);
+    //this.roles = this.tokenStorageService.getUser().roles;
+    //console.log(this.roles);
+    //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+    this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
   } 
+users:any;
+  getActivatedUser(){
+    this.userService.getUserList().subscribe(data => {
+      this.users = data;
+      console.log(this.tokenStorageService.getId());
+      console.log(this.users.length);
+      for(let aU of this.users){
+        console.log(aU.id);
+        if(aU.id === this.tokenStorageService.getId()){
+          console.log(aU.id);
+          this.user = aU;
+          break;
+        }
+      }
+      console.log("ererererererere");
+      console.log (this.user);
+      
+    });
+  }
 
     reloadData() {
       this.documents = this.gestionDocService.getDocList();
-    console.log(this.documents);}
+
+   /*   for(var i=0;i<this.documents.length;i++){
+        this.favorita(this.documents[i]);
+      }*/
+   }
 
     tofav(doc:any){
-     // this.gestionDocService.AddToFav(this.userid,doc.idd);
-      //console.log(this.userid , doc.idd , 'hna');
-     
-      /*if(this.user.doc_favoris.indexOf(doc)==-1){
-       this.user.doc_favoris.push(doc);
-        console.log("tpusha");
-      }*/
-     
+      if(this.user.doc_favoris.indexOf(doc)==-1){
+        this.user.doc_favoris.push(doc);
+      //  this.tokenStorageService.saveUser(this.user);
+      }
 
       this.gestionDocService.getDoc(doc.id).subscribe((data) => {
-        console.log(myfile);
-        if(this.user.doc_favoris.indexOf(doc)==-1){
-        if(myfile?.indexOf(doc)==-1){
-            console.log(myfile);
-
-            myfile?.push(doc);
-            console.log("tpusha", myfile);
-            this.user.doc_favoris.push(doc);
-console.log(this.user.doc_favoris);
-
-            localStorage.setItem(this.userid, JSON.stringify(myfile));
-            console.log("done");
-          /* console.log(typeof( this.user.doc_favoris));
-              this.gestionDocService.ToFav(this.user.id, this.user.doc_favoris).subscribe(
+        console.log(data);
+              const formData = new FormData();
+              formData.append("doc",doc.id);
+              this.httpClient.put('http://localhost:9090/api/favorite/addtofav/'+this.user.id+'/'+doc.id,formData)
+              .subscribe(
                 data => {
-                  console.log(data, "updated");
-                },
-                error => {
-                  console.log(error);
-                }
-              );*/
-      }
-    } 
+                  console.log(data);
+                    this.reloadData();
+                    console.log(this.user.doc_favoris);
+                   // alert('document ajouté au fav.');
+                    console.log(this.user);
+                  }, 
+                error => {console.log(error);
+                  alert("doc non ajouté"); }
+                ); 
+
       });
       this.favorita(doc);
     }
 
-    favorita(doc){
+    favorita(doc:any){
+    
       this.i = 0;
-   // this.user.doc_favoris.forEach(ff =>  {
-    myfile?.forEach(ff =>  {  
+    this.user.doc_favoris.forEach(ff =>  {
    if(ff.id == doc.id){
         this.i++;
       }
@@ -156,20 +149,31 @@ console.log(this.user.doc_favoris);
     }
 
     fromfav(doc:any){
-    //  this.gestionDocService.RemoveFromFav(this.userid,idd);
-     // this.isfav=false;
+      if(this.user.doc_favoris.indexOf(doc)!= -1){
+        console.log(this.user.doc_favoris.indexOf(doc));
+        console.log(this.user.doc_favoris);
+        this.user.doc_favoris.splice(this.user.doc_favoris.indexOf(doc),1);
+        console.log(this.user.doc_favoris.indexOf(doc));
+        console.log(this.user.doc_favoris);
+      //  this.tokenStorageService.saveUser(this.user);
+        this.reloadData();
+      }
+      else{console.log("mch mawjoud");}
+        this.httpClient.delete('http://localhost:9090/api/favorite/doc/'+this.user.id+'/'+doc.id)
+        .subscribe(
+          data => {
+            console.log(data);
+            console.log(this.user.doc_favoris);
+             console.log(this.user.doc_favoris.indexOf(doc));
+             this.reloadData();
 
-     const index: number = myfile.indexOf(doc);
-     console.log(index);
-     if (index != -1){
-       //this.user.doc_favoris.splice(index,1);
-       myfile.splice(index,1);
-      //localStorage.removeItem(JSON.stringify(myfile[index]));
-      console.log(myfile);
-      localStorage.setItem(this.userid, JSON.stringify(myfile));
-
-     }
-     this.favorita(doc);
+            // alert('document retiré du fav');
+            console.log(this.user.doc_favoris);
+            }, 
+          error => {console.log(error);
+            alert("doc non retiré");}
+          );
+        this.favorita(doc);
 
     }
 
@@ -313,48 +317,27 @@ console.log(this.user.doc_favoris);
     }
 
 
-    visible = true;
+  visible = true;
   selectable = true;
   removable = true;
     
-/*set the separator keys.*/
+
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-/*our custom add method which will take matChipInputTokenEnd event as input.*/
   add(event: MatChipInputEvent): void {
-/*we will store the input and value in local variables.*/
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {  
- /*the input string will be pushed to the tag list.*/
       this.Tags.push(value);
     }
-    if (input) {
-/*after storing the input we will clear the input field.*/
-      input.value = '';
-    }
+    if (input) {input.value = '';}
   }
   
-/*custom method to remove a tag.*/
+
   remove(tag: string): void {
     const index = this.Tags.indexOf(tag);
     if (index >= 0) 
-    {/*the tag of a particular index is removed from the tag list.*/
-      this.Tags.splice(index, 1);
-    }
+    {this.Tags.splice(index, 1);}
   }
-
-/*
-    Remember(id: number) {
-      this.gestionDocService.getDoc(id).subscribe((data) => {
-        if (myfile == null) {
-          myfile = [];
-        }
-        myfile.push(data);
-        localStorage.setItem(this.userid, JSON.stringify(myfile));
-        this.tofav(myfile);
-        console.log("done");
-      });
-    }*/
 
 searchh():void{
   if(this.searchTerm)

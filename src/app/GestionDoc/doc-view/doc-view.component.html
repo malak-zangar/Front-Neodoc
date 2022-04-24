@@ -95,9 +95,6 @@
                             <label for="name ">Type</label>
                             <input #type="ngModel" type [(ngModel)]="doc.type" disabled type="text " class="form__input " id="type " required name="type ">
 
-                            <!-- <label for="name ">Tags</label>
-                            <input #tag="ngModel" [(ngModel)]="doc.tags" type="text " class="form__input " id="type " required name="tag"> -->
-
                             <mat-form-field class="input">
                                 <mat-chip-list #taglist>
                                     <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
@@ -111,7 +108,6 @@
 
                             <br>
                             <label for="name ">Département</label>
-                            <!--<select name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> -->
                             <div *ngIf="showAdminBoard">
                                 <select name="departements" id="departements" departements class="form__input" required #departements="ngModel" [(ngModel)]="doc.departements" [(ngModel)]="form.departements"> 
 

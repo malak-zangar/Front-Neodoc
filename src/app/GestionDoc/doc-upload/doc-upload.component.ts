@@ -9,9 +9,6 @@ import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { Tag } from '../tag';
 
-
-
-
 import { ComponentFactoryResolver, ViewContainerRef, EventEmitter, Input, Output} from '@angular/core';
   import {HttpResponse, HttpEventType} from '@angular/common/http';
   import {fromEvent, Observable} from 'rxjs';
