@@ -17,6 +17,18 @@ export class GestionDocService {
   getDocList(): Observable<any> {
     return this.http.get(`${this.baseUrl}/list`);
   }
+  getDocByTit(titre:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recherche/titre/${titre}`);
+  }
+  getDocByType(type:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recherche/type/${type}`);
+  }
+  getDocByDep(dep:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recherche/dep/${dep}`);
+  }
+  getDocByTag(tag:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/recherche/tag/${tag}`);
+  }
 
   getDocListFav(id: number): Observable<any> {
     return this.http.get(`http://localhost:9090/api/favorite/doc/${id}`);

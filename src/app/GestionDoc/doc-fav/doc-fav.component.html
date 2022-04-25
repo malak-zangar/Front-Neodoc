@@ -6,8 +6,6 @@
                 <hr/>
             </div>
             <div class="panel-body ">
-               <!--<input type="text" name="titre" [(ngModel)]="titre" (input)="Search()" placeholder="&#61442;  chercher par nom ">--> 
-                <div id="toggle" style="left: 450px;"></div>
                 <div class="search-hero mat-form-field">
                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Filtrer ">
                 </div>
@@ -101,7 +99,7 @@
                                 </mat-chip-list>
 
                             </mat-form-field>
-                           
+
                             <br>
                             <label for="name ">Département</label>
                             <div *ngIf="showAdminBoard">

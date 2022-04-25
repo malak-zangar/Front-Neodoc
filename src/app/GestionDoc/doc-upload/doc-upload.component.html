@@ -70,11 +70,11 @@
 
                         </div>
                     </div>
-                    <button type="submit " (click)="submit() " class="btn btn-outline-success " [disabled]="!files.length || files.length==0 || Tags.length==0 || form.dep==null">Ajouter</button>
+                    <button type="submit " (click)="submit() " class="btn btn-outline-success " [disabled]="!files.length || files.length==0 || Tags.length==0 || (showAdminBoard && form.dep==null )">Ajouter</button>
 
                 </div>
             </div>
-            <ng-template #content let-c="close " let-d="dismiss ">
+            <ng-template #content let-c=" close " let-d="dismiss ">
                 <div class="modal-header ">
                     <h1 class="panel-heading " style=' color: #16ac98' id="modal-basic-title ">Ajout des tags</h1>
                     <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
@@ -110,19 +110,20 @@
 </div>
 
 
-<!--  <div class="table-responsive">
-                <div style="float: right">
-                    <div style="float: left; margin-right: 20px">
-                        <div class="input-group no-border">
+<!--  <div class="table-responsive ">
+                <div style="float: right ">
+                    <div style="float: left; margin-right: 20px ">
+                        <div class="input-group no-border ">
                             <label></label>
-                            <input #inputElement [(ngModel)]="searchTerm" style="height: 35px" class="form-control" placeholder="Search..." type="text" value="">
-                            <div class="input-group-append">
-                                <div style="height: 35px" class="input-group-text"><i style="font-size: 15px" class="nc-icon nc-zoom-split"></i></div>
+                            <input #inputElement [(ngModel)]="searchTerm " style="height: 35px " class="form-control " placeholder="Search... " type="text " value=" ">
+                            <div class="input-group-append ">
+                                <div style="height: 35px " class="input-group-text "><i style="font-size: 15px " class="nc-icon nc-zoom-split "></i></div>
                             </div>
                         </div>
                     </div>
-                    <div style="float: right;margin-right: 30px">
-                        <p-autoComplete (onSelect)="handelTagSelection()" (onUnselect)="handelTagSelection()" [style]="{width: '100%', minWidth: '200px'}" [(ngModel)]="selectedSearchTags" [suggestions]="filteredTags" (completeMethod)="filterTags($event)" field="label" [multiple]="true"
+                    <div style="float: right;margin-right: 30px ">
+                        <p-autoComplete (onSelect)="handelTagSelection() " (onUnselect)="handelTagSelection() " [style]="{width: '100%', minWidth: '200px'} " [(ngModel)]="selectedSearchTags " [suggestions]="filteredTags " (completeMethod)="filterTags($event)
+                        " field="label " [multiple]="true "
                             [minLength]=" 1 " [dropdown]="true ">
                         </p-autoComplete>
                     </div>

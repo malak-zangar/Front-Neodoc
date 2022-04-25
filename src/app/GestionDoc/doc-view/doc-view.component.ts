@@ -62,12 +62,6 @@ userid:any;
 
     ngOnInit() {
 
-//this.route.params.subscribe(params => {
- /* if(params['searchTerm']) {
-    this.searchTerm=params['searchTerm'];
-  this.documents=this.gestionDocService.getDocList().
-  pipe(filter(doc => doc.titre.toLocaleLowerCase().includes(params['searchTerm'].toLocaleLowerCase())));
- */
   this.getActivatedUser();
 
   this.reloadData();
@@ -80,6 +74,7 @@ userid:any;
     //console.log(this.roles);
     //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
     this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
+
   } 
 users:any;
   getActivatedUser(){
@@ -103,10 +98,6 @@ users:any;
 
     reloadData() {
       this.documents = this.gestionDocService.getDocList();
-
-   /*   for(var i=0;i<this.documents.length;i++){
-        this.favorita(this.documents[i]);
-      }*/
    }
 
     tofav(doc:any){
@@ -150,11 +141,9 @@ users:any;
 
     fromfav(doc:any){
       if(this.user.doc_favoris.indexOf(doc)!= -1){
-        console.log(this.user.doc_favoris.indexOf(doc));
-        console.log(this.user.doc_favoris);
+      
         this.user.doc_favoris.splice(this.user.doc_favoris.indexOf(doc),1);
-        console.log(this.user.doc_favoris.indexOf(doc));
-        console.log(this.user.doc_favoris);
+      
       //  this.tokenStorageService.saveUser(this.user);
         this.reloadData();
       }
@@ -339,37 +328,25 @@ users:any;
     {this.Tags.splice(index, 1);}
   }
 
-searchh():void{
-  if(this.searchTerm)
-  this.router.navigateByUrl('/search/'+this.searchTerm);
+SearchTag(){
+  let {tagr} = this.form;
+  console.log(tagr);
+  if(tagr!=null)
+  {this.documents = this.gestionDocService.getDocByTag(tagr);}
 }
-
-
- 
-
-
-/*Search(){
-  //if(this.titre==""){ this.ngOnInit();}
-  
-  //else {
-    this.documents=this.documents.pipe(filter((doc:any) =>{
-      console.log(doc);
-    console.log(this.titre);
-    if (!this.titre) {
-      return true;
-    }
-    if (doc.titre === "undefined") {
-      return doc.titre.toLocaleLowerCase().includes(this.titre.toLocaleLowerCase());
-    } else {
-      return doc.titre.toLocaleLowerCase().includes(this.titre.toLocaleLowerCase());
-    }}))
-     // return doc.titre.toLocaleLowerCase().match(this.titre.toLocaleLowerCase())}) )
-  
- /* else {
-    console.log(this.titre);
-     this.documents = this.gestionDocService.getDocByName(this.titre);
-     console.log(this.documents);
-      //return doc.titre.toLocaleLowerCase().match(this.titre.toLocaleLowerCase())}) )*/
- //}
+SearchTitre(){
+  let {titre} = this.form;
+  console.log(titre);
+  this.documents = this.gestionDocService.getDocByTit(titre);
 }
-//}
+SearchType(){
+  let {type} = this.form;
+  console.log(type);
+  this.documents = this.gestionDocService.getDocByType(type);
+}
+SearchDep(){
+  let {dep} = this.form;
+  console.log(dep);
+  this.documents = this.gestionDocService.getDocByDep(dep);
+}
+}

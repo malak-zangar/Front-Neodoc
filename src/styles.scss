@@ -82,6 +82,16 @@ form {
     transition: all .5s ease;
 }
 
+.form-controle {
+    width: 50%;
+    border: 1px #aaa;
+    padding: 1em .5em .5em;
+    // padding-left: 2em;
+    // outline: none;
+    margin: 1.5em auto;
+    transition: all .5s ease;
+}
+
 .form__input:focus {
     border-bottom-color: #16ac98;
     box-shadow: 0 0 5px rgba(0, 80, 80, .4);

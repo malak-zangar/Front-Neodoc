@@ -44,7 +44,7 @@ p {
     min-width: 500px;
     padding-bottom: 20px;
     margin: auto;
-    display:block;
+    display: block;
 }
 
 .form-control {
@@ -52,7 +52,20 @@ p {
     color: rgb(38, 136, 136);
 }
 
+.form-controle {
+    display: inline;
+    margin: 10px;
+    width: 40%;
+    transition: all .5s ease;
+    box-shadow: 0 10px 10px 0 #c1f0e6;
+    color: rgb(38, 136, 136);
+}
+
 .form-control::placeholder {
+    font-family: FontAwesome;
+}
+
+.form-controle::placeholder {
     font-family: FontAwesome;
 }
 

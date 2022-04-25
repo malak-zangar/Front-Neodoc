@@ -264,28 +264,9 @@ export class DocFavComponent implements OnInit {
    
   titre:any; 
   
-  Search(){
-    //if(this.titre==""){ this.ngOnInit();}
-    
-    //else {
-      this.documents=this.documents.pipe(filter((doc:any) =>{
-        console.log(doc);
-      console.log(this.titre);
-      if (!this.titre) {
-        return true;
-      }
-      if (doc.titre === "undefined") {
-        return doc.titre.toLocaleLowerCase().includes(this.titre.toLocaleLowerCase());
-      } else {
-        return doc.titre.toLocaleLowerCase().includes(this.titre.toLocaleLowerCase());
-      }}))
-       // return doc.titre.toLocaleLowerCase().match(this.titre.toLocaleLowerCase())}) )
-    
-   /* else {
-      console.log(this.titre);
-       this.documents = this.gestionDocService.getDocByName(this.titre);
-       console.log(this.documents);
-        //return doc.titre.toLocaleLowerCase().match(this.titre.toLocaleLowerCase())}) )*/
-   }
+ 
+
+
+
   }
   //}

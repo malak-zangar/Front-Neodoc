@@ -165,34 +165,26 @@ private getDismissReason(reason: any): string {
 }  
 
 visible = true;
-  selectable = true;
-  removable = true;
-    
-/*set the separator keys.*/
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-/*our custom add method which will take matChipInputTokenEnd event as input.*/
-  add(event: MatChipInputEvent): void {
-/*we will store the input and value in local variables.*/
-    const input = event.input;
-    const value = event.value;
-    if ((value || '').trim()) {  
- /*the input string will be pushed to the tag list.*/
-      this.Tags.push(value);
-    }
-    if (input) {
-/*after storing the input we will clear the input field.*/
-      input.value = '';
-    }
-  }
+selectable = true;
+removable = true;
   
-/*custom method to remove a tag.*/
-  remove(tag: string): void {
-    const index = this.Tags.indexOf(tag);
-    if (index >= 0) 
-    {/*the tag of a particular index is removed from the tag list.*/
-      this.Tags.splice(index, 1);
-    }
+
+readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
+add(event: MatChipInputEvent): void {
+  const input = event.input;
+  const value = event.value;
+  if ((value || '').trim()) {  
+    this.Tags.push(value);
   }
+  if (input) {input.value = '';}
+}
+
+
+remove(tag: string): void {
+  const index = this.Tags.indexOf(tag);
+  if (index >= 0) 
+  {this.Tags.splice(index, 1);}
+}
  
 /*
   @ViewChild('container',{read:ViewContainerRef,static:false}) container: ViewContainerRef;
