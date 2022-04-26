@@ -138,7 +138,7 @@ submit(){
     err => {
       this.isuploaded = false;
       this.errorMessage = err.error.message;
-      alert(err.error.message);
+      //alert(err.error.message);
     })
 
 }

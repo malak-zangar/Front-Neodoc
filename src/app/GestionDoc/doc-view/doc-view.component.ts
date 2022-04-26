@@ -28,12 +28,11 @@ export class DocViewComponent implements OnInit {
   @ViewChild("inputElement",{static:true}) inputElement : ElementRef<HTMLInputElement>;
 
 p: number = 1;
-count: number = 15;
+count: number = 20;
 searchText;
 searchTerm: string = "";
 
-//titre;
-//dep;
+
 form:any={titre:null,type:null,departements: null};
 
 closeResult: string;  
@@ -42,7 +41,6 @@ Tags: string[] = [];
 docu:Document;
 documents: Observable<any[]> | any;
 doc:any;
-
 id: number;
 isfav: boolean;
 idu:number;
@@ -56,7 +54,8 @@ private roles: string[] = [];
 isLoggedIn = false;
 showAdminBoard:boolean;
 userid:any;
-
+showicon:boolean=true;
+showcontenu:boolean;
   constructor(private userservice:UserServiceGestService,private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
     ) { }
 
@@ -165,6 +164,17 @@ users:any;
         this.favorita(doc);
 
     }
+
+Icone(){
+  this.showicon=true;
+  this.showcontenu=false;
+}
+
+Contenue(){
+  this.showcontenu=true;
+  this.showicon=false;
+}
+
 
     deleteDoc(id: number) {
       this.gestionDocService.deleteDoc(id)
@@ -328,11 +338,19 @@ users:any;
     {this.Tags.splice(index, 1);}
   }
 
+Search(){
+  let {titre,filtre}=this.form;
+  if(filtre == "Filtre par titre"){
+    this.documents = this.gestionDocService.getDocByTit(titre);
+
+  }
+}
+
+
 SearchTag(){
   let {tagr} = this.form;
   console.log(tagr);
-  if(tagr!=null)
-  {this.documents = this.gestionDocService.getDocByTag(tagr);}
+  this.documents = this.gestionDocService.getDocByTag(tagr);
 }
 SearchTitre(){
   let {titre} = this.form;

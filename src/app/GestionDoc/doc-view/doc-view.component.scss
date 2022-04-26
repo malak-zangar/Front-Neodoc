@@ -1,76 +1,81 @@
-                                                     :host {
-                                                        display: block;
-                                                    }
-                                                    
-                                                    p {
-                                                        font-family: Lato;
-                                                    }
-                                                    
-                                                    .cardd {
-                                                        width: 330px;
-                                                        height: 200px;
-                                                        border-radius: 2px;
-                                                        display: inline-block;
-                                                        margin: 10px;
-                                                        padding: 10px;
-                                                    }
-                                                    
-                                                    .name {
-                                                        font-weight: 500;
-                                                        margin: 0;
-                                                    }
-                                                    
-                                                    .size {
-                                                        font-weight: 500;
-                                                        color: #949090;
-                                                        margin: 0;
-                                                        margin-bottom: 0.25rem;
-                                                        display: inline;
-                                                    }
-                                                    
-                                                    .dep {
-                                                        font-weight: 500;
-                                                        color: #a4a4a4;
-                                                        margin: 0;
-                                                        margin-bottom: 0.25rem;
-                                                    }
-                                                    
-                                                    .info {
-                                                        width: 100%
-                                                    }
-                                                    
-                                                    .search-hero {
-                                                        max-width: 500px;
-                                                        min-width: 500px;
-                                                        padding-bottom: 20px;
-                                                        margin: auto;
-                                                        display: block;
-                                                    }
-                                                    
-                                                    .form-control {
-                                                        box-shadow: 0 10px 10px 0 #c1f0e6;
-                                                        color: rgb(38, 136, 136);
-                                                    }
-                                                    
-                                                    .form-controle {
-                                                        display: inline;
-                                                        margin: 10px;
-                                                        width: 40%;
-                                                        //  transition: all .5s ease;
-                                                        box-shadow: 0 10px 10px 0 #c1f0e6;
-                                                        color: rgb(38, 136, 136);
-                                                    }
-                                                    
-                                                    .form-control::placeholder {
-                                                        font-family: FontAwesome;
-                                                    }
-                                                    
-                                                    .form-controle::placeholder {
-                                                        font-family: FontAwesome;
-                                                    }
-                                                    
-                                                    img.delete {
-                                                        margin-left: 0.5rem;
-                                                        cursor: pointer;
-                                                        align-self: flex-end;
-                                                    }
+:host {
+    display: block;
+}
+
+p {
+    font-family: Lato;
+}
+
+.cardd {
+    width: 200px;
+    height: 200px;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 10px;
+    //  padding: 10px;
+}
+
+.cardd:hover {
+    //    background-color: rgb(250, 246, 246);
+    opacity: 0.8;
+}
+
+.name {
+    font-weight: 500;
+    margin: 0;
+}
+
+.size {
+    font-weight: 500;
+    color: #949090;
+    margin: 0;
+    margin-bottom: 0.25rem;
+    display: inline;
+}
+
+.dep {
+    font-weight: 500;
+    color: #a4a4a4;
+    margin: 0;
+    margin-bottom: 0.25rem;
+}
+
+.info {
+    width: 100%
+}
+
+.search-hero {
+    max-width: 500px;
+    min-width: 500px;
+    padding-bottom: 20px;
+    margin: auto;
+    display: block;
+}
+
+.form-control {
+    box-shadow: 0 10px 10px 0 #c1f0e6;
+    color: rgb(38, 136, 136);
+}
+
+.form-controle {
+    display: inline;
+    margin: 10px;
+    width: 40%;
+    //  transition: all .5s ease;
+    box-shadow: 0 10px 10px 0 #c1f0e6;
+    color: rgb(38, 136, 136);
+}
+
+.form-control::placeholder {
+    font-family: FontAwesome;
+}
+
+.form-controle::placeholder {
+    font-family: FontAwesome;
+}
+
+img.delete {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    align-self: flex-end;
+}

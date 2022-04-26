@@ -47,9 +47,11 @@ export class DocFavComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard : boolean;
-  
+  showicon:boolean=true;
+  showcontenu:boolean;
   userid:any;
   
+
     constructor(private httpClient: HttpClient,private route: ActivatedRoute,private userService: UserServiceGestService, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,    private sanitizer: DomSanitizer,
       ) { }
   
@@ -110,6 +112,16 @@ export class DocFavComponent implements OnInit {
             error => console.log(error));
       }
   
+      Icone(){
+        this.showicon=true;
+        this.showcontenu=false;
+      }
+      
+      Contenue(){
+        this.showcontenu=true;
+        this.showicon=false;
+      }
+
       downloadDoc(id: number,titre : string) {
         this.gestionDocService.downloadDoc(id)
           .subscribe(
@@ -260,13 +272,5 @@ export class DocFavComponent implements OnInit {
         {/*the tag of a particular index is removed from the tag list.*/
           this.Tags.splice(index, 1);
         }
-      }  
-   
-  titre:any; 
-  
- 
-
-
-
+      }    
   }
-  //}
