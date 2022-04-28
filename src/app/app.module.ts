@@ -50,7 +50,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CommonModule} from "@angular/common";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {DialogModule, Dialog} from 'primeng/dialog'
+import {DialogModule, Dialog} from 'primeng/dialog';
+import { DocByDepComponent } from './GestionDoc/doc-by-dep/doc-by-dep.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import {DialogModule, Dialog} from 'primeng/dialog'
     DndDirective,
     DocViewComponent,
     DocFavComponent,
+    DocByDepComponent,
   ],
   imports: [
     MatProgressSpinnerModule,

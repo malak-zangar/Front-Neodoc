@@ -1,41 +1,161 @@
 <ng-template #loggedOut>
     S'il vous plait login.
 </ng-template>
-<div class="container mt-5" style='width:500px; padding-top: 20px; background-color: azure; '>
-    <div class="card text-center" style='color: #16ac98 ; padding: 20px; '>
-        <div class="panel panel-primary">
-            <div class=" panel-heading ">
-                <h1><strong>Votre profil</strong></h1>
-                <hr/><br>
-            </div>
-            <div class="panel-body ">
-                <div class="container" style='color: #04352e' *ngIf="currentUser; else loggedOut">
-                    <p>
-                        <strong>Nom d' utilisateur : </strong>{{ currentUser.username }}
-                    </p>
-                    <p>
-                        <strong>Nom : </strong> {{ currentUser.lastname }}
-                    </p>
-                    <p>
-                        <strong>Prénom : </strong> {{ currentUser.firstname }}
-                    </p>
-                    <p>
-                        <strong>Email : </strong> {{ currentUser.email }}
-                    </p>
-                    <p>
-                        <strong>Poste : </strong> {{ currentUser.poste}}
-                    </p>
+<div class="container mt-5" style='width:1000px; padding-top: 20px; '>
+    <div class="row main-content  text-center">
+        <div class="col-md-4 text-center company__info box">
 
-                    <strong>Roles : </strong> {{currentUser.roles}}
-                    <!--
-                    <ul>
-                        <li *ngFor="let role of currentUser.roles">
-                            {{ role }}
-                        </li>
-                    </ul>>
--->
+            <div class=" ml-5 ">
+                <span><img  class="img-responsive" style="border-radius: 25px;" src="../../assets/images/carte.jpg"></span>
+
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form">
+
+
+            <div class="card text-center" style='color: #16ac98 ; padding: 20px; '>
+                <div class="panel panel-primary container-fluid">
+
+                    <div class=" panel-heading ">
+                        <h1><strong>Mon profil</strong></h1>
+                        <hr/><br>
+                    </div>
+                    <div class="panel-body ">
+                        <div class="container" style='color: #04352e' *ngIf="currentUser; else loggedOut">
+                            <p>
+                                <strong>Nom d' utilisateur : </strong>{{ user.username }}
+                            </p>
+                            <p>
+                                <strong>Nom : </strong> {{ user.lastname }}
+                            </p>
+                            <p>
+                                <strong>Prénom : </strong> {{ user.firstname }}
+                            </p>
+                            <p>
+                                <strong>Email : </strong> {{ user.email }}
+                            </p>
+                            <p>
+                                <strong>Poste : </strong> {{ user.poste}}
+                            </p>
+                            <p><strong>Role : </strong> {{ role }}
+                            </p>
+
+
+                            <button (click)="opene(contente) " href="javascript:void(0); " class="btn btn-outline-info " style="margin-top: 10px ">Modifier</button>
+
+                            <ng-template #contente let-c="close " let-d="dismiss ">
+                                <div class="modal-header ">
+                                    <h1 class="panel-heading " style=' color: #16ac98 ' id="modal-basic-title ">Modification</h1>
+                                    <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                                      <span aria-hidden="true ">×</span>    
+                                  </button>
+                                </div>
+                                <div class="modal-body ">
+                                    <div class="container-fluid">
+                                        <form class="form-group animate__animated animate__backInDown">
+                                            <div class="form-group" style='color: #04352e'>
+                                                <label for="name">Nom</label>
+                                                <input type="text" class="form__input" id="firstname" required [(ngModel)]="user.firstname" name="firstname" [class.is-invalid]="firstname.invalid && firstname.touched" minlength="3" maxlength="20" pattern="^[a-z]+" #firstname="ngModel">
+                                                <div *ngIf="firstname.errors && (firstname.invalid && firstname.touched)">
+                                                    <small class="text-danger" *ngIf="firstname.errors?.['required']">le nom est obligatoire</small>
+                                                    <small class="text-danger" *ngIf="firstname.errors?.['minlength'] || firstname.errors?.['maxlength']">le nom doit contenir au moins 3 caractères et au plus 20 caractères</small>
+                                                    <small class="text-danger" *ngIf="firstname.errors?.['pattern']">le nom est invalide, il ne doit contenir que des lettres  <br> </small>
+                                                </div>
+
+                                                <label for="name">Prénom</label>
+                                                <input type="text" class="form__input" id="lastname" required [(ngModel)]="user.lastname" name="lastname" [class.is-invalid]="lastname.invalid && lastname.touched" minlength="3" maxlength="20" pattern="^[a-z]+" #lastname="ngModel">
+                                                <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
+                                                    <small class="text-danger " *ngIf="lastname.errors?.[ 'required'] ">le prénom est obligatoire</small>
+                                                    <small class="text-danger" *ngIf="lastname.errors?.['minlength'] || lastname.errors?.['maxlength']">le nom doit contenir au moins 3 caractères et au plus 20 caractères</small>
+                                                    <small class="text-danger" *ngIf="lastname.errors?.['pattern']">le prénom est invalide, il ne doit contenir que des lettres  <br> </small>
+                                                </div>
+
+                                                <label for="name">Nom d'utilisateur</label>
+                                                <input type="text" class="form__input" id="username" required [(ngModel)]="user.username" name="username" [class.is-invalid]="username.invalid && username.touched" minlength="7" maxlength="41" pattern="^[a-z]+\.[a-z]+$" #username="ngModel">
+                                                <div *ngIf="username.errors && (username.invalid && username.touched)">
+                                                    <small class="text-danger" *ngIf="username.errors?.['required']">le nom d'utilisateur est obligatoire</small>
+                                                    <small class="text-danger" *ngIf="username.errors?.['pattern']">le nom d'utilisateur n'est pas valide, il doit etre sous la forme prenom.nom  <br> </small>
+                                                    <small class="text-danger" *ngIf="username.errors?.['minlength'] || username.errors?.['maxlength']">le nom d'utilisateur doit contenir au moins 7 caractères et au plus 41 caractères</small>
+                                                </div>
+
+                                                <label for="name">Email</label>
+                                                <input type="text" class="form__input" id="email" required [(ngModel)]="user.email" name="email" email #email="ngModel" required [class.is-invalid]="email.invalid && email.touched" pattern="^[a-z]+\.[a-z]+@neoxam+\.com" minlength="18" maxlength="52">
+                                                <div *ngIf="email.errors && (email.invalid && email.touched)">
+                                                    <small class="text-danger" *ngIf="email.errors?.['required']">l'Email est obligatoire</small>
+                                                    <small class="text-danger" *ngIf="email.errors?.['pattern']">l'Email n'est pas valide , il doit etre sous la forme : prenom.nom@neoxam.com</small>
+                                                    <small class="text-danger" *ngIf="email.errors?.['minlength'] || email.errors?.['maxlength']">l'email doit contenir au moins 18 caractères et au plus 52 caractères</small>
+                                                </div>
+                                                <div class="row " *ngIf="!showAdminBoard">
+                                                    <label>Poste : </label><br>
+                                                    <select disabled name="poste" id="poste" class="form__input" [(ngModel)]="user.poste" required #poste="ngModel"> 
+                                            <optgroup label="DEV">
+                                                <option value="Comet --DEV">Comet --DEV</option>
+                                                <option value="DataHub --DEV">DataHub --DEV</option>
+                                                <option value="GP --DEV">GP --DEV</option>
+                                                <option value="Impress --DEV">Impress --DEV</option>
+                                            </optgroup>
+                                            <optgroup label="QA">
+                                                <option value="Comet --QA">Comet --QA</option>
+                                                <option value="DataHub --QA">DataHub --QA</option>
+                                                <option value="GP --QA">GP --QA</option>
+                                                <option value="Impress --QA">Impress --QA</option>
+                                            </optgroup>
+                                            <optgroup label="Autre">
+                                                <option value="Commerce">Commerce</option>
+                                                <option value="IT">IT</option>
+                                                <option value="RH">RH</option>
+                                                </optgroup>
+                                            </select>
+                                                </div>
+
+                                                <div class="row " *ngIf="showAdminBoard">
+                                                    <label>Poste : </label><br>
+                                                    <select name="poste" id="poste" class="form__input" [(ngModel)]="user.poste" required #poste="ngModel"> 
+                                            <optgroup label="DEV">
+                                                <option value="Comet --DEV">Comet --DEV</option>
+                                                <option value="DataHub --DEV">DataHub --DEV</option>
+                                                <option value="GP --DEV">GP --DEV</option>
+                                                <option value="Impress --DEV">Impress --DEV</option>
+                                            </optgroup>
+                                            <optgroup label="QA">
+                                                <option value="Comet --QA">Comet --QA</option>
+                                                <option value="DataHub --QA">DataHub --QA</option>
+                                                <option value="GP --QA">GP --QA</option>
+                                                <option value="Impress --QA">Impress --QA</option>
+                                            </optgroup>
+                                            <optgroup label="Autre">
+                                                <option value="Commerce">Commerce</option>
+                                                <option value="IT">IT</option>
+                                                <option value="RH">RH</option>
+                                                </optgroup>
+                                            </select>
+                                                </div>
+
+                                                <div class="row">
+                                                    <label>Role : </label><br>
+                                                    <input disabled type="text" class="form__input" id="role" required [(ngModel)]="role" name="role">
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="submit" class="btn btn-outline-secondary" (click)="d( 'Cross click') " style=" margin-right: 10px ">Annuler</button>
+                                    <button (click)="c( 'yes')" href=" javascript:void(0); " type="submit " class="btn btn-outline-info">Enregistrer</button>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <div class="container-fluid text-center footer mt-5 ">
+        <p>@copyright, NeoXam 2022</p>
+    </div>

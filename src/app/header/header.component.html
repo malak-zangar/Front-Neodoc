@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
+<nav class="navbar navbar-expand navbar-dark bg-dark" style='height:60px;'>
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a class="navbar-brand" href="https://www.neoxam.com/">
-                <img width="8%" style="border-radius: 25px;" src="../../assets/images/logotest.png"> NeoDoc
+            <a class="navbar-brand" href="home">
+                <img width="50px" style="border-radius: 25px;" src="../../assets/images/logotest.png"> NeoDoc
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -14,9 +14,9 @@
                         <li class="nav-item dropdown" *ngIf="showAdminBoard">
                             <a *ngIf="isLoggedIn" class="nav-link active dropdown-toggle" aria-current="page" href="#" id="navbarDropdown navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion des utilisateurs</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="user-enattente">Lister les utilisateurs en attente</a></li>
-                                <li> <a class="dropdown-item" href="user-list">Lister tous les utilisateurs</a></li>
-                                <li> <a class="dropdown-item" href="user-create">Ajouter un administrateur</a></li>
+                                <li> <a class="dropdown-item" href="user-create">Nouveau administrateur</a></li>
+                                <li> <a class="dropdown-item" href="user-list">Tous les utilisateurs</a></li>
+                                <li><a class="dropdown-item" href="user-enattente">Utilisateurs en attente</a></li>
 
                             </ul>
                         </li>
@@ -27,29 +27,40 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" *ngIf="isLoggedIn" aria-current="page" href="#" id="navbarDropdown navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion des documents </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li> <a class="dropdown-item" href="doc-view">Lister tous les documents</a></li>
-                                <li> <a class="dropdown-item" href="doc-upload">Ajouter un document</a></li>
-                                <li> <a class="dropdown-item" href="doc-fav">Lister les documents en favoris</a></li>
+                                <li> <a class="dropdown-item" href="doc-upload">Nouveau document</a></li>
+                                <li> <a class="dropdown-item" href="doc-view">Tous les documents</a></li>
+                                <li> <a class="dropdown-item" href="doc-bydep">Documents de mon département</a></li>
+                                <li> <a class="dropdown-item" href="doc-fav">Documents en favoris</a></li>
+
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown" *ngIf="!showAdminBoard && isLoggedIn">
-                    <a class="nav-link active dropdown-toggle" href="doc-view">Lister tous les documents</a>
-                    <a class="nav-link active dropdown-toggle" href="doc-upload">Ajouter un document</a>
-                    <a class="nav-link active dropdown-toggle" href="doc-fav">Lister les documents en favoris</a>
+                    <a class="nav-link active dropdown-toggle" href="doc-upload">Nouveau document</a>
+                    <a class="nav-link active dropdown-toggle" href="doc-view">Tous les documents</a>
+                    <a class="nav-link active dropdown-toggle" href="doc-bydep">Documents de mon département</a>
+                    <li>
+                        <a class="nav-link active" href="doc-fav"><img src="assets/images/coeur.png " class="delete " width="30px " alt="file "></a>
+                    </li>
                 </div>
             </ul>
 
-            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/login">Se connecter</button>
-            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/signup">S'enregistrer</button>
+            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/login">S'authentifier</button>
+            <button *ngIf="!isLoggedIn" type="button " class="btn-default" routerLink="/signup">S'inscrire</button>
 
             <ul class="navbar-nav ml-auto mb2-m mb-lg-0 auto" *ngIf="isLoggedIn">
-                <li class="nav-item ">
+                <!--
+                <li class="nav-item">
                     <a routerLink="/profile" class="nav-link" style="color:aqua">{{ username }}</a>
+                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link active navbar-brand" href="profile">
+                        <img width="35px" height="35px" style="border-radius: 20px;" src="../../assets/images/user_1.jpg">
+                    </a>
                 </li>
-                <li class="nav-item ">
-                    <a href class="nav-link " (click)="logout() " class="btn-default " style="color:beige ">déconnexion</a>
+                <li class="nav-item mt-1">
+                    <a href class="nav-link" (click)="logout() " class="btn-default " style="color:beige ">Déconnexion</a>
                 </li>
             </ul>
         </div>

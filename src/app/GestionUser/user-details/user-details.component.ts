@@ -11,8 +11,8 @@ import { UserListComponent } from '../user-list/user-list.component';
 export class UserDetailsComponent implements OnInit {
 
   id: number;
-  user: User;
-
+  user: any;
+role:string;
   constructor(private route: ActivatedRoute,private router: Router,
     private userServiceGestService: UserServiceGestService) { }
 
@@ -23,8 +23,12 @@ export class UserDetailsComponent implements OnInit {
     
     this.userServiceGestService.getUser(this.id)
       .subscribe(data => {
-        console.log(data)
         this.user = data;
+        console.log(this.user)
+
+        for(let i=0;i<this.user.roles.length;i++){
+          this.role=this.user.roles[i].name;
+        }
       }, error => console.log(error));
   }
 

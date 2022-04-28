@@ -112,19 +112,15 @@ form {
     background-color: #16ac98;
     border: 1px solid #f1fcfc;
     border-radius: 15px;
-    font-weight: 600;
-    padding: 10px;
-    margin: 10px;
+    font-weight: 500;
+    //padding: 0px;
+    margin-left: 10px;
+    height: 40px;
 }
 
 .btn-default:focus {
     color: #16ac98;
     background-color: #f1fcfc;
-}
-
-html,
-body {
-    height: 100%;
 }
 
 body {

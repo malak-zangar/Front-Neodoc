@@ -1,27 +1,29 @@
-<div class="container mt-5">
-    <div class="card text-center" style=' color: #16ac98 ; padding: 20px; margin:250px; margin-top: 20px; margin-bottom: 40px;'>
+<div class="container mt-3" style='width:800px; padding-top: 20px; '>
+    <div class="row main-content  text-center">
+
         <div class="col-md-80 col-xs-12 col-sm-12 ">
+            <div class=" text-center" style='color: #16ac98 ; padding: 20px; '>
+                <div class="panel panel-primary container-fluid">
+                    <h1><strong> Modifier un utilisateur</strong></h1>
+                    <hr/>
 
-            <h1><strong> Modifier un utilisateur</strong></h1>
-            <hr/>
-            <div class="container-fluid">
-                <form class="form-group animate__animated animate__backInDown">
-                    <div class="form-group" style='color: #04352e'>
-                        <label for="name">Nom</label>
-                        <input disabled type="text" class="form__input" id="firstname" required [(ngModel)]="user.firstname" name="firstname">
+                    <form class="form-group animate__animated animate__backInDown" name="form" #f="ngForm">
+                        <div class="form-group" style='color: #04352e'>
+                            <label for="name">Nom</label>
+                            <input disabled type="text" class="form__input" id="firstname" required [(ngModel)]="user.firstname" name="firstname">
 
-                        <label for="name">Prénom</label>
-                        <input disabled type="text" class="form__input" id="lastname" required [(ngModel)]="user.lastname" name="lastname">
+                            <label for="name">Prénom</label>
+                            <input disabled type="text" class="form__input" id="lastname" required [(ngModel)]="user.lastname" name="lastname">
 
-                        <label for="name">Nom d'utilisateur</label>
-                        <input disabled type="text" class="form__input" id="username" required [(ngModel)]="user.username" name="username">
+                            <label for="name">Nom d'utilisateur</label>
+                            <input disabled type="text" class="form__input" id="username" required [(ngModel)]="user.username" name="username">
 
-                        <label for="name">Email</label>
-                        <input disabled type="text" class="form__input" id="email" required [(ngModel)]="user.email" name="email">
+                            <label for="name">Email</label>
+                            <input disabled type="text" class="form__input" id="email" required [(ngModel)]="user.email" name="email">
 
-                        <div class="row ">
-                            <label>choisissez votre poste : </label><br>
-                            <select name="poste" id="poste" class="form__input" [(ngModel)]="user.poste" required #poste="ngModel"> 
+                            <div class="row ">
+                                <label>Poste : </label><br>
+                                <select name="poste" id="poste" class="form__input" [(ngModel)]="user.poste" required #poste="ngModel"> 
                             <optgroup label="DEV">
                                 <option value="Comet --DEV">Comet --DEV</option>
                                 <option value="DataHub --DEV">DataHub --DEV</option>
@@ -40,15 +42,24 @@
                                 <option value="RH">RH</option>
                                 </optgroup>
                             </select>
-                            <div *ngIf="poste.errors && (poste.invalid && poste.touched)">
-                                <small class="text-danger" *ngIf="poste.errors?.['required']">le poste est obligatoire</small>
-                            </div>
-                        </div>
-                    </div>
+                                <div *ngIf="poste.errors && (poste.invalid && poste.touched)">
+                                    <small class="text-danger" *ngIf="poste.errors?.['required']">le poste est obligatoire</small>
+                                </div>
 
-                    <button type="submit" class="btn btn-outline-secondary" (click)="retour()" style=" margin-right: 10px ">Annuler</button>
-                    <button (click)="open(content) " href="javascript:void(0); " type="submit " class="btn btn-outline-info ">Enregistrer</button>
-                </form>
+                            </div>
+
+                            <div class="row"> <label for="name">Role : </label></div>
+                            <br> <input type="radio" id="admin" value="admin" name="role" [(ngModel)]="form.role" required #role="ngModel">
+                            <label style="margin-right:16px;" for="admin">Administrateur</label>
+                            <input type="radio" id="user" value="user" name="role" [(ngModel)]="form.role" required #role="ngModel">
+                            <label for="user">Utilisateur</label>
+                        </div>
+                        <br>
+                        <button type="submit " class="btn btn-outline-secondary " (click)="retour() " style=" margin-right: 10px ">Annuler</button>
+                        <button (click)="open(content) " href="javascript:void(0); " type="submit " class="btn btn-outline-info ">Enregistrer</button>
+                    </form>
+                </div>
+
             </div>
         </div>
         <ng-template #content let-c="close " let-d="dismiss ">

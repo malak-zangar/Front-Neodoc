@@ -59,14 +59,15 @@ export class LoginComponent implements OnInit {
   constructor(private httpClient: HttpClient,private gestionDocService: GestionDocService , private authService: AuthService, private tokenStorage: TokenStorageService,private modalService: NgbModal, private router:Router) { }
 
   ngOnInit(): void {
+    if(!this.isLoggedIn){
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
       this.username=this.tokenStorage.getUser().username;
-      console.log(this.roles);}
+      console.log(this.roles);}}
 
 
-
+if(this.isLoggedIn){
       this.user=this.tokenStorage.getUser()
       this.userid = this.user.id;
       this.reloadData();
@@ -75,7 +76,7 @@ export class LoginComponent implements OnInit {
     this.roles = this.tokenStorage.getUser().roles;
     console.log(this.idu , this.user,this.roles);
     this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-
+}
     }
 
   onSubmit(): void {

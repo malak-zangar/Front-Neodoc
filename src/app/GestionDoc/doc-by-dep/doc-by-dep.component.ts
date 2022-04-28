@@ -13,15 +13,13 @@ import { UserServiceGestService } from 'src/app/GestionUser/user-service-gest.se
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
-
 @Component({
-  selector: 'app-doc-view',
-  templateUrl: './doc-view.component.html',
-  styleUrls: ['./doc-view.component.scss']
+  selector: 'app-doc-by-dep',
+  templateUrl: './doc-by-dep.component.html',
+  styleUrls: ['./doc-by-dep.component.scss']
 })
+export class DocByDepComponent implements OnInit {
 
-
-export class DocViewComponent implements OnInit {
   @ViewChild("inputElement",{static:true}) inputElement : ElementRef<HTMLInputElement>;
 
 p: number = 1;
@@ -56,23 +54,14 @@ showcontenu:boolean;
   constructor(private userservice:UserServiceGestService,private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
     ) { }
 
-    ngOnInit() {
-
-  this.getActivatedUser();
-
-  this.reloadData();
-
-    //this.user=this.tokenStorageService.getUser();
-   
-   // this.userid = this.user.id;
-    //console.log( this.user, this.userid);
-    //this.roles = this.tokenStorageService.getUser().roles;
-    //console.log(this.roles);
-    //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+  ngOnInit(): void {
+    this.getActivatedUser();
+    this.reloadData();
     this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
+    console.log(this.tokenStorageService.getUser().poste);
 
-  } 
-users:any;
+  }
+  users:any;
   getActivatedUser(){
     this.userService.getUserList().subscribe(data => {
       this.users = data;
@@ -93,7 +82,7 @@ users:any;
   }
 
     reloadData() {
-      this.documents = this.gestionDocService.getDocList();
+      this.documents = this.gestionDocService.getDocByDep(this.tokenStorageService.getUser().poste);
    }
 
     tofav(doc:any){
@@ -335,46 +324,4 @@ Contenue(){
     {this.Tags.splice(index, 1);}
   }
 
-Search(){
-  let {rech,filtre}=this.form;
-  console.log(filtre);
-  console.log(rech);
-  if(filtre == "titre"){
-    this.documents = this.gestionDocService.getDocByTit(rech);
-  }
-  if(filtre == "type"){
-    this.documents = this.gestionDocService.getDocByType(rech);
-  }
-  if(filtre == "dep"){
-    this.documents = this.gestionDocService.getDocByDep(rech);
-  }
-  if(filtre == "tag"){
-    this.documents = this.gestionDocService.getDocByTag(rech);
-  }
-  if(filtre == "vide" || filtre == null || rech == null || rech=='' || rech==undefined){
-    this.reloadData();
-  }
-}
-
-
-SearchTag(){
-  let {tagr} = this.form;
-  console.log(tagr);
-  this.documents = this.gestionDocService.getDocByTag(tagr);
-}
-SearchTitre(){
-  let {titre} = this.form;
-  console.log(titre);
-  this.documents = this.gestionDocService.getDocByTit(titre);
-}
-SearchType(){
-  let {type} = this.form;
-  console.log(type);
-  this.documents = this.gestionDocService.getDocByType(type);
-}
-SearchDep(){
-  let {dep} = this.form;
-  console.log(dep);
-  this.documents = this.gestionDocService.getDocByDep(dep);
-}
 }

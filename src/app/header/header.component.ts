@@ -11,22 +11,6 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class HeaderComponent implements OnInit {
 
-  /*constructor(private userAuthService:AuthService,
-    private router:Router,
-    public userService: UserService) { }
-
-  ngOnInit(): void {
-  }
-
-  public isLoggedIn(){
-    return this.userAuthService.isLoggedIn();
-  }
-
- /* public logout(){
-    this.userAuthService.clear();
-    this.router.navigate(['/home']);
-  }*/
-
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -41,7 +25,7 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
+      let user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');

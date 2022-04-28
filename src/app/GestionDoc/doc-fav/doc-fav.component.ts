@@ -28,7 +28,7 @@ export class DocFavComponent implements OnInit {
   Tags: string[] = [];
 
   p: number = 1;
-  count: number = 15;
+  count: number = 25;
   searchText;
   
   closeResult: string;  

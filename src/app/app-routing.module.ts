@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
@@ -17,6 +17,7 @@ import { UserEnattenteComponent } from './GestionUser/user-enattente/user-enatte
 import { DocUploadComponent } from './GestionDoc/doc-upload/doc-upload.component';
 import { DocViewComponent } from './GestionDoc/doc-view/doc-view.component';
 import { DocFavComponent } from './GestionDoc/doc-fav/doc-fav.component';
+import { DocByDepComponent } from './GestionDoc/doc-by-dep/doc-by-dep.component';
 //import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'doc-fav',component:DocFavComponent},
   {path:'',component:HomeComponent},
   {path:'search/:searchTerm',component:DocViewComponent},
+  {path:'doc-bydep',component:DocByDepComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full' },
 
   

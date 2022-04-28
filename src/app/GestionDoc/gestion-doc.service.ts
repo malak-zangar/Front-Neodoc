@@ -26,6 +26,9 @@ export class GestionDocService {
   getDocByDep(dep:string): Observable<any> {
     return this.http.get(`${this.baseUrl}/recherche/dep/${dep}`);
   }
+  getDocListByDep(dep:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getAll/inDep/${dep}`);
+  }
   getDocByTag(tag:string): Observable<any> {
     return this.http.get(`${this.baseUrl}/recherche/tag/${tag}`);
   }
