@@ -1,6 +1,10 @@
 <div class="container mt-2">
     <div class="card text-center" style=' color: #16ac98 ; padding: 5px; '>
         <div class="panel panel-primary">
+            <div class=" panel-heading ">
+                <h1><strong>{{poste}}</strong></h1>
+                <hr/>
+            </div>
             <div class="panel-body ">
                 <div class="search-hero mat-form-field ">
                     <input class="form-control " type="text " name="search " [(ngModel)]="searchText " autocomplete="on " placeholder="&#61442; Filtrer ">
@@ -41,13 +45,15 @@
                             <p class="dep ">
                             <b> Type : </b>{{ doc.type }}
                             </p>
-                          
+                            <p class="dep ">
+                                <b> Ajouté par : </b>{{ doc.owner }}
+                                </p>
                             <br>
                             <img *ngIf="favorita(doc) " src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
                             <img *ngIf="!favorita(doc) " src="assets/images/coeur.png " class="delete " width="30px " alt="file " (click)="tofav(doc) ">
                             <img src="assets/images/download.png " class="delete " width="30px " alt="file " (click)="downloadDoc(doc.id,doc.titre) ">
                             <img src="assets/images/edit.png " class="delete " width="30px " alt="file " (click)="opene(contente,doc.id) " href="javascript:void(0); " >
-                            <img *ngIf="showAdminBoard " src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); ">
+                            <img *ngIf="showAdminBoard || deleta(doc) " src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); ">
                             <hr/> 
                         </div>
                     </span>
@@ -65,6 +71,8 @@
                                     <th style="width:10% ">Type</th>
                                     <th style="width:10% ">Département</th>
                                     <th style="width:20% ">Tag</th>
+                                    <th style="width:10% ">Ajouté par</th>
+
                                     <th style="width:20% ">Action</th>
                                 </tr>
                             </thead>
@@ -90,11 +98,13 @@
                                             - {{ lib.libelle }}
                                         </p>
                                     </td>
+                                    <td>{{doc.owner}}</td>
+
                                     <td> <img *ngIf="favorita(doc) " src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
                                         <img *ngIf="!favorita(doc) " src="assets/images/coeur.png " class="delete " width="30px " alt="file " (click)="tofav(doc) ">
                                         <img src="assets/images/download.png " class="delete " width="30px " alt="file " (click)="downloadDoc(doc.id,doc.titre) ">
                                         <img src="assets/images/edit.png " class="delete " width="30px " alt="file " (click)="opene(contente,doc.id) " href="javascript:void(0); ">
-                                        <img *ngIf="showAdminBoard " src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); "></td>
+                                        <img *ngIf="showAdminBoard || deleta(doc)" src="assets/images/Delete-red.png " class="delete " width="30px " alt="file " (click)="open(content,doc.id) " href="javascript:void(0); "></td>
                                 </tr>
                             </tbody>
                         </table>

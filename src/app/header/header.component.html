@@ -41,7 +41,7 @@
                     <a class="nav-link active dropdown-toggle" href="doc-view">Tous les documents</a>
                     <a class="nav-link active dropdown-toggle" href="doc-bydep">Documents de mon département</a>
                     <li>
-                        <a class="nav-link active" href="doc-fav"><img src="assets/images/coeur.png " class="delete " width="30px " alt="file "></a>
+                        <a class="nav-link active" href="doc-fav"><img src="assets/images/coeur.png "  width="35px" height="30px" alt="file "></a>
                     </li>
                 </div>
             </ul>
@@ -59,9 +59,12 @@
                         <img width="35px" height="35px" style="border-radius: 20px;" src="../../assets/images/user_1.jpg">
                     </a>
                 </li>
-                <li class="nav-item mt-1">
-                    <a href class="nav-link" (click)="logout() " class="btn-default " style="color:beige ">Déconnexion</a>
+                <li class="nav-item">
+                    <a class="nav-link active navbar-brand" (click)="logout()">
+                        <img src="assets/images/logout3.png" style="border-radius: 20px;" width="35px" height="35px" alt="file ">
+                    </a>
                 </li>
+                <!--<a href class="nav-link" (click)="logout() " class="btn-default " style="color:beige ">Déconnexion</a>-->
             </ul>
         </div>
     </div>

@@ -50,6 +50,17 @@ export class UserEnattenteComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
     });  
   }  
+
+  openee(contente) {  
+    this.modalService.open(contente, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
+      this.closeResult = `Closed with: ${result}`;  
+      if (result === 'yes') {  
+        this.acceptAllUsers();  
+      }  
+    }, (reason) => {  
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
+    });  
+  }  
   
   private getDismissReason(reason: any): string {  
     if (reason === ModalDismissReasons.ESC) {  
@@ -73,6 +84,16 @@ export class UserEnattenteComponent implements OnInit {
 
   acceptUser(id: number) {
     this.userServiceGestService.acceptUser(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
+
+  acceptAllUsers() {
+    this.userServiceGestService.acceptAllUsers()
       .subscribe(
         data => {
           console.log(data);

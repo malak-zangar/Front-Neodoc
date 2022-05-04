@@ -6,8 +6,11 @@
                 <hr/>
             </div>
             <div class="panel-body ">
+
                 <div class="search-hero mat-form-field">
                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Filtrer">
+                    <button (click)="openee(contentee)" href="javascript:void(0); " class="btn btn-outline-success" style="margin-left: 10px ">Accepter tous</button>
+
                 </div>
                 <div class="table-responsive ">
                     <table class="table table-striped ">
@@ -74,6 +77,22 @@
             <div class="modal-footer ">
                 <button type="button " class="btn btn-outline-danger " (click)="d( 'Cross click') ">Annuler</button>
                 <button type="button " class="btn btn-outline-success " (click)="c( 'yes') ">Accepter</button>
+            </div>
+        </ng-template>
+
+        <ng-template #contentee let-c="close " let-d="dismiss ">
+            <div class="modal-header ">
+                <h4 class="modal-title " id="modal-basic-title ">Confirmation</h4>
+                <button type="button " class="close btn " aria-label="Close " (click)="d( 'Cross click') ">    
+                          <span aria-hidden="true ">×</span>    
+                      </button>
+            </div>
+            <div class="modal-body ">
+                <p>Voulez-vous vraiment accepter tous les utilisateurs en attente ?</p>
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-outline-danger " (click)="d( 'Cross click') ">Annuler</button>
+                <button type="button " class="btn btn-outline-success " (click)="c( 'yes') ">Accepter tous</button>
             </div>
         </ng-template>
     </div>

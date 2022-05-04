@@ -89,6 +89,11 @@ export class DocFavComponent implements OnInit {
 
       }
 
+      deleta(doc:any){
+        if( this.tokenStorageService.getUser().username==doc.owner ){return true;}
+        else{return false;}
+        }
+
       i:number;
 
       favorita(doc){

@@ -123,6 +123,11 @@ users:any;
       this.favorita(doc);
     }
 
+    deleta(doc:any){
+    if( this.tokenStorageService.getUser().username==doc.owner ){return true;}
+    else{return false;}
+    }
+
     favorita(doc:any){
     
       this.i = 0;

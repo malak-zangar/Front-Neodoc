@@ -30,6 +30,10 @@ export class UserServiceGestService {
     return this.http.put(`${this.baseUrl}/accept/${id}`, { responseType: 'text' });
   }
 
+  acceptAllUsers(): Observable<any> {
+    return this.http.put(`${this.baseUrl}/accept/all`, { responseType: 'text' });
+  }
+
   getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }

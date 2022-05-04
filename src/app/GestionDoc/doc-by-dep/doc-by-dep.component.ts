@@ -51,6 +51,7 @@ showAdminBoard:boolean;
 userid:any;
 showicon:boolean=true;
 showcontenu:boolean;
+poste:string;
   constructor(private userservice:UserServiceGestService,private httpClient: HttpClient,private route: ActivatedRoute, private gestionDocService: GestionDocService,private router: Router,private modalService: NgbModal, private tokenStorageService : TokenStorageService,private userService: UserServiceGestService ,private sanitizer: DomSanitizer,
     ) { }
 
@@ -58,6 +59,7 @@ showcontenu:boolean;
     this.getActivatedUser();
     this.reloadData();
     this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
+    this.poste=this.tokenStorageService.getUser().poste;
     console.log(this.tokenStorageService.getUser().poste);
 
   }
@@ -111,6 +113,11 @@ showcontenu:boolean;
       });
       this.favorita(doc);
     }
+
+    deleta(doc:any){
+      if( this.tokenStorageService.getUser().username==doc.owner ){return true;}
+      else{return false;}
+      }
 
     favorita(doc:any){
     
