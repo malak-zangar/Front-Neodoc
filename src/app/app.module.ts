@@ -4,18 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AdminComponent } from './admin/admin.component';
-import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { RouterModule } from '@angular/router';
-//import { AuthGuard } from './_auth/auth.guard';
-//import { AuthInterceptor } from './_auth/auth.interceptor';
-import { UserService } from './_services/user.service';
 import { SignupComponent } from './signup/signup.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
@@ -46,21 +40,20 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {AutoCompleteModule} from 'primeng/autocomplete';
-
 import {CommonModule} from "@angular/common";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {DialogModule, Dialog} from 'primeng/dialog';
-import { DocByDepComponent } from './GestionDoc/doc-by-dep/doc-by-dep.component'
+import { DocByDepComponent } from './GestionDoc/doc-by-dep/doc-by-dep.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AdminComponent,
-    UserComponent,
     LoginComponent,
     HeaderComponent,
-    ForbiddenComponent,
     SidebarComponent,
     SignupComponent,
     ForgotpasswordComponent,
@@ -103,16 +96,10 @@ import { DocByDepComponent } from './GestionDoc/doc-by-dep/doc-by-dep.component'
     MatButtonModule,
     MatIconModule,
     DialogModule,
- //Dialog
+    PdfViewerModule,
+
   ],
- /* providers: [
-    AuthGuard,
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi:true},
-      UserService
-  ],*/
+ 
 
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

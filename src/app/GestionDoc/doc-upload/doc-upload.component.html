@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div *ngIf="isLoggedIn" class="container mt-2">
     <div class="card text-center" style=' color: #16ac98 ; padding: 20px;  margin-top: 10px; background-color: rgb(246, 253, 253); '>
         <div class="panel panel-primary">
             <div class="col-md-80 col-xs-12 col-sm-12 ">
@@ -31,17 +31,7 @@
                                 <app-progress [progress]="file?.progress "></app-progress>
                             </div>
                             <br>
-                            <!--
-                            <mat-form-field class="input">
-                                <mat-chip-list #taglist>
-                                    <mat-chip selected color="grey" *ngFor="let Tag of Tags" [selectable]="selectable" [removable]="removable" (removed)="remove(Tag)">
-                                        {{Tag}}
-                                        <mat-icon matChipRemove *ngIf="removable"> </mat-icon>
-                                    </mat-chip>
-                                    <input required minlength="2" maxlength="12" placeholder="Ajouter Tags" [matChipInputFor]="taglist" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
-                                </mat-chip-list>
 
-                            </mat-form-field> -->
 
                             <form *ngIf="showAdminBoard" class="form-group animate__animated animate__backInDown" name="form" #f="ngForm" novalidate>
 
@@ -110,44 +100,12 @@
 </div>
 
 
-<!--  <div class="table-responsive ">
-                <div style="float: right ">
-                    <div style="float: left; margin-right: 20px ">
-                        <div class="input-group no-border ">
-                            <label></label>
-                            <input #inputElement [(ngModel)]="searchTerm " style="height: 35px " class="form-control " placeholder="Search... " type="text " value=" ">
-                            <div class="input-group-append ">
-                                <div style="height: 35px " class="input-group-text "><i style="font-size: 15px " class="nc-icon nc-zoom-split "></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="float: right;margin-right: 30px ">
-                        <p-autoComplete (onSelect)="handelTagSelection() " (onUnselect)="handelTagSelection() " [style]="{width: '100%', minWidth: '200px'} " [(ngModel)]="selectedSearchTags " [suggestions]="filteredTags " (completeMethod)="filterTags($event)
-                        " field="label " [multiple]="true "
-                            [minLength]=" 1 " [dropdown]="true ">
-                        </p-autoComplete>
-                    </div>
-                </div>
-                <table class="table ">
-                    <thead class=" text-primary ">
-                        <th>File Name</th>
-                        <th>Content Type</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let file of fileInfos | async ">
-                            <td>
-                                {{file.titre}}
-                            </td>
-                            <td>
-                                {{file.type}}
-                            </td>
-                            <td>
-                                <a href="{{file.url}} " matTooltip="Download This File " class="btn btn-primary btn-sm "><i class="fas fa-file-download "></i> </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
-
 <div #container></div>
+<div *ngIf="!isLoggedIn" class="container mt-4">
+    <div class="card text-center" style='padding: 20px;'>
+        <h1>
+            <Strong>Welcome to NeoDoc</Strong>
+        </h1>
+        <img class="img-responsive" src="../../../assets/images/1527067820254.jpg" alt=" " />
+    </div>
+</div>

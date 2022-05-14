@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
@@ -37,7 +36,8 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
-    this.router.navigate(['/home']);
     window.location.reload();
+    this.router.navigate(['/home']);
+    
   }
 }

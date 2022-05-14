@@ -22,10 +22,14 @@ export class UserUpdateComponent implements OnInit {
 role:string;
 usere:any;
 form:any={role:null};
+isLoggedIn=false;
   constructor(private route: ActivatedRoute,private router: Router,
     private userServiceGestService: UserServiceGestService,private modalService: NgbModal,private token: TokenStorageService) { }
 
   ngOnInit() {
+    if (this.token.getToken()) {
+      this.isLoggedIn = true;
+      }
     this.reloadData();
    this.user = new User();
 

@@ -1,4 +1,4 @@
-<div class="container mt-3" style='width:800px; padding-top: 20px; '>
+<div *ngIf="isLoggedIn" class="container mt-3" style='width:800px; padding-top: 20px; '>
     <div class="row main-content  text-center">
 
         <div class="col-md-80 col-xs-12 col-sm-12 ">
@@ -81,6 +81,11 @@
     </div>
 
 </div>
-<div class="container-fluid text-center footer ">
-    <p>@copyright, NeoXam 2022</p>
+<div *ngIf="!isLoggedIn" class="container mt-4">
+    <div class="card text-center" style='padding: 20px;'>
+        <h1>
+            <Strong>Welcome to NeoDoc</Strong>
+        </h1>
+        <img class="img-responsive" src="../../../assets/images/1527067820254.jpg" alt=" " />
+    </div>
 </div>

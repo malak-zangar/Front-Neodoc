@@ -53,10 +53,13 @@ export class GestionDocService {
     return this.http.get(`${this.baseUrl}/name/${titre}`);
   }
 
-  downloadDoc(id:number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/download/${id}`,{observe:'response',responseType:'blob'});
+  downloadDoc(titre:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/download/${titre}`,{observe:'response',responseType:'blob'});
   }
 
+  downloadDocc(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/download/${id}`,{observe:'response',responseType:'blob'});
+  }
 
   RemoveFromFav(idu:number,idd:number): Observable<Object> {
     return this.http.delete(`http://localhost:9090/api/favorite/doc/${idu}/${idd}`, { responseType: 'text' });}

@@ -1,4 +1,4 @@
-<div class="container mt-3" style='width:700px; padding-top: 20px;'>
+<div *ngIf="isLoggedIn" class="container mt-3" style='width:700px; padding-top: 20px;'>
     <div class="card text-center " style=' color: #16ac98 ; padding: 20px;'>
         <h1><strong>Les détails de {{ user.firstname}} {{user.lastname}}</strong></h1>
         <hr/>
@@ -27,5 +27,14 @@
 
         <br>
         <button (click)="list()" class="btn btn-outline-secondary">Retour à la liste des utilisateurs</button><br>
+    </div>
+</div>
+
+<div *ngIf="!isLoggedIn" class="container mt-4">
+    <div class="card text-center" style='padding: 20px;'>
+        <h1>
+            <Strong>Welcome to NeoDoc</Strong>
+        </h1>
+        <img class="img-responsive" src="../../../assets/images/1527067820254.jpg" alt=" " />
     </div>
 </div>

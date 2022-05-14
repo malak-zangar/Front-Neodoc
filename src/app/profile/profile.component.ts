@@ -18,10 +18,14 @@ export class ProfileComponent implements OnInit {
   users: Observable<User[]>;
   role:string;
   showAdminBoard:boolean;
+isLoggedIn=false;
   constructor(private route: ActivatedRoute,private router: Router,
     private userServiceGestService: UserServiceGestService,private modalService: NgbModal,private token: TokenStorageService) { }
 
   ngOnInit(): void {
+    if (this.token.getToken()) {
+      this.isLoggedIn = true;
+      }
     this.currentUser = this.token.getUser();
     this.reloadData();
    this.user = new User();

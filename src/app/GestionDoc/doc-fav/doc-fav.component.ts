@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Observable } from 'rxjs';
 import { GestionDocService } from '../gestion-doc.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
@@ -24,7 +23,7 @@ var myfile = [];
 })
 export class DocFavComponent implements OnInit {
 
-  form:any={titre:null,type:null,departements: null};
+  form:any={name:null,type:null,departements: null};
   Tags: string[] = [];
 
   p: number = 1;
@@ -56,6 +55,10 @@ export class DocFavComponent implements OnInit {
       ) { }
   
       ngOnInit() {
+        
+          if (this.tokenStorageService.getToken()) {
+            this.isLoggedIn = true;
+           
       this.user=this.tokenStorageService.getUser()
         this.userid = this.user.id;
         console.log( this.user, this.userid,myfile,'hh');
@@ -65,7 +68,8 @@ export class DocFavComponent implements OnInit {
       this.roles = this.tokenStorageService.getUser().roles;
       console.log(this.idu , this.user,this.roles);
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-    } 
+      console.log(this.user.doc_favoris);
+    } }
   
       reloadData() {
        this.documents = this.gestionDocService.getDocListFav(this.userid);
@@ -128,7 +132,7 @@ export class DocFavComponent implements OnInit {
       }
 
       downloadDoc(id: number,titre : string) {
-        this.gestionDocService.downloadDoc(id)
+        this.gestionDocService.downloadDocc(id)
           .subscribe(
             data => {
             let fileName=titre;
@@ -158,8 +162,8 @@ export class DocFavComponent implements OnInit {
         .subscribe(data => {
           console.log(data)
           this.doc = data;
-          this.form['titre']=this.doc.titre;
-          this.form['type']=this.doc.type;
+          this.form['name']=this.doc.name;
+          this.form['type']=this.doc.contentType;
           this.form['departements']=this.doc.departements;
   
           for(var i=0;i<this.doc.tags.length;i++){
@@ -194,15 +198,15 @@ export class DocFavComponent implements OnInit {
       }  
       
       updateDoc() {
-        let {titre,type,departements} = this.form;
-        console.log(this.form , titre , type , departements);
+        let {name,contentType,departements} = this.form;
+        console.log(this.form , name , contentType , departements);
         const formData = new FormData();
   
-      formData.append("titre",titre);
+      formData.append("titre",name);
       formData.append("dep",departements);
       for (var j=0;j<this.Tags.length;j++){
         formData.append("tags",this.Tags[j]);}
-      console.log(titre+" "+departements+ " " +this.Tags);
+      console.log(name+" "+departements+ " " +this.Tags);
       this.httpClient.put('http://localhost:9090/document/update/'+this.id,formData)
       .subscribe(
         data => {
@@ -212,7 +216,7 @@ export class DocFavComponent implements OnInit {
           this.Tags=[];
           }, 
         error => {console.log(error);
-          alert("Modification échouée essayer autrement, peut etre le nom du fichier " + titre + " existe déja dans le departement " + departements);
+          alert("Modification échouée essayer autrement, peut etre le nom du fichier " + name + " existe déja dans le departement " + departements);
           this.Tags=[];
         }
         ); }
@@ -227,7 +231,7 @@ export class DocFavComponent implements OnInit {
       afficher(id: number) {
         this.gestionDocService.getDoc(id).subscribe(
           (res) => {
-          this.retrieveResonse = res;
+          /*this.retrieveResonse = res;
           this.base64Data = this.retrieveResonse.data;
          
          var blob = new Blob([this._base64ToArrayBuffer(this.base64Data)], {
@@ -235,7 +239,11 @@ export class DocFavComponent implements OnInit {
           });
           console.log(blob);
           const url = URL.createObjectURL(blob);
-          this.retrievedFile = window.open(url,this.retrieveResonse.titre);
+          this.retrievedFile = window.open(url,this.retrieveResonse.name);*/
+         // window.open(res.path);
+         console.log("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
+         window.open("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
+      
         });
       }
   

@@ -62,7 +62,7 @@
     <div class="card text-center" style=' color: #16ac98 ; padding: 5px; '>
         <div class="panel panel-primary">
             <div class=" panel-heading ">
-                <h1><strong>Vos favoris</strong></h1>
+                <h1><strong> Favoris</strong></h1>
                 <hr/>
             </div>
             <div class="panel-body ">
@@ -77,25 +77,25 @@
                     <div class="cardd" *ngFor="let doc of documents | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText">
 
                         <span>
-                        <img class=" delete " style="border-radius: 25px; " *ngIf="doc.type=='text/plain ' || doc.type=='application/vnd.openxmlformats-officedocument.wordprocessingml.document ' " src="assets/images/doc.png " width="50px " alt="file
-                    " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type=='application/pdf ' " src="assets/images/pdff.png " width="55px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.presentationml.presentation ' " src="assets/images/ppt.png " width="50px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet ' " src="assets/images/excel.png " width="55px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " style="border-radius: 25px; " *ngIf="doc.type=='application/zip ' || doc.type=='application/rar ' " src="assets/images/zip.png " width="65px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type=='video/mp4 ' " src="assets/images/video.png " width="55px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type=='image/png ' ||doc.type=='image/jpeg ' ||doc.type=='image/jpg ' " src="assets/images/image.png " width="45px " alt="file " (click)="afficher(doc.id) ">
-                        <img class="delete " *ngIf="doc.type!='application/pdf ' && doc.type!='image/png ' && doc.type!='image/jpeg ' && doc.type!='image/jpg ' && doc.type!='video/mp4 ' && doc.type!='application/zip ' && doc.type!='application/rar
-    ' && doc.type!='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet '
-                    && doc.type!='text/plain ' && doc.type !='application/vnd.openxmlformats-officedocument.presentationml.presentation ' && doc.type !='application/vnd.openxmlformats-officedocument.wordprocessingml.document ' " src="assets/images/other.png
-                    " width="55px " alt="file " (click)="afficher(doc.id) "></span>
+                            <img class=" delete " style="border-radius: 25px; " *ngIf="doc.contentType=='text/plain' || doc.contentType=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'" src="assets/images/doc.png" width="50px " alt="file" (click)="afficher(doc.id)">
+                            <img class="delete " *ngIf="doc.contentType=='application/pdf'" src="assets/images/pdff.png" width="55px " alt="file" (click)="afficher(doc.id)">
+                            <img class="delete " *ngIf="doc.contentType=='application/vnd.openxmlformats-officedocument.presentationml.presentation'" src="assets/images/ppt.png" width="50px " alt="file " (click)="afficher(doc.id)">
+                            <img class="delete " *ngIf="doc.contentType=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" src="assets/images/excel.png" width="55px " alt="file " (click)="afficher(doc.id)">
+                            <img class="delete " style="border-radius: 25px; " *ngIf="doc.contentType=='application/zip' || doc.contentType=='application/rar' " src="assets/images/zip.png" width="65px " alt="file " (click)="afficher(doc.id) ">
+                            <img class="delete " *ngIf="doc.contentType=='video/mp4' " src="assets/images/video.png" width="55px " alt="file " (click)="afficher(doc.id)">
+                            <img class="delete " *ngIf="doc.contentType=='image/png' ||doc.contentType=='image/jpeg' ||doc.contentType=='image/jpg'" src="assets/images/image.png" width="45px " alt="file " (click)="afficher(doc.id) ">
+                            <img class="delete " *ngIf="doc.contentType!='application/pdf' && doc.contentType!='image/png' && doc.contentType!='image/jpeg' && doc.contentType!='image/jpg' && doc.contentType!='video/mp4' && doc.contentType!='application/zip' && doc.contentType!='application/rar' && doc.contentType!='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && doc.contentType!='text/plain' && doc.contentType !='application/vnd.openxmlformats-officedocument.presentationml.presentation' && doc.contentType !='application/vnd.openxmlformats-officedocument.wordprocessingml.document'" src="assets/images/other.png" width="55px " alt="file " (click)="afficher(doc.id) "></span>
+
                         <span>
                  
                     <div class="info ">
                        <br>
-                        <h4 class="name ">
-                        {{ doc.titre }}
-                        </h4>
+                       <div *ngIf="doc.name.length>=25;else moins"><h4 class="name ">
+                        {{ doc.name.substr(0,22) }}...
+                        </h4></div>
+                        <ng-template  #moins> <h4 class="name ">
+                            {{ doc.name }}
+                            </h4></ng-template>
                         <p class="size ">
                             <b>Département :</b> {{ doc.departements }}
                         </p>
@@ -104,9 +104,14 @@
                         <p class="size" *ngFor="let lib of doc.tags">
                             - {{ lib.libelle }} 
                         </p>
-                        <p class="dep ">
-                        <b> Type : </b>{{ doc.type }}
-                        </p>
+                        <div *ngIf="doc.contentType.length>=30;else moinns"><p class="dep">
+                            <b>Type : </b>
+                            {{doc.contentType.substr(doc.contentType.indexOf('/') + 1, 10)}}... {{doc.contentType.substr(doc.contentType.length-6, doc.contentType.length)}}
+                        </p></div>
+                            <ng-template  #moinns> <p class="dep">
+                                <b>Type : </b>
+                                {{ doc.contentType }}
+                            </p></ng-template>
                     
                         <br>
                         <img src="assets/images/ncoeur.png " class="delete " width="30px " alt="file " (click)="fromfav(doc) ">
@@ -135,19 +140,19 @@
                             <tbody>
                                 <tr *ngFor="let doc of documents | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText , let i=index">
                                     <td>{{i+1}}</td>
-                                    <td> <img class=" delete " style="border-radius: 25px; " *ngIf="doc.type=='text/plain' || doc.type=='application/vnd.openxmlformats-officedocument.wordprocessingml.document' " src="assets/images/doc.png " width="55px " alt="file
-                                    " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type=='application/pdf' " src="assets/images/pdff.png " width="50px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.presentationml.presentation' " src="assets/images/ppt.png " width="55px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' " src="assets/images/excel.png " width="50px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " style="border-radius: 25px; " *ngIf="doc.type=='application/zip' || doc.type=='application/rar' " src="assets/images/zip.png " width="65px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type=='video/mp4' " src="assets/images/video.png " width="55px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type=='image/png' ||doc.type=='image/jpeg' ||doc.type=='image/jpg' " src="assets/images/image.png " width="45px " alt="file " (click)="afficher(doc.id) ">
-                                        <img class="delete " *ngIf="doc.type!='application/pdf' && doc.type!='image/png' && doc.type!='image/jpeg' && doc.type!='image/jpg' && doc.type!='video/mp4' && doc.type!='application/zip' && doc.type!='application/rar' && doc.type!='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                                    && doc.type!='text/plain' && doc.type !='application/vnd.openxmlformats-officedocument.presentationml.presentation' && doc.type !='application/vnd.openxmlformats-officedocument.wordprocessingml.document' " src="assets/images/other.png
-                                    " width="55px " alt="file " (click)="afficher(doc.id) "></td>
-                                    <td>{{doc.titre}}</td>
-                                    <td>{{doc.type}}</td>
+                                    <td> <img class=" delete " style="border-radius: 25px; " *ngIf="doc.contentType=='text/plain' || doc.contentType=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'" src="assets/images/doc.png" width="50px "
+                                            alt="file" (click)="afficher(doc.id)">
+                                        <img class="delete " *ngIf="doc.contentType=='application/pdf'" src="assets/images/pdff.png" width="55px " alt="file" (click)="afficher(doc.id)">
+                                        <img class="delete " *ngIf="doc.contentType=='application/vnd.openxmlformats-officedocument.presentationml.presentation'" src="assets/images/ppt.png" width="50px " alt="file " (click)="afficher(doc.id)">
+                                        <img class="delete " *ngIf="doc.contentType=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" src="assets/images/excel.png" width="55px " alt="file " (click)="afficher(doc.id)">
+                                        <img class="delete " style="border-radius: 25px; " *ngIf="doc.contentType=='application/zip' || doc.contentType=='application/rar' " src="assets/images/zip.png" width="65px " alt="file " (click)="afficher(doc.id) ">
+                                        <img class="delete " *ngIf="doc.contentType=='video/mp4' " src="assets/images/video.png" width="55px " alt="file " (click)="afficher(doc.id)">
+                                        <img class="delete " *ngIf="doc.contentType=='image/png' ||doc.contentType=='image/jpeg' ||doc.contentType=='image/jpg'" src="assets/images/image.png" width="45px " alt="file " (click)="afficher(doc.id) ">
+                                        <img class="delete " *ngIf="doc.contentType!='application/pdf' && doc.contentType!='image/png' && doc.contentType!='image/jpeg' && doc.contentType!='image/jpg' && doc.contentType!='video/mp4' && doc.contentType!='application/zip' && doc.contentType!='application/rar' && doc.contentType!='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && doc.contentType!='text/plain' && doc.contentType !='application/vnd.openxmlformats-officedocument.presentationml.presentation' && doc.contentType !='application/vnd.openxmlformats-officedocument.wordprocessingml.document'"
+                                            src="assets/images/other.png" width="55px " alt="file " (click)="afficher(doc.id) ">
+                                    </td>
+                                    <td>{{doc.name}}</td>
+                                    <td>{{doc.contentType}}</td>
                                     <td>{{doc.departements}}</td>
                                     <td>
                                         <p *ngFor="let lib of doc.tags">
@@ -196,10 +201,10 @@
                     <form class="form-group animate__animated animate__backInDown " name="form" #f="ngForm">
                         <div class="form-group " style='color: #04352e'>
                             <label for="name ">Titre</label>
-                            <input #titre="ngModel" titre [(ngModel)]="doc.titre " [(ngModel)]="form.titre " type="text " class="form__input " id="titre " required name="titre ">
+                            <input #name="ngModel" name [(ngModel)]="doc.name" [(ngModel)]="form.name" type="text " class="form__input " id="name " required name="name ">
 
                             <label for="name ">Type</label>
-                            <input #type="ngModel" type [(ngModel)]="doc.type" disabled type="text " class="form__input " id="type " required name="type ">
+                            <input #contentType="ngModel" contentType [(ngModel)]="doc.contentType" disabled type="text " class="form__input " id="contentType " required name="contentType ">
 
                             <mat-form-field class="input">
                                 <mat-chip-list #taglist>

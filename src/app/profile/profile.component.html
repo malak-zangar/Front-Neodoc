@@ -1,7 +1,7 @@
 <ng-template #loggedOut>
     S'il vous plait login.
 </ng-template>
-<div class="container mt-3 " style='width:1000px;  '>
+<div *ngIf="isLoggedIn" class="container mt-3 " style='width:1000px;  '>
     <div class="row main-content  text-center">
         <div class="col-md-4 text-center company__info box">
 
@@ -155,7 +155,12 @@
     </div>
 
 
-
-    <div class="container-fluid text-center footer mt-5 ">
-        <p>@copyright, NeoXam 2022</p>
+</div>
+<div *ngIf="!isLoggedIn" class="container mt-4">
+    <div class="card text-center" style='padding: 20px;'>
+        <h1>
+            <Strong>Welcome to NeoDoc</Strong>
+        </h1>
+        <img class="img-responsive" src="../../assets/images/1527067820254.jpg" alt=" " />
     </div>
+</div>

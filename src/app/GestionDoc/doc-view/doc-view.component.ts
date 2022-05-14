@@ -30,7 +30,7 @@ searchText;
 searchTerm: string = "";
 
 
-form:any={titre:null,type:null,departements: null};
+form:any={name:null,type:null,departements: null};
 
 closeResult: string;  
 Tags: string[] = [];
@@ -57,7 +57,12 @@ showcontenu:boolean;
     ) { }
 
     ngOnInit() {
-
+     
+        if (this.tokenStorageService.getToken()) {
+          this.isLoggedIn = true;
+          
+        
+          
   this.getActivatedUser();
 
   this.reloadData();
@@ -70,7 +75,7 @@ showcontenu:boolean;
     //console.log(this.roles);
     //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
     this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
-
+        }
   } 
 users:any;
   getActivatedUser(){
@@ -94,6 +99,7 @@ users:any;
 
     reloadData() {
       this.documents = this.gestionDocService.getDocList();
+   
    }
 
     tofav(doc:any){
@@ -188,11 +194,12 @@ Contenue(){
           error => console.log(error));
     }
 
-    downloadDoc(id: number,titre : string) {
-      this.gestionDocService.downloadDoc(id)
+    downloadDoc(id:number,titre : string) {
+      this.gestionDocService.downloadDocc(id)
         .subscribe(
           data => {
           let fileName=titre;
+          console.log(fileName);
             let blob:Blob=data.body as Blob;
             let a = document.createElement('a');
             a.download=fileName;
@@ -203,9 +210,12 @@ Contenue(){
     }
 
     open(content, id) {  
+      console.log(id);
+
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
         this.closeResult = `Closed with: ${result}`;  
-        if (result === 'yes') {  
+        if (result === 'yes') { 
+          console.log(id);
           this.deleteDoc(id);  
         }  
       }, (reason) => {  
@@ -219,8 +229,8 @@ Contenue(){
       .subscribe(data => {
         console.log(data)
         this.doc = data;
-        this.form['titre']=this.doc.titre;
-        this.form['type']=this.doc.type;
+        this.form['name']=this.doc.name;
+        this.form['type']=this.doc.contentType;
         this.form['departements']=this.doc.departements;
 
         for(var i=0;i<this.doc.tags.length;i++){
@@ -263,15 +273,15 @@ Contenue(){
 
 
     updateDoc() {
-      let {titre,type,departements} = this.form;
-      console.log(this.form , titre , type , departements);
+      let {name,contentType,departements} = this.form;
+      console.log(this.form , name , contentType , departements);
       const formData = new FormData();
 
-    formData.append("titre",titre);
+    formData.append("titre",name);
     formData.append("dep",departements);
     for (var j=0;j<this.Tags.length;j++){
       formData.append("tags",this.Tags[j]);}
-    console.log(titre+" "+departements+ " " +this.Tags);
+    console.log(name+" "+departements+ " " +this.Tags);
     this.httpClient.put('http://localhost:9090/document/update/'+this.id,formData)
     .subscribe(
       data => {
@@ -281,7 +291,7 @@ Contenue(){
         this.Tags=[];
         }, 
       error => {console.log(error);
-        alert("Modification échouée essayer autrement, peut etre le nom du fichier " + titre + " existe déja dans le departement " + departements);
+        alert("Modification échouée essayer autrement, peut etre le nom du fichier " + name + " existe déja dans le departement " + departements);
         this.Tags=[];
       }
       ); }
@@ -296,15 +306,13 @@ Contenue(){
       this.gestionDocService.getDoc(id).subscribe(
         (res) => {
         this.retrieveResonse = res;
-        this.base64Data = this.retrieveResonse.data;
        
-       var blob = new Blob([this._base64ToArrayBuffer(this.base64Data)], {
-          type:this.retrieveResonse.type, 
-        });
-        console.log(blob);
-        const url = URL.createObjectURL(blob);
-        this.retrievedFile = window.open(url,this.retrieveResonse.titre);
+        console.log(res.path);
+        console.log("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
+         window.open("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
+      
       });
+
     }
 
     _base64ToArrayBuffer(base64Data) {

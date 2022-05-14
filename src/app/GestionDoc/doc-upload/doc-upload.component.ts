@@ -14,8 +14,6 @@ import { ComponentFactoryResolver, ViewContainerRef, EventEmitter, Input, Output
   import {fromEvent, Observable} from 'rxjs';
   import {FileItem, FileUploader} from "ng2-file-upload";
   import {debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
-import { UploadFileService } from 'src/app/upload-file.service';
-import { TaggedFile } from '../tagged-file';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 
@@ -29,16 +27,19 @@ export class DocUploadComponent implements OnInit {
   closeResult: string;  
 doc:any;
 private roles: string[] = [];
-
-  constructor(private GestionDocService: GestionDocService, private uploadService: UploadFileService,
+isLoggedIn=false;
+  constructor(private GestionDocService: GestionDocService, 
     private router: Router,private httpClient: HttpClient , private modalService: NgbModal,private tokenStorageService :TokenStorageService) { }
 
   ngOnInit(): void { 
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+      
     this.roles = this.tokenStorageService.getUser().roles;
     console.log(this.roles);
     this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
 
-  }
+  }}
 
 //////// ekher wahed ////////////
 
@@ -127,8 +128,9 @@ submit(){
       formData.append("dep",this.tokenStorageService.getUser().poste);
     }
     else { formData.append("dep",dep);}
- }
+    console.log(this.files[i]);
 
+ }
   this.httpClient.post('http://localhost:9090/document/upload', formData)
     .subscribe(
       res => {console.log(res);
@@ -185,143 +187,6 @@ remove(tag: string): void {
   if (index >= 0) 
   {this.Tags.splice(index, 1);}
 }
- 
-/*
-  @ViewChild('container',{read:ViewContainerRef,static:false}) container: ViewContainerRef;
-  @ViewChild("inputElement",{static:true}) inputElement : ElementRef<HTMLInputElement>;
-  @Input() selected: boolean;
-  @Output() selectedChange = new EventEmitter<boolean>();
-  
-  uploader: FileUploader = new FileUploader({});
-  hasBaseDropZoneOver: boolean = false;
-  progress = 0;
-  messagee = '';
-  fileInfos: Observable<any>;
-  displayTagModal: boolean = false;
-  taggedFiles: TaggedFile[] = [];
-  selectedTags: Tag[] = []
-  filteredTags: Tag[] = [];
-  tags: Tag[] = [];
-  searchTerm: string = "";
-  tagged: boolean = false;
-
-  public selectedFileIndex: number;
-  selectedSearchTags: Tag[] = [];
-
- 
-
-  fileOverBase(e: any): void {
-    console.log(e)
-    this.hasBaseDropZoneOver = e;
-  }
-
-  ngOnInit() {
-    this.fileInfos = this.uploadService.getFiles();
-    //this.getTags();
-    fromEvent(this.inputElement.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(500),
-        map((event: Event) => (<HTMLInputElement>event.target).value),
-        distinctUntilChanged(),
-        tap(searchTerm => {
-          this.searchTerm = searchTerm;
-          console.log(this.searchTerm)
-        }),
-        tap(_ => this.fileInfos = this.filterFiles()),
-      )
-      .subscribe();
-  }
-
-  getTags(){
-    this.uploadService.getTags().subscribe(tags => this.tags = tags)
-  }
-
-  handelTagSelection(){
-    this.fileInfos = this.filterFiles()
-  }
-
-  filterFiles():Observable<any>{
-    return this.uploadService.filterFiles(this.searchTerm,this.selectedSearchTags)
-  }
-
-
-  populateTaggedFiles() {
-    for(let i=this.taggedFiles.length; i<this.uploader.queue.length;i++){
-      let file = this.uploader.queue[i]._file;
-      //let uniqueName: string = UUID.UUID() + file.name.substr(file.name.lastIndexOf('.'), file.name.length)
-      this.taggedFiles.push(new TaggedFile(file))
-    }
-  }
-
-  uploadMultiple() {
-    for (let i = 0; i < this.uploader.queue.length; i++) {
-      let fileItem = this.uploader.queue[i]._file;
-      let data = new FormData();
-      data.append('file', fileItem);
-      this.taggedFiles[i].isUploading = true;
-      this.upload(data,this.taggedFiles[i].progress);
-
-    }
-    this.uploadService.uploadMultiple(this.taggedFiles).subscribe(res=> this.fileInfos = this.uploadService.getFiles())
-    this.uploader.clearQueue();
-    this.taggedFiles = [];
-  }
-
-  upload(data: FormData,progress:number) {
-    this.uploadService.upload(data).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.messagee = event.body.message;
-        }
-      },
-      err => {
-        progress = 0;
-        this.messagee = 'Could not upload the file!';
-      });
-  }
-
-  tagFile(fileIndex: number) {
-    this.displayTagModal = true;
-    this.selectedFileIndex = fileIndex;
-    this.selectedTags = [...this.taggedFiles[fileIndex].tags];
-  }
-
-  filterTags(searchWord: any) {
-    this.filteredTags = [];
-    this.tags.filter(tag => tag.label.toLowerCase().includes(searchWord.query.toLowerCase())).map(o => {
-      this.filteredTags.push(o);
-    });
-  }
-
-  saveTagSelection() {
-    this.taggedFiles[this.selectedFileIndex].tags = [...this.selectedTags];
-    this.selectedTags = [];
-    this.selectedFileIndex = undefined;
-    this.tagged = true;
-    console.log("this.taggedFiles.length");
-    console.log(this.taggedFiles.length);
-    console.log(this.taggedFiles);
-    for(let i=0; i<this.taggedFiles.length;i++){
-      if(this.taggedFiles[i].tags.length==0){
-        this.tagged = false;
-        console.log(this.taggedFiles[i]);
-        console.log("fffffffffff");
-      }
-    }
-  }
-
-  deleteFileFromQueue(fileIndex: number) {
-    let file: FileItem = this.uploader.queue[fileIndex];
-    this.uploader.removeFromQueue(file);
-    this.taggedFiles.splice(fileIndex,1);
-  }
-   public toggleSelected() {
-     this.selected = !this.selected;
-     this.selectedChange.emit(this.selected);
-   }
-*/
 
 }
 

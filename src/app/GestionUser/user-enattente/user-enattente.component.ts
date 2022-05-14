@@ -8,6 +8,7 @@ import { UserDetailsComponent } from './../user-details/user-details.component';
 import { filter } from 'rxjs/operators';
 
 import {MatTableDataSource} from '@angular/material/table';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
   selector: 'app-user-enattente',
@@ -20,11 +21,15 @@ export class UserEnattenteComponent implements OnInit {
   p: number = 1;
   count: number = 5;
   searchText;
-
-  constructor(private userServiceGestService: UserServiceGestService,
+isLoggedIn=false;
+  constructor(private userServiceGestService: UserServiceGestService, private tokenStorageService : TokenStorageService,
     private router: Router,private modalService: NgbModal) {}
 
-  ngOnInit() {this.reloadData();}
+  ngOnInit() {
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+      }
+    this.reloadData();}
 
   reloadData() {
     this.users = this.userServiceGestService.getUserListEnattente();}

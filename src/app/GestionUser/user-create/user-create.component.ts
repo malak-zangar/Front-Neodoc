@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceGestService } from '../user-service-gest.service';
 import { User } from "./../user";
-import { UserService } from '../../_services/user.service';
-import { AuthService } from '../../_services/user-auth.service';
+
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
   selector: 'app-user-create',
@@ -23,14 +23,18 @@ export class UserCreateComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-
-  constructor(private userServiceGestService: UserServiceGestService,
+isLoggedIn=false;
+  constructor(private userServiceGestService: UserServiceGestService,private tokenStorageService : TokenStorageService,
     private router: Router) { }
 
   ngOnInit(): void {
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+      }
   }
 
 onSubmit(): void {
+   
   const {firstname,lastname, username, email, password,poste} = this.form;
 
   this.userServiceGestService.registerAdmin(firstname,lastname,username, email, password,poste).subscribe(

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm }   from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/user-auth.service';
 
 @Component({
@@ -47,13 +46,3 @@ onSubmit(): void {
   );
 }
 }
-/*registerUser(SignupForm:NgForm){
-  this.userService.signup(SignupForm.value).subscribe(
-    (response:any) =>{ 
-         console.log("response recieved ",response);
-         this.msg="nouveau utilisateur crée ." ;
-            this.router.navigate(['/login']) },
-    (error) => { console.log("exception occured ", error);
-   this.msg=error.error;  }
-  );
-}*/
