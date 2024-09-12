@@ -9,16 +9,8 @@
                     <h1 class="animate__animated animate__bounce mt-5"> <strong>Connexion</strong></h1>
                 </div>
                 <div class="row">
-                    <!-- <small *ngIf="errorMessage!='' " class=" alert alert-danger ">{{errorMessage}}</small>-->
                     <small *ngIf="errorMessage!='' && f.submitted && isLoginFailed" class="text-danger">{{errorMessage}}</small>
-                    <!--
-                    <div class="form-group ">
-
-                        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-                            <div *ngIf="errorMessage!=''">{{errorMessage}}</div>
-                             <div *ngIf="errorMessage===''">Mot de passe érroné</div> 
-                </div>
-            </div> -->
+                  
                     <form class="form-group animate__animated animate__backInDown" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
                         <div class="row">
