@@ -231,16 +231,6 @@ export class DocFavComponent implements OnInit {
       afficher(id: number) {
         this.gestionDocService.getDoc(id).subscribe(
           (res) => {
-          /*this.retrieveResonse = res;
-          this.base64Data = this.retrieveResonse.data;
-         
-         var blob = new Blob([this._base64ToArrayBuffer(this.base64Data)], {
-            type:this.retrieveResonse.type, 
-          });
-          console.log(blob);
-          const url = URL.createObjectURL(blob);
-          this.retrievedFile = window.open(url,this.retrieveResonse.name);*/
-         // window.open(res.path);
          console.log("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
          window.open("http://127.0.0.1:8080/uploadsNeo/"+res.path.substr(res.path.indexOf('/uploads/')+9,res.path.length));
       
