@@ -67,13 +67,6 @@ showcontenu:boolean;
 
   this.reloadData();
 
-    //this.user=this.tokenStorageService.getUser();
-   
-   // this.userid = this.user.id;
-    //console.log( this.user, this.userid);
-    //this.roles = this.tokenStorageService.getUser().roles;
-    //console.log(this.roles);
-    //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
     this.showAdminBoard=this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
         }
   } 
@@ -105,7 +98,6 @@ users:any;
     tofav(doc:any){
       if(this.user.doc_favoris.indexOf(doc)==-1){
         this.user.doc_favoris.push(doc);
-      //  this.tokenStorageService.saveUser(this.user);
       }
 
       this.gestionDocService.getDoc(doc.id).subscribe((data) => {
