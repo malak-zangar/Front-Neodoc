@@ -4,9 +4,7 @@
             <div class="panel-body ">
                 <form name="form " #f="ngForm">
                     <div class="search-hero mat-form-field">
-                        <!--<input class="form-controle " (input)="SearchTag() " [(ngModel)]="form.tagr " placeholder="&#61442; Filtre par tag " name="tagr ">-->
-                        <!-- <input class="form-controle " (input)="SearchTitre() " [(ngModel)]="form.titre " placeholder="&#61442; Filtre par titre " name="titre ">
-                        <input class="form-controle " (input)="SearchType() " [(ngModel)]="form.type " placeholder="&#61442; Filtre par type " name="type ">
+                       <input class="form-controle " (input)="SearchType() " [(ngModel)]="form.type " placeholder="&#61442; Filtre par type " name="type ">
                         <input class="form-controle " (input)="SearchDep() " [(ngModel)]="form.dep " placeholder="&#61442; Filtre par departement " name="dep "> -->
                         <input [disabled]="form.filtre==null || form.filtre=='vide' " class="form-controle " (input)="Search()" [(ngModel)]="form.rech" placeholder="&#61442; Filtre " name="rech ">
 
@@ -26,11 +24,6 @@
                 </div>
                 <hr/>
 
-
-                <!--
-                <div class="search-hero mat-form-field ">
-                    <input class="form-control " type="text " name="search " [(ngModel)]="searchText " autocomplete="on " placeholder="&#61442; Filtrer ">
-                </div>-->
 
                 <div *ngIf="showicon ">
                     <div class="cardd " *ngFor="let doc of documents | async | paginate: { itemsPerPage: count, currentPage: p } | filter:searchText ">
