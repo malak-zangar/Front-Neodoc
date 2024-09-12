@@ -41,7 +41,6 @@ isLoggedIn=false;
 
   }}
 
-//////// ekher wahed ////////////
 
 @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
 files: any|Blob[] = [];
